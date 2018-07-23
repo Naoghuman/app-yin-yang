@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.github.naoghuman</groupId>
+    <artifactId>yin-yang</artifactId>
+    <version>0.1.0-SNAPSHOT</version> <!-- -SNAPSHOT -PRERELEASE -->
+    <packaging>jar</packaging>
+    <name>Yin-Yang</name>
+    
+    <description>TODO</description>
+    
+    <developers>
+        <developer>
+            <email>peter.rogge@yahoo.de</email>
+            <id>Naoghuman</id>
+            <name>Peter Rogge</name>
+            <timezone>+1</timezone>
+            <url>https://github.com/Naoghuman/yin-yang.git</url>
+        </developer>
+    </developers>
+    
+    <licenses>
+        <license>
+            <name>The GNU General Public License, Version 3.0</name>
+            <url>http://www.gnu.org/licenses/gpl-3.0.en.html</url>
+            <distribution>repo</distribution>
+            <comments>The GNU General Public License is a free, copyleft license for software and other kinds of works.</comments>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:ssh://github.com:Naoghuman/yin-yang.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com:Naoghuman/yin-yang.git</developerConnection>
+        <url>https://github.com/Naoghuman/yin-yang.git</url>
+    </scm>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <timestamp>${maven.build.timestamp}</timestamp>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    </properties>
+    
+    <build>
+        <defaultGoal>clean package</defaultGoal>
+        <!-- COMMENT OUT for release -->
+        <plugins>
+            <!-- 
+                Hint:
+                 - See 'JavaFX-Maven-Plugin Generator' how to configure the plugin: 
+                   https://javafx-maven-plugin.github.io/
+                 - Run in your project folder following command: mvn jfx:jar 
+                 - The command create then the runable jar with all needed libraries 
+                   into the folder \target\jfx\app\.
+            -->
+            <plugin>
+                <groupId>com.zenjava</groupId>
+                <artifactId>javafx-maven-plugin</artifactId>
+                <version>8.8.3</version>
+                <configuration>
+                    <mainClass>com.github.naoghuman.yin.yang.StartApplication</mainClass>
+                    <jfxMainAppJarName>${project.artifactId}-${project.version}.jar</jfxMainAppJarName>
+                    <allPermissions>true</allPermissions>
+                    <verbose>true</verbose>
+                </configuration>
+            </plugin>
+        </plugins>
+        <resources>
+            <!--
+                Hint:
+                 - Add here the suffixes from the files with should be included into the jar file.
+            -->
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.css</include>
+                    <include>**/*.fxml</include>
+                    <include>**/*.html</include>
+                    <include>**/*.png</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>**/*.css</include>
+                    <include>**/*.fxml</include>
+                    <include>**/*.html</include>
+                    <include>**/*.png</include>
+                    <include>**/*.properties</include>
+                    <include>**/*.xml</include>
+                </includes>
+            </resource>
+        </resources>
+        <finalName>${project.artifactId}-${project.version}</finalName>
+    </build>
+    
+    <dependencies>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-action</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-database-objectdb</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-logger</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-preferences</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-properties</artifactId>
+            <version>0.5.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>com.github.naoghuman</groupId>
+            <artifactId>lib-validation</artifactId>
+            <version>0.2.0</version>
+            <type>jar</type>
+        </dependency>
+        
+        <dependency>
+            <groupId>com.airhacks</groupId>
+            <artifactId>afterburner.fx</artifactId>
+            <version>1.7.0</version>
+            <scope>compile</scope>
+        </dependency>
+        
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    
+</project>
