@@ -16,12 +16,20 @@
  */
 package com.github.naoghuman.yin.yang.application;
 
+import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
+import com.github.naoghuman.lib.action.core.TransferData;
+import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Cursor;
+import javafx.scene.input.MouseButton;
+import javafx.scene.shape.Circle;
 
 /**
  *
@@ -29,15 +37,17 @@ import javafx.fxml.Initializable;
  * @since  0.1.0
  */
 public class ApplicationPresenter implements 
-        Initializable, ApplicationConfiguration, RegisterActions
+        Initializable, ApplicationConfiguration, ActionConfiguration, RegisterActions
 {
+    @FXML private Circle yinyangBackground;
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initialize(URL, ResourceBundle)"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        this.initializeDesktopArea();
+        this.initializeCircleYinYang();
 
         this.register();
     }
@@ -46,8 +56,53 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
     }
     
-    private void initializeDesktopArea() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeDesktopArea()"); // NOI18N
+    private void initializeCircleYinYang() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeCircleYinYang()"); // NOI18N
+    
+        yinyangBackground.setOnMouseDragged((mouseEvent) -> {
+            if (
+                    mouseEvent.getButton() == MouseButton.PRIMARY
+                    && mouseEvent.isControlDown()
+            ) {
+                yinyangBackground.setCursor(Cursor.MOVE);
+                
+                final TransferData transferData = TransferDataBuilder.create()
+                        .actionId(ON_MOUSE__DRAGGED)
+                        .disableLogging()
+                        .objectValue(mouseEvent)
+                        .build();
+                ActionHandlerFacade.getDefault().handle(transferData);
+            }
+        });
+        
+        yinyangBackground.setOnMousePressed((mouseEvent) -> {
+            if (
+                    mouseEvent.getButton() == MouseButton.PRIMARY
+                    && mouseEvent.isPrimaryButtonDown()
+                    && mouseEvent.isControlDown()
+            ) {
+                final TransferData transferData = TransferDataBuilder.create()
+                        .actionId(ON_MOUSE__PRESSED)
+                        .objectValue(mouseEvent)
+                        .build();
+                ActionHandlerFacade.getDefault().handle(transferData);
+            }
+        });
+        
+        yinyangBackground.setOnMouseReleased((mouseEvent) -> {
+            if (
+                    mouseEvent.getButton() == MouseButton.PRIMARY
+                    && mouseEvent.isControlDown()
+            ) {
+                yinyangBackground.setCursor(Cursor.DEFAULT);
+            }
+        });
+    }
+    
+    public void onActionCloseRequest() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionCloseRequest()"); // NOI18N
+    
+        ActionHandlerFacade.getDefault().handle(ActionConfiguration.ON_ACTION__CLOSE_REQUEST);
     }
     
     @Override
