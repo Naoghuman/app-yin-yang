@@ -1,12 +1,16 @@
 --------------------------------------------------------------------------------
 Features v0.1.0
 --------------------------------------------------------------------------------
+Application
 - Transparent borderless application.
 - D&D from yin-yang background.
    - Starts  with strg + left mousepressed.
    - Move    with strg + left mousepressed.
    - Release with strg + left mouserelease.
-- Button 'X' in yin-yang background close the application.
+- Mouseover the yin-yang symbol blend in(out) the options.
+
+Options
+- Button 'X' close the application.
 
 --------------------------------------------------------------------------------
 

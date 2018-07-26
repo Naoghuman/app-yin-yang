@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.input.MouseButton;
 import javafx.scene.shape.Circle;
 
@@ -39,6 +40,7 @@ import javafx.scene.shape.Circle;
 public class ApplicationPresenter implements 
         Initializable, ApplicationConfiguration, ActionConfiguration, RegisterActions
 {
+    @FXML private Button bShutdownApplication;
     @FXML private Circle yinyangBackground;
     
     @Override
@@ -50,6 +52,9 @@ public class ApplicationPresenter implements
         this.initializeCircleYinYang();
 
         this.register();
+        
+        final boolean isShowOptions = Boolean.FALSE;
+        this.onActionShowOptions(isShowOptions);
     }
     
     public void initializeAfterWindowIsShowing() {
@@ -75,12 +80,28 @@ public class ApplicationPresenter implements
             }
         });
         
+        yinyangBackground.setOnMouseEntered((mouseEvent) -> {
+            LoggerFacade.getDefault().info(this.getClass(), " - yinyangBackground.setOnMouseEntered(MouseEvent)"); // NOI18N
+    
+            final boolean isShowOptions = Boolean.TRUE;
+            this.onActionShowOptions(isShowOptions);
+        });
+        
+        yinyangBackground.setOnMouseExited((mouseEvent) -> {
+            if (!yinyangBackground.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                final boolean isShowOptions = Boolean.FALSE;
+                this.onActionShowOptions(isShowOptions);
+            }
+        });
+        
         yinyangBackground.setOnMousePressed((mouseEvent) -> {
             if (
                     mouseEvent.getButton() == MouseButton.PRIMARY
                     && mouseEvent.isPrimaryButtonDown()
                     && mouseEvent.isControlDown()
             ) {
+                LoggerFacade.getDefault().info(this.getClass(), " - yinyangBackground.setOnMousePressed(MouseEvent)"); // NOI18N
+    
                 final TransferData transferData = TransferDataBuilder.create()
                         .actionId(ON_MOUSE__PRESSED)
                         .objectValue(mouseEvent)
@@ -103,6 +124,13 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionCloseRequest()"); // NOI18N
     
         ActionHandlerFacade.getDefault().handle(ActionConfiguration.ON_ACTION__CLOSE_REQUEST);
+    }
+
+    private void onActionShowOptions(final boolean isShowOptions) {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionShowOptions(boolean)"); // NOI18N
+    
+        bShutdownApplication.setManaged(isShowOptions);
+        bShutdownApplication.setVisible(isShowOptions);
     }
     
     @Override

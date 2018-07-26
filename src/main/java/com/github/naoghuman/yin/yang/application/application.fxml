@@ -7,6 +7,6 @@
 <AnchorPane id="AnchorPane" prefHeight="610.0" prefWidth="610.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.application.ApplicationPresenter">
     <children>
         <Circle fx:id="yinyangBackground" fill="DODGERBLUE" layoutX="300.0" layoutY="200.0" radius="300.0" stroke="BLACK" strokeType="INSIDE" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0" />
-        <Button layoutX="293.0" layoutY="35.0" mnemonicParsing="false" onAction="#onActionCloseRequest" text="X" />
+        <Button fx:id="bShutdownApplication" layoutX="293.0" layoutY="35.0" mnemonicParsing="false" onAction="#onActionCloseRequest" text="X" />
     </children>
 </AnchorPane>
