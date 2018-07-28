@@ -34,7 +34,6 @@ import javafx.application.Application;
 import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.geometry.Point2D;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
@@ -95,19 +94,9 @@ public class StartApplication extends Application implements
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         stage.setScene(scene);
-        stage.setOnCloseRequest((WindowEvent we) -> {
-           we.consume();
-           
-           this.onActionCloseRequest();
-        });
-        
         stage.show();
+        
         presenter.initializeAfterWindowIsShowing();
-    }
-
-    @Override
-    public void stop() throws Exception {
-        Injector.forgetAll();
     }
     
     private String getProperty(String propertyKey) {
@@ -146,8 +135,7 @@ public class StartApplication extends Application implements
     }
     
     private void onMousePressed(final MouseEvent mouseEvent) {
-        // Command out - avoid spawning messages
-        // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMousePressed(MouseEvent)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMousePressed(MouseEvent)"); // NOI18N
         
         xOffset = mouseEvent.getSceneX();
         yOffset = mouseEvent.getSceneY();

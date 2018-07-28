@@ -69,8 +69,6 @@ public class ApplicationPresenter implements
                     mouseEvent.getButton() == MouseButton.PRIMARY
                     && mouseEvent.isControlDown()
             ) {
-                yinyangBackground.setCursor(Cursor.MOVE);
-                
                 final TransferData transferData = TransferDataBuilder.create()
                         .actionId(ON_MOUSE__DRAGGED)
                         .disableLogging()
@@ -102,6 +100,8 @@ public class ApplicationPresenter implements
             ) {
                 LoggerFacade.getDefault().info(this.getClass(), " - yinyangBackground.setOnMousePressed(MouseEvent)"); // NOI18N
     
+                yinyangBackground.setCursor(Cursor.MOVE);
+                
                 final TransferData transferData = TransferDataBuilder.create()
                         .actionId(ON_MOUSE__PRESSED)
                         .objectValue(mouseEvent)
