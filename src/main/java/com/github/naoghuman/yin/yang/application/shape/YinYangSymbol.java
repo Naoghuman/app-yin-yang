@@ -24,6 +24,8 @@ import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import static com.github.naoghuman.yin.yang.configuration.ActionConfiguration.ON_MOUSE__PRESSED;
 import java.util.Optional;
 import javafx.scene.Cursor;
+import javafx.scene.effect.DropShadow;
+import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -70,9 +72,17 @@ public final class YinYangSymbol implements ActionConfiguration {
         yinSymbol.setRadius(RADIUS);
         yinSymbol.setCenterX(CENTER_X);
         yinSymbol.setCenterY(CENTER_Y);
-        yinSymbol.setFill(Color.ALICEBLUE);
-        yinSymbol.setStroke(Color.BLUE);
-        yinSymbol.setStrokeWidth(STROKE_WIDTH);
+        
+        final DropShadow glow = new DropShadow();
+        glow.setOffsetY(0f);
+        glow.setOffsetX(0f);
+        glow.setColor(Color.BLACK);
+        glow.setWidth(12.0d);
+        glow.setHeight(12.0d);
+        yinSymbol.setEffect(glow);
+        yinSymbol.setFill(Color.BLACK);
+//        yinSymbol.setStroke(Color.BLUE);
+//        yinSymbol.setStrokeWidth(STROKE_WIDTH);
         
         // MouseEvents
         yinSymbol.setOnMouseDragged((mouseEvent) -> {
@@ -100,6 +110,10 @@ public final class YinYangSymbol implements ActionConfiguration {
         
         yinSymbol.setOnMouseExited((mouseEvent) -> {
             if (!yinSymbol.contains(mouseEvent.getX(), mouseEvent.getY())) {
+                if (yinSymbol.getCursor().equals(Cursor.MOVE)) {
+                    yinSymbol.setCursor(Cursor.DEFAULT);
+                }
+                
                 final boolean showOptions = Boolean.FALSE;
                 ActionHandlerFacade.getDefault()
                         .handle(TransferDataBuilder.create()
