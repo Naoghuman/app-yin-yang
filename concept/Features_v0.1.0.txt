@@ -7,7 +7,7 @@ Application
    - Starts  with strg + left mousepressed.
    - Move    with strg + left mousepressed.
    - Release with strg + left mouserelease.
-- Mouseover the yin-yang symbol blend in(out) the options.
+- Mouseover(-exit) the TaiChiSymbol blend in(out) the options.
 
 Options
 - Button 'X' close the application.
