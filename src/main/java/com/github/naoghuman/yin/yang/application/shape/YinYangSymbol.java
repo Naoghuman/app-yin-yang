@@ -17,7 +17,6 @@
 package com.github.naoghuman.yin.yang.application.shape;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
-import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
@@ -25,10 +24,11 @@ import static com.github.naoghuman.yin.yang.configuration.ActionConfiguration.ON
 import java.util.Optional;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
-import javafx.scene.effect.Glow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Arc;
+import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 
@@ -50,8 +50,10 @@ public final class YinYangSymbol implements ActionConfiguration {
         return INSTANCE.get();
     }
     
+    private Circle littleYangSymbol;
+    private Circle littleYinSymbol;
     private Circle yinSymbol;
-    private Shape  yanSymbol;
+    private Shape  yangSymbol;
     
     private YinYangSymbol() {
         this.initialize();
@@ -60,15 +62,75 @@ public final class YinYangSymbol implements ActionConfiguration {
     private void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initialize()"); // NOI18N
         
+        this.initializeLittleYinSymbol();
         this.initializeYinSymbol();
+        
+        this.initializeLittleYangSymbol();
         this.initializeYangSymbol();
+    }
+    
+    private void initializeLittleYangSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeLittleYangSymbol()"); // NOI18N
+       
+        // Little YangSymbol
+        littleYangSymbol = new Circle();
+        littleYangSymbol.setRadius(RADIUS / 10.0d);
+        littleYangSymbol.setCenterX(CENTER_X - RADIUS / 2.0d);
+        littleYangSymbol.setCenterY(CENTER_Y);
+    }
+    
+    private void initializeLittleYinSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeLittleYinSymbol()"); // NOI18N
+       
+        // Little YinSymbol
+        littleYinSymbol = new Circle();
+        littleYinSymbol.setRadius(RADIUS / 10.0d);
+        littleYinSymbol.setCenterX(CENTER_X + RADIUS / 2.0d);
+        littleYinSymbol.setCenterY(CENTER_Y);
+    }
+
+    private void initializeYangSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYangSymbol()"); // NOI18N
+        
+        // YangSymbol
+        Arc halfCircle = new Arc();
+        halfCircle.setCenterX(CENTER_X);
+        halfCircle.setCenterY(CENTER_Y);
+        halfCircle.setRadiusX(RADIUS - STROKE_WIDTH);
+        halfCircle.setRadiusY(RADIUS - STROKE_WIDTH);
+        halfCircle.setStartAngle(0.0f);
+        halfCircle.setLength(180.0f);
+        halfCircle.setType(ArcType.CHORD);
+        
+        Circle littleAddCirle = new Circle();
+        littleAddCirle.setRadius(RADIUS / 2.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setCenterX(CENTER_X + RADIUS / 2.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setCenterY(CENTER_Y);
+        yangSymbol = Shape.union(halfCircle, littleAddCirle);
+        
+        Circle littleMinusCirle = new Circle();
+        littleMinusCirle.setRadius(RADIUS / 2.0d - STROKE_WIDTH / 2);
+        littleMinusCirle.setCenterX(CENTER_X - RADIUS / 2.0d + STROKE_WIDTH / 2);
+        littleMinusCirle.setCenterY(CENTER_Y);
+        yangSymbol = Shape.subtract(yangSymbol, littleMinusCirle);
+        
+        // Little YinSymbol
+        yangSymbol = Shape.subtract(yangSymbol, littleYinSymbol);
+        
+        // Little YangSymbol
+        yangSymbol = Shape.union(yangSymbol, littleYangSymbol);
+        
+        // Tweak the ready YangSymbol
+        yangSymbol.setFill(Color.LIGHTGREEN);
+        yangSymbol.setMouseTransparent(Boolean.TRUE);
     }
 
     private void initializeYinSymbol() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinSymbol()"); // NOI18N
         
-        // Yin
+        // YinSymbol
         yinSymbol = new Circle();
+        yinSymbol.setCursor(Cursor.DEFAULT);
         yinSymbol.setRadius(RADIUS);
         yinSymbol.setCenterX(CENTER_X);
         yinSymbol.setCenterY(CENTER_Y);
@@ -81,8 +143,6 @@ public final class YinYangSymbol implements ActionConfiguration {
         glow.setHeight(12.0d);
         yinSymbol.setEffect(glow);
         yinSymbol.setFill(Color.BLACK);
-//        yinSymbol.setStroke(Color.BLUE);
-//        yinSymbol.setStrokeWidth(STROKE_WIDTH);
         
         // MouseEvents
         yinSymbol.setOnMouseDragged((mouseEvent) -> {
@@ -148,20 +208,12 @@ public final class YinYangSymbol implements ActionConfiguration {
             }
         });
     }
-
-    private void initializeYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYangSymbol()"); // NOI18N
-        
-        /*
-            - YanSymbol ist ein zusammengesetztes Symbol.
-            - LittleYin ist ebenfalls ein Clircle (wird bei Yan integriert).
-        */
-    }
     
     public void configure(final AnchorPane apApplication) {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
         
         apApplication.getChildren().add(0, yinSymbol);
+        apApplication.getChildren().add(1, yangSymbol);
     }
     
     public Shape getYinSymbol() {
@@ -169,7 +221,7 @@ public final class YinYangSymbol implements ActionConfiguration {
     }
     
     public Shape getYangSymbol() {
-        return yanSymbol;
+        return yangSymbol;
     }
     
 }
