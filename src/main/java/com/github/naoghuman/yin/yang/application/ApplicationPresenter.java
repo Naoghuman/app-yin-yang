@@ -21,15 +21,18 @@ import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.yin.yang.application.shape.YinYangSymbol;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
-import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
+import static com.github.naoghuman.yin.yang.configuration.ActionConfiguration.ON_ACTION__SHOW_OPTIONS;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.Separator;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
 /**
@@ -38,10 +41,12 @@ import javafx.scene.shape.Circle;
  * @since  0.1.0
  */
 public class ApplicationPresenter implements 
-        Initializable, ApplicationConfiguration, ActionConfiguration, RegisterActions
+        Initializable, ActionConfiguration, RegisterActions
 {
-    @FXML private Button bShutdownApplication;
-    @FXML private Circle yinyangBackground;
+    @FXML private AnchorPane apApplication;
+    @FXML private Button     bCloseApplication;
+    @FXML private Circle     cOptionsBackground;
+    @FXML private Separator  bSeparator1;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -49,75 +54,16 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        this.initializeCircleYinYang();
-
         this.register();
         
-        final boolean isShowOptions = Boolean.FALSE;
-        this.onActionShowOptions(isShowOptions);
+        YinYangSymbol.getDefault().configure(apApplication);
+        
+        final boolean showOptions = Boolean.FALSE;
+        this.onActionShowOptions(showOptions);
     }
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
-    }
-    
-    private void initializeCircleYinYang() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeCircleYinYang()"); // NOI18N
-    
-        yinyangBackground.setOnMouseDragged((mouseEvent) -> {
-            if (
-                    mouseEvent.getButton() == MouseButton.PRIMARY
-                    && mouseEvent.isControlDown()
-            ) {
-                final TransferData transferData = TransferDataBuilder.create()
-                        .actionId(ON_MOUSE__DRAGGED)
-                        .disableLogging()
-                        .objectValue(mouseEvent)
-                        .build();
-                ActionHandlerFacade.getDefault().handle(transferData);
-            }
-        });
-        
-        yinyangBackground.setOnMouseEntered((mouseEvent) -> {
-            LoggerFacade.getDefault().info(this.getClass(), " - yinyangBackground.setOnMouseEntered(MouseEvent)"); // NOI18N
-    
-            final boolean isShowOptions = Boolean.TRUE;
-            this.onActionShowOptions(isShowOptions);
-        });
-        
-        yinyangBackground.setOnMouseExited((mouseEvent) -> {
-            if (!yinyangBackground.contains(mouseEvent.getX(), mouseEvent.getY())) {
-                final boolean isShowOptions = Boolean.FALSE;
-                this.onActionShowOptions(isShowOptions);
-            }
-        });
-        
-        yinyangBackground.setOnMousePressed((mouseEvent) -> {
-            if (
-                    mouseEvent.getButton() == MouseButton.PRIMARY
-                    && mouseEvent.isPrimaryButtonDown()
-                    && mouseEvent.isControlDown()
-            ) {
-                LoggerFacade.getDefault().info(this.getClass(), " - yinyangBackground.setOnMousePressed(MouseEvent)"); // NOI18N
-    
-                yinyangBackground.setCursor(Cursor.MOVE);
-                
-                final TransferData transferData = TransferDataBuilder.create()
-                        .actionId(ON_MOUSE__PRESSED)
-                        .objectValue(mouseEvent)
-                        .build();
-                ActionHandlerFacade.getDefault().handle(transferData);
-            }
-        });
-        
-        yinyangBackground.setOnMouseReleased((mouseEvent) -> {
-            if (
-                    mouseEvent.getButton() == MouseButton.PRIMARY
-                    && mouseEvent.isControlDown()
-            ) {
-                yinyangBackground.setCursor(Cursor.DEFAULT);
-            }
-        });
     }
     
     public void onActionCloseRequest() {
@@ -126,16 +72,43 @@ public class ApplicationPresenter implements
         ActionHandlerFacade.getDefault().handle(ActionConfiguration.ON_ACTION__CLOSE_REQUEST);
     }
 
-    private void onActionShowOptions(final boolean isShowOptions) {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionShowOptions(boolean)"); // NOI18N
+    private void onActionShowOptions(final boolean showOptions) {
+        LoggerFacade.getDefault().info(this.getClass(), String.format(
+                "ApplicationPresenter.onActionShowOptions(showOption=%b)", showOptions)); // NOI18N
     
-        bShutdownApplication.setManaged(isShowOptions);
-        bShutdownApplication.setVisible(isShowOptions);
+        cOptionsBackground.setManaged(showOptions);
+        cOptionsBackground.setVisible(showOptions);
+        
+        bCloseApplication.setManaged(showOptions);
+        bCloseApplication.setVisible(showOptions);
+        
+        bSeparator1.setManaged(showOptions);
+        bSeparator1.setVisible(showOptions);
     }
     
     @Override
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
+        
+        this.registerOnActionShowOptions();
+    }
+
+    private void registerOnActionShowOptions() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.registerOnActionShowOptions()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW_OPTIONS,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData      transferData = (TransferData) source;
+                        final Optional<Boolean> optional     = transferData.getBoolean();
+                        if(optional.isPresent()) {
+                            final boolean isShowOptions = optional.get();
+                            this.onActionShowOptions(isShowOptions);
+                        }
+                    }
+                });
     }
     
 }

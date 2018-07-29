@@ -39,7 +39,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.stage.WindowEvent;
 
 /**
  *
@@ -88,7 +87,7 @@ public class StartApplication extends Application implements
         final ApplicationView      view      = new ApplicationView();
         final ApplicationPresenter presenter = view.getRealPresenter();
         
-        final Scene scene = new Scene(view.getView(), 610, 610);
+        final Scene scene = new Scene(view.getView(), 310, 310);
         scene.setFill(Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -127,7 +126,7 @@ public class StartApplication extends Application implements
     }
     
     private void onMouseDragged(final MouseEvent mouseEvent) {
-        // Command out - avoid spawning messages
+        // Command out to avoid spawning messages
         // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMouseDragged(MouseEvent)"); // NOI18N
         
         stage.setX(mouseEvent.getScreenX() - xOffset);
