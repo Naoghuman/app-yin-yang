@@ -33,6 +33,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -54,6 +55,8 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
+        this.initializeOptions();
+
         this.register();
         
         final boolean showOptions = Boolean.FALSE;
@@ -65,6 +68,16 @@ public class ApplicationPresenter implements
     
     public void initializeAfterWindowIsShowing() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
+    }
+    
+    private void initializeOptions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeOptions()"); // NOI18N
+    
+        final Color cOptions = Color.color(Color.BLACK.getRed(), Color.BLACK.getGreen(), 
+                Color.BLACK.getRed(), 0.33d).invert();
+        
+        cOptionsBackground.setFill(cOptions);
+        cOptionsBackground.setStroke(null);
     }
     
     public void onActionCloseRequest() {

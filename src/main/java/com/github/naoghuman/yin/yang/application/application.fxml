@@ -7,7 +7,7 @@
 
 <AnchorPane id="AnchorPane" fx:id="apApplication" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="310.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.application.ApplicationPresenter">
     <children>
-      <Circle fx:id="cOptionsBackground" centerX="155.0" centerY="155.0" fill="DODGERBLUE" mouseTransparent="true" radius="150.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: lightgrey;" />
+      <Circle fx:id="cOptionsBackground" centerX="155.0" centerY="155.0" fill="DODGERBLUE" mouseTransparent="true" radius="150.0" stroke="BLACK" strokeType="INSIDE" />
         <Button fx:id="bCloseApplication" layoutX="143.0" layoutY="23.0" mnemonicParsing="false" onAction="#onActionCloseRequest" text="X" />
       <Separator fx:id="bSeparator1" layoutX="44.0" layoutY="57.0" prefHeight="15.0" prefWidth="222.0" AnchorPane.topAnchor="57.0" />
     </children>
