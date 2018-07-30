@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 PRo
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -23,18 +23,13 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
-import javafx.scene.shape.ArcTo;
 import javafx.scene.shape.ArcType;
-import javafx.scene.shape.FillRule;
-import javafx.scene.shape.HLineTo;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.Path;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
  *
- * @author PRo
+ * @author Naoghuman
  */
 public class ShapeDemo extends Application {
 

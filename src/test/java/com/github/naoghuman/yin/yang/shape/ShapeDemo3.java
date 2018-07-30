@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 PRo
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
-import javafx.scene.shape.Line;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Stage;
@@ -40,7 +39,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author PRo
+ * @author Naoghuman
  */
 public class ShapeDemo3 extends Application {
 

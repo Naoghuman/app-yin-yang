@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 PRo
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ import javafx.util.Duration;
 
 /**
  *
- * @author PRo
+ * @author Naoghuman
  */
 public class ShapeDemo2 extends Application {
 
