@@ -24,11 +24,11 @@ import com.github.naoghuman.lib.database.core.DatabaseFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
-import com.github.naoghuman.yin.yang.application.ApplicationPresenter;
 import com.github.naoghuman.yin.yang.application.ApplicationView;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import java.util.Optional;
+import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -55,7 +55,8 @@ public class StartApplication extends Application implements
     private double xOffset = 0;
     private double yOffset = 0;
     
-    private Stage stage = null;
+    private PauseTransition ptSavePositionToPreferences = null;
+    private Stage           stage = null;
 
     @Override
     public void init() throws Exception {
@@ -75,6 +76,13 @@ public class StartApplication extends Application implements
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
         
+        ptSavePositionToPreferences = new PauseTransition();
+        ptSavePositionToPreferences.setDuration(DURATION__125);
+        ptSavePositionToPreferences.setOnFinished((event) -> {
+            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_X, stage.getX());
+            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_Y, stage.getY());
+        });
+        
         this.register();
     }
     
@@ -84,18 +92,17 @@ public class StartApplication extends Application implements
         
         stage = primaryStage;
         
-        final ApplicationView      view      = new ApplicationView();
-        final ApplicationPresenter presenter = view.getRealPresenter();
-        
-        final Scene scene = new Scene(view.getView(), 310, 310);
+        final ApplicationView view  = new ApplicationView();
+        final Scene           scene = new Scene(view.getView(), 310, 310);
         scene.setFill(Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
         stage.setScene(scene);
-        stage.show();
         
-        presenter.initializeAfterWindowIsShowing();
+        this.onActionSetApplicationPosition();
+        
+        stage.show();
     }
     
     private String getProperty(String propertyKey) {
@@ -112,17 +119,48 @@ public class StartApplication extends Application implements
         DatabaseFacade.getDefault().shutdown();
         
         // Message
-        final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message = this.getProperty(KEY__APPLICATION__MESSAGE_STOP);
-        final String title = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
+        final char   borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String message    = this.getProperty(KEY__APPLICATION__MESSAGE_STOP);
+        final String title      = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         // Timer
-        final PauseTransition pt = new PauseTransition(DURATION__125);
+        final PauseTransition pt = new PauseTransition();
+        pt.setDuration(DURATION__125);
         pt.setOnFinished((ActionEvent event) -> {
             Platform.exit();
         });
+        
         pt.playFromStart();
+    }
+    
+    private void onActionSavePositionToPreferences() {
+        // Command out to avoid spawning messages
+        // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onActionSavePositionToPreferences()"); // NOI18N
+        
+        // Check if the PauseTransition is running
+        if (ptSavePositionToPreferences.getStatus().equals(Animation.Status.RUNNING)) {
+            ptSavePositionToPreferences.stop();
+        }
+        
+        // Start the PauseTransition
+        ptSavePositionToPreferences.playFromStart();
+    }
+    
+    private void onActionSetApplicationPosition() {
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onActionSetApplicationPosition()"); // NOI18N
+        
+        // X
+        final double x = PreferencesFacade.getDefault().getDouble(APPLICATION_WINDOW__POSITION_X, APPLICATION_WINDOW__POSITION_X_DEFAULT_VALUE);
+        if (x != APPLICATION_WINDOW__POSITION_X_DEFAULT_VALUE) {
+            stage.setX(x);
+        }
+        
+        // Y
+        final double y = PreferencesFacade.getDefault().getDouble(APPLICATION_WINDOW__POSITION_Y, APPLICATION_WINDOW__POSITION_Y_DEFAULT_VALUE);
+        if (y != APPLICATION_WINDOW__POSITION_Y_DEFAULT_VALUE) {
+            stage.setY(y);
+        }
     }
     
     private void onMouseDragged(final MouseEvent mouseEvent) {
@@ -131,6 +169,8 @@ public class StartApplication extends Application implements
         
         stage.setX(mouseEvent.getScreenX() - xOffset);
         stage.setY(mouseEvent.getScreenY() - yOffset);
+        
+        this.onActionSavePositionToPreferences();
     }
     
     private void onMousePressed(final MouseEvent mouseEvent) {

@@ -19,7 +19,6 @@ package com.github.naoghuman.yin.yang.application;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
-import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.application.shape.YinYangSymbol;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
@@ -64,10 +63,6 @@ public class ApplicationPresenter implements
         
         YinYangSymbol.getDefault().configure(apApplication);
         YinYangSymbol.getDefault().startYinYangRotation();
-    }
-    
-    public void initializeAfterWindowIsShowing() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeAfterWindowIsShowing()"); // NOI18N
     }
     
     private void initializeOptions() {

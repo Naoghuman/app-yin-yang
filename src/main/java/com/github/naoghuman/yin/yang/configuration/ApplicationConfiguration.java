@@ -27,6 +27,11 @@ public interface ApplicationConfiguration {
     
     public static final Duration DURATION__125 = Duration.millis(125.0d);
     
+    public static final String APPLICATION_WINDOW__POSITION_X               = "APPLICATION_WINDOW__POSITION_X"; // NOI18N
+    public static final double APPLICATION_WINDOW__POSITION_X_DEFAULT_VALUE = 0.0d;
+    public static final String APPLICATION_WINDOW__POSITION_Y               = "APPLICATION_WINDOW__POSITION_Y"; // NOI18N
+    public static final double APPLICATION_WINDOW__POSITION_Y_DEFAULT_VALUE = 0.0d;
+    
     public static final String KEY__APPLICATION__BORDER_SIGN     = "application.border.sign"; // NOI18N
     public static final String KEY__APPLICATION__BUILD_DATETIME  = "application.build.datetime"; // NOI18N
     public static final String KEY__APPLICATION__DATABASE        = "application.database"; // NOI18N
