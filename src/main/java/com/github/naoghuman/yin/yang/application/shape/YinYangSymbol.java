@@ -20,8 +20,12 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
-import static com.github.naoghuman.yin.yang.configuration.ActionConfiguration.ON_MOUSE__PRESSED;
 import java.util.Optional;
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.PauseTransition;
+import javafx.animation.Timeline;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
@@ -31,6 +35,8 @@ import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
+import javafx.scene.transform.Rotate;
+import javafx.util.Duration;
 
 /**
  *
@@ -50,10 +56,13 @@ public final class YinYangSymbol implements ActionConfiguration {
         return INSTANCE.get();
     }
     
-    private Circle littleYangSymbol;
-    private Circle littleYinSymbol;
-    private Circle yinSymbol;
-    private Shape  yangSymbol;
+    private Arc      halfYangSymbol;
+    private Circle   littleYangSymbol;
+    private Circle   littleYinSymbol;
+    private Circle   yinSymbol;
+    private Rotate   rotation;
+    private Shape    yangSymbol;
+    private Timeline tlRotation;
     
     private YinYangSymbol() {
         this.initialize();
@@ -67,6 +76,8 @@ public final class YinYangSymbol implements ActionConfiguration {
         
         this.initializeLittleYangSymbol();
         this.initializeYangSymbol();
+        
+        this.initializeYinYangRotation();
     }
     
     private void initializeLittleYangSymbol() {
@@ -89,24 +100,39 @@ public final class YinYangSymbol implements ActionConfiguration {
         littleYinSymbol.setCenterY(CENTER_Y);
     }
 
+    private void initializeYinYangRotation() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinYangRotation()"); // NOI18N
+        
+        rotation = new Rotate();
+        rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
+        rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
+        
+        tlRotation = new Timeline(
+                new KeyFrame(Duration.ZERO,       new KeyValue(rotation.angleProperty(), 0.0d)),
+                new KeyFrame(Duration.seconds(5), new KeyValue(rotation.angleProperty(), 360.0d)));
+        tlRotation.setCycleCount(Animation.INDEFINITE);
+        
+        yangSymbol.getTransforms().add(rotation);
+    }
+
     private void initializeYangSymbol() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYangSymbol()"); // NOI18N
         
         // YangSymbol
-        Arc halfCircle = new Arc();
-        halfCircle.setCenterX(CENTER_X);
-        halfCircle.setCenterY(CENTER_Y);
-        halfCircle.setRadiusX(RADIUS - STROKE_WIDTH);
-        halfCircle.setRadiusY(RADIUS - STROKE_WIDTH);
-        halfCircle.setStartAngle(0.0f);
-        halfCircle.setLength(180.0f);
-        halfCircle.setType(ArcType.CHORD);
+        halfYangSymbol = new Arc();
+        halfYangSymbol.setCenterX(CENTER_X);
+        halfYangSymbol.setCenterY(CENTER_Y);
+        halfYangSymbol.setRadiusX(RADIUS - STROKE_WIDTH);
+        halfYangSymbol.setRadiusY(RADIUS - STROKE_WIDTH);
+        halfYangSymbol.setStartAngle(0.0f);
+        halfYangSymbol.setLength(180.0f);
+        halfYangSymbol.setType(ArcType.CHORD);
         
         Circle littleAddCirle = new Circle();
         littleAddCirle.setRadius(RADIUS / 2.0d - STROKE_WIDTH / 2);
         littleAddCirle.setCenterX(CENTER_X + RADIUS / 2.0d - STROKE_WIDTH / 2);
         littleAddCirle.setCenterY(CENTER_Y);
-        yangSymbol = Shape.union(halfCircle, littleAddCirle);
+        yangSymbol = Shape.union(halfYangSymbol, littleAddCirle);
         
         Circle littleMinusCirle = new Circle();
         littleMinusCirle.setRadius(RADIUS / 2.0d - STROKE_WIDTH / 2);
@@ -222,6 +248,18 @@ public final class YinYangSymbol implements ActionConfiguration {
     
     public Shape getYangSymbol() {
         return yangSymbol;
+    }
+    
+    public void startYinYangRotation() {
+        final PauseTransition pt = new PauseTransition();
+        pt.setDuration(Duration.millis(500.0d));
+        pt.setOnFinished((event) -> {
+            LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.startYinYangRotation()"); // NOI18N
+        
+            tlRotation.playFromStart();
+        });
+        
+        pt.playFromStart();
     }
     
 }

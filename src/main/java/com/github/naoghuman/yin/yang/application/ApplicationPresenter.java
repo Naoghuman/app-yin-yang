@@ -56,10 +56,11 @@ public class ApplicationPresenter implements
         
         this.register();
         
-        YinYangSymbol.getDefault().configure(apApplication);
-        
         final boolean showOptions = Boolean.FALSE;
         this.onActionShowOptions(showOptions);
+        
+        YinYangSymbol.getDefault().configure(apApplication);
+        YinYangSymbol.getDefault().startYinYangRotation();
     }
     
     public void initializeAfterWindowIsShowing() {
