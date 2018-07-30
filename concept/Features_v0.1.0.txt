@@ -8,6 +8,7 @@ Application
    - Move    with strg + left mousepressed.
    - Release with strg + left mouserelease.
 - Mouseover(-exit) the TaiChiSymbol blend in(out) the options.
+   - Options have a transparent background color.
 
 Options
 - Button 'X' close the application.
