@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.yin.yang.colorchooser;
+package com.github.naoghuman.yin.yang.color;
 
 import javafx.application.Application;
 import static javafx.application.Application.launch;
@@ -350,6 +350,9 @@ public class ColorComboBoxDemo3 extends Application {
                 return cell;
             }
         });
+        
+        System.out.println("w  :" + cb.getWidth());
+        System.out.println("p-w:" + cb.getPrefWidth());
     }
 
     public static void main(String[] args) {
