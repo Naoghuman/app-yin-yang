@@ -35,6 +35,7 @@ import javafx.stage.StageStyle;
  * https://gist.github.com/jewelsea/2030464
  *
  * @author Naoghuman
+ * @since  0.1.0
  */
 /**
  * Sample application for using the color chooser
