@@ -21,15 +21,11 @@ package com.github.naoghuman.yin.yang.configuration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface ActionConfiguration {
-
-    public static final String ON_ACTION__CHANGE_COLOR__YANG_SYMBOL = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
-    public static final String ON_ACTION__CHANGE_COLOR__YIN_SYMBOL  = "ON_ACTION__CHANGE_COLOR__YIN_SYMBOL"; // NOI18N
-    public static final String ON_ACTION__CLOSE_REQUEST             = "ON_ACTION__CLOSE_REQUEST"; // NOI18N
-    public static final String ON_ACTION__SHOW_OPTIONS              = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
-    public static final String ON_ACTION__UNKNOWN_ACTION            = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
+public interface YinYangSymbolConfiguration {
     
-    public static final String ON_MOUSE__DRAGGED = "ON_MOUSE__DRAGGED"; // NOI18N
-    public static final String ON_MOUSE__PRESSED = "ON_MOUSE__PRESSED"; // NOI18N
+    public static final String YIN_YANG_SYMBOL__YANG_COLOR               = "YIN_YANG_SYMBOL__YANG_COLOR"; // NOI18N
+    public static final String YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE = "255, 255, 255"; // NOI18N
+    public static final String YIN_YANG_SYMBOL__YIN_COLOR                = "YIN_YANG_SYMBOL__YIN_COLOR"; // NOI18N
+    public static final String YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE  = "0, 0, 0"; // NOI18N
     
 }

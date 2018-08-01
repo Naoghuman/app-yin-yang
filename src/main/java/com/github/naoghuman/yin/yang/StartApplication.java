@@ -76,13 +76,6 @@ public class StartApplication extends Application implements
         
         DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
         
-        ptSavePositionToPreferences = new PauseTransition();
-        ptSavePositionToPreferences.setDuration(DURATION__125);
-        ptSavePositionToPreferences.setOnFinished((event) -> {
-            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_X, stage.getX());
-            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_Y, stage.getY());
-        });
-        
         this.register();
     }
     
@@ -103,6 +96,13 @@ public class StartApplication extends Application implements
         this.onActionSetApplicationPosition();
         
         stage.show();
+        
+        ptSavePositionToPreferences = new PauseTransition();
+        ptSavePositionToPreferences.setDuration(DURATION__125);
+        ptSavePositionToPreferences.setOnFinished((event) -> {
+            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_X, stage.getX());
+            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_Y, stage.getY());
+        });
     }
     
     private String getProperty(String propertyKey) {

@@ -3,15 +3,23 @@ Features v0.1.0
 --------------------------------------------------------------------------------
 Application
 - Transparent borderless application.
-- D&D from yin-yang background.
-   - Starts  with strg + left mousepressed.
-   - Move    with strg + left mousepressed.
-   - Release with strg + left mouserelease.
+- D&D from the application.
+   - D&D starts with STRG + left mouseclick.
+   - Then move the application with STRG + left mousebutton pressed.
+   - Release STRG + left mousebutton stops D&D.
+   - The last position will be saved to the file Preferences.properties and 
+     restored during the next application start.
 - Mouseover(-exit) the TaiChiSymbol blend in(out) the options.
    - Options have a transparent background color.
+- Preferences.properties
+   - Contains simple application data.
+   - For example the last application position will so be saved.
 
 Options
 - Button 'X' close the application.
+- User can choose the Yin-, Yang-Color in the corresponding ComboBox.
+   - The user choose will be saved to the file Preferences.properties and 
+     restored during the next application start.
 
 --------------------------------------------------------------------------------
 

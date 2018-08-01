@@ -14,18 +14,23 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.yin.yang.application.shape;
+package com.github.naoghuman.yin.yang.shape;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.action.core.RegisterActions;
+import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
+import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
@@ -43,12 +48,14 @@ import javafx.util.Duration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class YinYangSymbol implements ActionConfiguration {
+public final class YinYangSymbol implements ActionConfiguration, RegisterActions, YinYangSymbolConfiguration {
     
     private static final double CENTER_X     = 155.0d;
     private static final double CENTER_Y     = 155.0d;
     private static final double RADIUS       = 150.0d;
     private static final double STROKE_WIDTH = 4.0d;
+    
+    private static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
     
     private static final Optional<YinYangSymbol> INSTANCE = Optional.of(new YinYangSymbol());
 
@@ -73,11 +80,12 @@ public final class YinYangSymbol implements ActionConfiguration {
         
         this.initializeLittleYinSymbol();
         this.initializeYinSymbol();
-        
+        this.initializeYinSymbolMouseListeners();
         this.initializeLittleYangSymbol();
         this.initializeYangSymbol();
-        
         this.initializeYinYangRotation();
+        
+        this.register();
     }
     
     private void initializeLittleYangSymbol() {
@@ -154,7 +162,6 @@ public final class YinYangSymbol implements ActionConfiguration {
     private void initializeYinSymbol() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinSymbol()"); // NOI18N
         
-        // YinSymbol
         yinSymbol = new Circle();
         yinSymbol.setCursor(Cursor.DEFAULT);
         yinSymbol.setRadius(RADIUS);
@@ -169,23 +176,26 @@ public final class YinYangSymbol implements ActionConfiguration {
         glow.setHeight(12.0d);
         yinSymbol.setEffect(glow);
         yinSymbol.setFill(Color.BLACK);
+    }
+    
+    private void initializeYinSymbolMouseListeners() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinSymbolMouseListeners()"); // NOI18N
         
-        // MouseEvents
-        yinSymbol.setOnMouseDragged((mouseEvent) -> {
+        yinSymbol.setOnMouseDragged((event) -> {
             if (
-                    mouseEvent.getButton() == MouseButton.PRIMARY
-                    && mouseEvent.isControlDown()
+                    event.getButton() == MouseButton.PRIMARY
+                    && event.isControlDown()
             ) {
                 ActionHandlerFacade.getDefault()
                         .handle(TransferDataBuilder.create()
                                 .actionId(ON_MOUSE__DRAGGED)
                                 .disableLogging() // Avoid msg spawning
-                                .objectValue(mouseEvent)
+                                .objectValue(event)
                                 .build());
             }
         });
         
-        yinSymbol.setOnMouseEntered((mouseEvent) -> {
+        yinSymbol.setOnMouseEntered((event) -> {
             final boolean showOptions = Boolean.TRUE;
             ActionHandlerFacade.getDefault()
                     .handle(TransferDataBuilder.create()
@@ -194,8 +204,8 @@ public final class YinYangSymbol implements ActionConfiguration {
                             .build());
         });
         
-        yinSymbol.setOnMouseExited((mouseEvent) -> {
-            if (!yinSymbol.contains(mouseEvent.getX(), mouseEvent.getY())) {
+        yinSymbol.setOnMouseExited((event) -> {
+            if (!yinSymbol.contains(event.getX(), event.getY())) {
                 if (yinSymbol.getCursor().equals(Cursor.MOVE)) {
                     yinSymbol.setCursor(Cursor.DEFAULT);
                 }
@@ -209,34 +219,37 @@ public final class YinYangSymbol implements ActionConfiguration {
             }
         });
         
-        yinSymbol.setOnMousePressed((mouseEvent) -> {
+        yinSymbol.setOnMousePressed((event) -> {
             if (
-                    mouseEvent.getButton() == MouseButton.PRIMARY
-                    && mouseEvent.isPrimaryButtonDown()
-                    && mouseEvent.isControlDown()
+                    event.getButton() == MouseButton.PRIMARY
+                    && event.isPrimaryButtonDown()
+                    && event.isControlDown()
             ) {
                 yinSymbol.setCursor(Cursor.MOVE);
                 
                 ActionHandlerFacade.getDefault()
                         .handle(TransferDataBuilder.create()
                                 .actionId(ON_MOUSE__PRESSED)
-                                .objectValue(mouseEvent)
+                                .objectValue(event)
                                 .build());
             }
         });
         
-        yinSymbol.setOnMouseReleased((mouseEvent) -> {
+        yinSymbol.setOnMouseReleased((event) -> {
             if (
-                    mouseEvent.getButton() == MouseButton.PRIMARY
-                    && mouseEvent.isControlDown()
+                    event.getButton() == MouseButton.PRIMARY
+                    && event.isControlDown()
             ) {
                 yinSymbol.setCursor(Cursor.DEFAULT);
             }
         });
     }
     
-    public void configure(final AnchorPane apApplication) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
+    public void configure(final AnchorPane apApplication, final String yangSelectedColor, final String yinSelectedColor) {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane, String, String)"); // NOI18N
+        
+        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
+        yinSymbol.setFill( Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         apApplication.getChildren().add(0, yinSymbol);
         apApplication.getChildren().add(1, yangSymbol);
@@ -250,16 +263,76 @@ public final class YinYangSymbol implements ActionConfiguration {
         return yangSymbol;
     }
     
-    public void startYinYangRotation() {
+    private void onActionChangeColorYangSymbol(final String color) {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeColorYangSymbol(String)"); // NOI18N
+    
+        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
+        
+        PreferencesFacade.getDefault().put(YIN_YANG_SYMBOL__YANG_COLOR, color);
+    }
+    
+    private void onActionChangeColorYinSymbol(final String color) {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeColorYinSymbol(String)"); // NOI18N
+    
+        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
+        
+        PreferencesFacade.getDefault().put(YIN_YANG_SYMBOL__YIN_COLOR, color);
+    }
+    
+    public void onActionStartYinYangRotation() {
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(500.0d));
         pt.setOnFinished((event) -> {
-            LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.startYinYangRotation()"); // NOI18N
+            LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.onActionStartYinYangRotation()"); // NOI18N
         
             tlRotation.playFromStart();
         });
         
         pt.playFromStart();
+    }
+
+    @Override
+    public void register() {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.register()"); // NOI18N
+        
+        this.registerOnActionChangeColorYangSymbol();
+        this.registerOnActionChangeColorYinSymbol();
+    }
+    
+    private void registerOnActionChangeColorYangSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.registerOnActionChangeColorYangSymbol()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__CHANGE_COLOR__YANG_SYMBOL,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<String> optional     = transferData.getString();
+                        if(optional.isPresent()) {
+                            final String color = optional.get();
+                            this.onActionChangeColorYangSymbol(color);
+                        }
+                    }
+                });
+    }
+
+    private void registerOnActionChangeColorYinSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.registerOnActionChangeColorYinSymbol()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__CHANGE_COLOR__YIN_SYMBOL,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<String> optional     = transferData.getString();
+                        if(optional.isPresent()) {
+                            final String color = optional.get();
+                            this.onActionChangeColorYinSymbol(color);
+                        }
+                    }
+                });
     }
     
 }

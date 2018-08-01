@@ -20,9 +20,11 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import com.github.naoghuman.yin.yang.application.shape.YinYangSymbol;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.yin.yang.color.ColorComboBox;
+import com.github.naoghuman.yin.yang.shape.YinYangSymbol;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
-import static com.github.naoghuman.yin.yang.configuration.ActionConfiguration.ON_ACTION__SHOW_OPTIONS;
+import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -30,6 +32,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -41,11 +45,16 @@ import javafx.scene.shape.Circle;
  * @since  0.1.0
  */
 public class ApplicationPresenter implements 
-        Initializable, ActionConfiguration, RegisterActions
+        Initializable, ActionConfiguration, RegisterActions,
+        YinYangSymbolConfiguration
 {
     @FXML private AnchorPane apApplication;
     @FXML private Button     bCloseApplication;
     @FXML private Circle     cOptionsBackground;
+    @FXML private ComboBox   cbYangColors;
+    @FXML private ComboBox   cbYinColors;
+    @FXML private Label      lYangColors;
+    @FXML private Label      lYinColors;
     @FXML private Separator  bSeparator1;
     
     @Override
@@ -54,25 +63,33 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        this.initializeOptions();
-
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor  = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR,  YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        this.initializeOptions(yangSelectedColor, yinSelectedColor);
+        
         this.register();
         
         final boolean showOptions = Boolean.FALSE;
         this.onActionShowOptions(showOptions);
         
-        YinYangSymbol.getDefault().configure(apApplication);
-        YinYangSymbol.getDefault().startYinYangRotation();
+        YinYangSymbol.getDefault().configure(apApplication, yangSelectedColor, yinSelectedColor);
+        YinYangSymbol.getDefault().onActionStartYinYangRotation();
     }
     
-    private void initializeOptions() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeOptions()"); // NOI18N
+    private void initializeOptions(final String yangSelectedColor, final String yinSelectedColor) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeOptions(String, String)"); // NOI18N
     
         final Color cOptions = Color.color(Color.BLACK.getRed(), Color.BLACK.getGreen(), 
                 Color.BLACK.getRed(), 0.33d).invert();
         
         cOptionsBackground.setFill(cOptions);
         cOptionsBackground.setStroke(null);
+        
+        final ColorComboBox yangColorComboBox = new ColorComboBox();
+        yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
+        
+        final ColorComboBox yinColorComboBox = new ColorComboBox();
+        yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     
     public void onActionCloseRequest() {
@@ -93,6 +110,16 @@ public class ApplicationPresenter implements
         
         bSeparator1.setManaged(showOptions);
         bSeparator1.setVisible(showOptions);
+        
+        lYinColors.setManaged(showOptions);
+        lYinColors.setVisible(showOptions);
+        cbYinColors.setManaged(showOptions);
+        cbYinColors.setVisible(showOptions);
+        
+        lYangColors.setManaged(showOptions);
+        lYangColors.setVisible(showOptions);
+        cbYangColors.setManaged(showOptions);
+        cbYangColors.setVisible(showOptions);
     }
     
     @Override
@@ -101,7 +128,7 @@ public class ApplicationPresenter implements
         
         this.registerOnActionShowOptions();
     }
-
+    
     private void registerOnActionShowOptions() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.registerOnActionShowOptions()"); // NOI18N
         
