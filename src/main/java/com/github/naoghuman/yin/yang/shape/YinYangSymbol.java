@@ -24,6 +24,7 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
+import java.time.LocalDate;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -111,13 +112,20 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     private void initializeYinYangRotation() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinYangRotation()"); // NOI18N
         
+        // Rotation
         rotation = new Rotate();
         rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
         rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
         
+        /*
+          Yang -> odd  nummers -> right spinning
+          Yin  -> even nummers -> left  spinning
+        */
+        final LocalDate now      = LocalDate.now(); 
+        final double    endValue = (now.getDayOfMonth() % 2) == 0 ? -360.0d : 360.0d;
         tlRotation = new Timeline(
-                new KeyFrame(Duration.ZERO,       new KeyValue(rotation.angleProperty(), 0.0d)),
-                new KeyFrame(Duration.seconds(5), new KeyValue(rotation.angleProperty(), 360.0d)));
+                new KeyFrame(Duration.ZERO,        new KeyValue(rotation.angleProperty(), 0.0d)),
+                new KeyFrame(Duration.seconds(10), new KeyValue(rotation.angleProperty(), endValue)));
         tlRotation.setCycleCount(Animation.INDEFINITE);
         
         yangSymbol.getTransforms().add(rotation);
