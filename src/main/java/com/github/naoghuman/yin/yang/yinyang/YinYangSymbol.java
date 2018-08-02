@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.yin.yang.shape;
+package com.github.naoghuman.yin.yang.yinyang;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
@@ -253,11 +253,14 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         });
     }
     
-    public void configure(final AnchorPane apApplication, final String yangSelectedColor, final String yinSelectedColor) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane, String, String)"); // NOI18N
+    public void configure(final AnchorPane apApplication) {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
         
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
-        yinSymbol.setFill( Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
+        
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR, YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         apApplication.getChildren().add(0, yinSymbol);
         apApplication.getChildren().add(1, yangSymbol);

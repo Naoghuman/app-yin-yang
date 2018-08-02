@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.yin.yang.shape;
+package com.github.naoghuman.yin.yang.yinyang;
 
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;

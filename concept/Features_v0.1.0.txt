@@ -15,10 +15,11 @@ Application
    - Contains simple application data.
    - For example the last application position will so be saved.
 
-Yin-Yang Symbol
+YinYangSymbol
 - Depending from the day in month the symbol will rotate left or right.
-   - If the day in month is odd,  then the symbol is right spinning.
-   - If the day in month is even, then the symbol is left  spinning.
+   - If the day in month is odd (yang), then the symbol is right spinning.
+   - If the day in month is even(yin),  then the symbol is left  spinning.
+- In the middle of the YinYangSymbol a prototype from a YinYangTerm can be seen.
 
 Options
 - Button 'X' close the application.

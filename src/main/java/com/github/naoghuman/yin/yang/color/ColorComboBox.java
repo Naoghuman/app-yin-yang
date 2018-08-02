@@ -251,6 +251,7 @@ public final class ColorComboBox implements ActionConfiguration {
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                // Update Yin-, YangSymbol color
                 String actionId = ON_ACTION__UNKNOWN_ACTION;
                 switch(type) {
                     case YANG_SYMBOL: { actionId = ON_ACTION__CHANGE_COLOR__YANG_SYMBOL; break; }
@@ -262,6 +263,9 @@ public final class ColorComboBox implements ActionConfiguration {
                                 .actionId(actionId)
                                 .stringValue(newValue)
                                 .build());
+                
+                // Update term colors
+                ActionHandlerFacade.getDefault().handle(ON_ACTION__CHANGE_COLOR__UPDATE_TERM_COLORS);      
             }
         });
     }

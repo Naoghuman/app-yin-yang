@@ -22,9 +22,10 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
-import com.github.naoghuman.yin.yang.shape.YinYangSymbol;
+import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
+import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -36,6 +37,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -53,8 +55,10 @@ public class ApplicationPresenter implements
     @FXML private Circle     cOptionsBackground;
     @FXML private ComboBox   cbYangColors;
     @FXML private ComboBox   cbYinColors;
+    @FXML private HBox       hbYinYangTerms;
     @FXML private Label      lYangColors;
     @FXML private Label      lYinColors;
+    @FXML private Label      lYinYangTerms;
     @FXML private Separator  bSeparator1;
     
     @Override
@@ -63,32 +67,33 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        final String yinSelectedColor  = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR,  YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        this.initializeOptions(yangSelectedColor, yinSelectedColor);
+        this.initializeOptions();
         
         this.register();
         
         final boolean showOptions = Boolean.FALSE;
         this.onActionShowOptions(showOptions);
         
-        YinYangSymbol.getDefault().configure(apApplication, yangSelectedColor, yinSelectedColor);
+        YinYangSymbol.getDefault().configure(apApplication);
         YinYangSymbol.getDefault().onActionStartYinYangRotation();
+        
+        YinYangTerms.getDefault().configure(hbYinYangTerms, lYinYangTerms);
+        YinYangTerms.getDefault().onActionShowYinOrYangTerm();
     }
     
-    private void initializeOptions(final String yangSelectedColor, final String yinSelectedColor) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeOptions(String, String)"); // NOI18N
+    private void initializeOptions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.initializeOptions()"); // NOI18N
     
-        final Color cOptions = Color.color(Color.BLACK.getRed(), Color.BLACK.getGreen(), 
-                Color.BLACK.getRed(), 0.33d).invert();
-        
-        cOptionsBackground.setFill(cOptions);
+        final Color colorOptions = Color.color(Color.BLACK.getRed(), Color.BLACK.getGreen(), Color.BLACK.getRed(), 0.33d).invert();
+        cOptionsBackground.setFill(colorOptions);
         cOptionsBackground.setStroke(null);
         
         final ColorComboBox yangColorComboBox = new ColorComboBox();
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR, YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     
