@@ -19,7 +19,15 @@ YinYangSymbol
 - Depending from the day in month the symbol will rotate left or right.
    - If the day in month is odd (yang), then the symbol is right spinning.
    - If the day in month is even(yin),  then the symbol is left  spinning.
-- In the middle of the YinYangSymbol a prototype from a YinYangTerm can be seen.
+
+YinYangTerm
+ - In the middle of the YinYangSymbol a term will be blend in and out.
+ - The colors from the background and the term itself will be switched with every
+   blend in and out.
+    - Yin terms have the yin color as background and the little yang color as
+      term color.
+    - Yang terms have the yang color as background and the little yin color as
+      term color.
 
 Options
 - Button 'X' close the application.
