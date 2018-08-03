@@ -21,13 +21,9 @@ YinYangSymbol
    - If the day in month is even(yin),  then the symbol is left  spinning.
 
 YinYangTerm
- - In the middle of the YinYangSymbol a term will be blend in and out.
- - The colors from the background and the term itself will be switched with every
-   blend in and out.
-    - Yin terms have the yin color as background and the little yang color as
-      term color.
-    - Yang terms have the yang color as background and the little yin color as
-      term color.
+ - In the middle of the YinYangSymbol a YinYangTerm will be blend in and out.
+ - On the left side the yin-, on the right side the yang term is shown.
+ - The colors corresponding to the choosen yin- and yang colors.
 
 Options
 - Button 'X' close the application.

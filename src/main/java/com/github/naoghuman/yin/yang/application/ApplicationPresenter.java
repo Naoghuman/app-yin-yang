@@ -55,10 +55,10 @@ public class ApplicationPresenter implements
     @FXML private Circle     cOptionsBackground;
     @FXML private ComboBox   cbYangColors;
     @FXML private ComboBox   cbYinColors;
-    @FXML private HBox       hbYinYangTerms;
     @FXML private Label      lYangColors;
     @FXML private Label      lYinColors;
-    @FXML private Label      lYinYangTerms;
+    @FXML private Label      lYangTerm;
+    @FXML private Label      lYinTerm;
     @FXML private Separator  bSeparator1;
     
     @Override
@@ -77,8 +77,8 @@ public class ApplicationPresenter implements
         YinYangSymbol.getDefault().configure(apApplication);
         YinYangSymbol.getDefault().onActionStartYinYangRotation();
         
-        YinYangTerms.getDefault().configure(hbYinYangTerms, lYinYangTerms);
-        YinYangTerms.getDefault().onActionShowYinOrYangTerm();
+        YinYangTerms.getDefault().configure(lYinTerm, lYangTerm);
+        YinYangTerms.getDefault().onActionShowYinAndYangTerm();
     }
     
     private void initializeOptions() {

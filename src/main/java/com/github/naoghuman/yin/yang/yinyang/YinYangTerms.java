@@ -16,10 +16,10 @@
  */
 package com.github.naoghuman.yin.yang.yinyang;
 
-import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.yin.yang.color.ColorConverter;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
 import java.util.Optional;
@@ -29,9 +29,7 @@ import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -43,12 +41,8 @@ import javafx.util.Duration;
 public final class YinYangTerms implements 
         ActionConfiguration, RegisterActions, YinYangSymbolConfiguration
 {
-    private static final double OPACITY__BACKGROUND = 0.9d;
     private static final double OPACITY__TERM       = 1.0d;
     private static final double OPACITY__ZERO       = 0.0d;
-    
-    private static final int TERM_TYPE__YANG = 1;
-    private static final int TERM_TYPE__YIN  = 2;
     
     private static final Random RANDOM = new Random();
     private static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
@@ -59,10 +53,8 @@ public final class YinYangTerms implements
         return INSTANCE.get();
     }
     
-    private HBox  hbYinYangTerms;
-    private Label lYinYangTerms;
-    
-    private int actualTermType = TERM_TYPE__YIN;
+    private Label lYangTerm;
+    private Label lYinTerm;
     
     private YinYangTerms() {
         this.initialize();
@@ -74,16 +66,26 @@ public final class YinYangTerms implements
         this.register();
     }
     
-    public void configure(final HBox hbYinYangTerms, final Label lYinYangTerms) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.configure(HBox, Label)"); // NOI18N
+    public void configure(final Label lYinTerm, final Label lYangTerm) {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.configure(Label, Label)"); // NOI18N
         
-        this.hbYinYangTerms = hbYinYangTerms;
-        this.lYinYangTerms  = lYinYangTerms;
+        this.lYinTerm  = lYinTerm;
+        this.lYangTerm = lYangTerm;
         
-        this.hbYinYangTerms.setOpacity(OPACITY__ZERO);
-        this.lYinYangTerms .setOpacity(OPACITY__ZERO);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR,  YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         
-        this.onActionChangeTermColors();
+        this.lYinTerm.setOpacity(OPACITY__ZERO);
+        this.lYinTerm.setStyle(String.format(
+                "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N
+                ColorConverter.convertToBrighter(yinSelectedColor, 0.8d)));
+        this.lYinTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
+        
+        this.lYangTerm.setOpacity(OPACITY__ZERO);
+        this.lYangTerm.setStyle(String.format(
+                "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N
+                ColorConverter.convertToBrighter(yangSelectedColor, 0.8d)));
+        this.lYangTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
     }
     
     private SequentialTransition createSequentialTransition() {
@@ -98,10 +100,10 @@ public final class YinYangTerms implements
         
         // 2
         Timeline tl = new Timeline(
-                new KeyFrame(Duration.ZERO,           new KeyValue(hbYinYangTerms.opacityProperty(), OPACITY__ZERO)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(hbYinYangTerms.opacityProperty(), OPACITY__BACKGROUND)),
-                new KeyFrame(Duration.ZERO,           new KeyValue(lYinYangTerms.opacityProperty(),  OPACITY__ZERO)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinYangTerms.opacityProperty(),  OPACITY__TERM)));
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYinTerm.opacityProperty(),  OPACITY__ZERO)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinTerm.opacityProperty(),  OPACITY__TERM)),
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYangTerm.opacityProperty(),  OPACITY__ZERO)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYangTerm.opacityProperty(),  OPACITY__TERM)));
         st.getChildren().add(tl);
         
         // 3
@@ -111,70 +113,30 @@ public final class YinYangTerms implements
         
         // 4
         tl = new Timeline(
-                new KeyFrame(Duration.ZERO,           new KeyValue(hbYinYangTerms.opacityProperty(), OPACITY__BACKGROUND)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(hbYinYangTerms.opacityProperty(), OPACITY__ZERO)),
-                new KeyFrame(Duration.ZERO,           new KeyValue(lYinYangTerms.opacityProperty(),  OPACITY__TERM)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinYangTerms.opacityProperty(),  OPACITY__ZERO)));
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYinTerm.opacityProperty(),  OPACITY__TERM)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinTerm.opacityProperty(),  OPACITY__ZERO)),
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYangTerm.opacityProperty(),  OPACITY__TERM)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYangTerm.opacityProperty(),  OPACITY__ZERO)));
         st.getChildren().add(tl);
         
         return st;
     }
-    
-    private void onActionChangeTermColors() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangTerms.onActionChangeTermColors(String)"); // NOI18N
-        
-        actualTermType = (actualTermType % 2 == 0) ? TERM_TYPE__YANG : TERM_TYPE__YIN;
-        
-        this.onActionUpdateTermColors();
-    }
 
-    public void onActionShowYinOrYangTerm() {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionShowYinOrYangTerm()"); // NOI18N
+    public void onActionShowYinAndYangTerm() {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionShowYinAndYangTerm()"); // NOI18N
         
         final SequentialTransition st = this.createSequentialTransition();
         st.setOnFinished((event) -> {
-            this.onActionChangeTermColors();
-            this.onActionShowYinOrYangTerm();
+            this.onActionShowYinAndYangTerm();
         });
         
         st.playFromStart();
-    }
-    
-    private void onActionUpdateTermColors() {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionUpdateTermColors()"); // NOI18N
-        
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        final String yinSelectedColor  = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR,  YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        
-        switch (actualTermType) {
-            case TERM_TYPE__YANG: {
-                hbYinYangTerms.setStyle(String.format("-fx-background-color:rgb(%s);-fx-background-radius:5.0d;", yangSelectedColor)); // NOI18N
-                lYinYangTerms.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
-                break;
-            }
-            case TERM_TYPE__YIN: {
-                hbYinYangTerms.setStyle(String.format("-fx-background-color:rgb(%s);-fx-background-radius:5.0d;", yinSelectedColor)); // NOI18N
-                lYinYangTerms.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
-                break;
-            }
-        }
     }
 
     @Override
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.register()"); // NOI18N
         
-        this.registerOnActionUpdateTermColors();
-    }
-    
-    private void registerOnActionUpdateTermColors() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangTerms.registerOnActionUpdateTermColors()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHANGE_COLOR__UPDATE_TERM_COLORS,
-                (ActionEvent event) -> {
-                    this.onActionUpdateTermColors();
-                });
     }
     
 }
