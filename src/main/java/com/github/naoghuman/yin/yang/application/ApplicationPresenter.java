@@ -23,9 +23,9 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
-import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
-import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
 import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
+import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
+import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -48,13 +48,14 @@ import javafx.scene.shape.Circle;
  */
 public class ApplicationPresenter implements 
         Initializable, ActionConfiguration, RegisterActions,
-        YinYangSymbolConfiguration
+        YinYangConfiguration
 {
     @FXML private AnchorPane apApplication;
     @FXML private Button     bCloseApplication;
     @FXML private Circle     cOptionsBackground;
     @FXML private ComboBox   cbYangColors;
     @FXML private ComboBox   cbYinColors;
+    @FXML private HBox       hbYinYangTerms;
     @FXML private Label      lYangColors;
     @FXML private Label      lYinColors;
     @FXML private Label      lYangTerm;
@@ -77,7 +78,7 @@ public class ApplicationPresenter implements
         YinYangSymbol.getDefault().configure(apApplication);
         YinYangSymbol.getDefault().onActionStartYinYangRotation();
         
-        YinYangTerms.getDefault().configure(lYinTerm, lYangTerm);
+        YinYangTerms.getDefault().configure(hbYinYangTerms, lYinTerm, lYangTerm);
         YinYangTerms.getDefault().onActionShowYinAndYangTerm();
     }
     
@@ -89,11 +90,11 @@ public class ApplicationPresenter implements
         cOptionsBackground.setStroke(null);
         
         final ColorComboBox yangColorComboBox = new ColorComboBox();
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YANG_COLOR, YIN_YANG__SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR, YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YIN_COLOR, YIN_YANG__SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     

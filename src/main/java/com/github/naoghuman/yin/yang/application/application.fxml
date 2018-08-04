@@ -12,26 +12,6 @@
 
 <AnchorPane id="AnchorPane" fx:id="apApplication" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="310.0" prefWidth="310.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.application.ApplicationPresenter">
     <children>
-        <HBox alignment="CENTER" layoutX="55.0" layoutY="140.0" maxWidth="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefWidth="200.0" spacing="5.0">
-            <children>
-                <Label fx:id="lYinTerm" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" style="-fx-background-color: lightgreen;" text="&lt;yin&gt;" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                    </padding>
-                </Label>
-                <Label fx:id="lYangTerm" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="100.0" style="-fx-background-color: lightblue;" text="&lt;yang&gt;" HBox.hgrow="ALWAYS">
-                    <font>
-                        <Font size="18.0" />
-                    </font>
-                    <padding>
-                        <Insets bottom="5.0" top="5.0" />
-                    </padding>
-                </Label>
-            </children>
-        </HBox>
         <Circle fx:id="cOptionsBackground" centerX="155.0" centerY="155.0" fill="DODGERBLUE" mouseTransparent="true" radius="150.0" stroke="BLACK" strokeType="INSIDE" style="-fx-fill: rgb(0,0,0,0.3);" />
         <Button fx:id="bCloseApplication" layoutX="143.0" layoutY="23.0" mnemonicParsing="false" onAction="#onActionCloseRequest" text="X" />
         <Separator fx:id="bSeparator1" layoutX="44.0" layoutY="57.0" prefHeight="15.0" prefWidth="222.0" AnchorPane.topAnchor="57.0" />
@@ -39,5 +19,28 @@
         <ComboBox fx:id="cbYinColors" layoutX="27.0" layoutY="89.0" prefHeight="25.0" prefWidth="116.0" />
         <Label fx:id="lYangColors" layoutX="176.0" layoutY="72.0" text="Yang" />
         <ComboBox fx:id="cbYangColors" layoutX="167.0" layoutY="89.0" prefHeight="25.0" prefWidth="116.0" />
+        <HBox fx:id="hbYinYangTerms" alignment="CENTER" layoutX="43.0" layoutY="137.0" maxWidth="-Infinity" minWidth="-Infinity" mouseTransparent="true" prefWidth="225.0">
+            <children>
+                <Label fx:id="lYangTerm" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="112.5" style="-fx-background-color: lightblue;" text="&lt;yang&gt;" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+                </Label>
+                <Label fx:id="lYinTerm" alignment="CENTER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="112.5" style="-fx-background-color: lightgreen;" text="&lt;yin&gt;" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                    <padding>
+                        <Insets bottom="5.0" top="5.0" />
+                    </padding>
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+                </Label>
+            </children>
+        </HBox>
     </children>
 </AnchorPane>

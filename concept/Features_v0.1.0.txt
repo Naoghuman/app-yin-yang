@@ -21,9 +21,11 @@ YinYangSymbol
    - If the day in month is even(yin),  then the symbol is left  spinning.
 
 YinYangTerm
- - In the middle of the YinYangSymbol a YinYangTerm will be blend in and out.
- - On the left side the yin-, on the right side the yang term is shown.
- - The colors corresponding to the choosen yin- and yang colors.
+ - In the middle of the TaiChi-Symbol a term pair (yin and yang word) will be 
+   blend in and out.
+ - First on the right side the yin  term will be blend in and out.
+ - Then shortly afterwards on the left side the yang term will be blend in and 
+   out.
 
 Options
 - Button 'X' close the application.

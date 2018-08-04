@@ -21,7 +21,7 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorConverter;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
-import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
+import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.util.Optional;
 import java.util.Random;
 import javafx.animation.KeyFrame;
@@ -29,20 +29,22 @@ import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 /**
- *
+ * 
  * @author Naoghuman
  * @since  0.1.0
  */
 public final class YinYangTerms implements 
-        ActionConfiguration, RegisterActions, YinYangSymbolConfiguration
+        ActionConfiguration, RegisterActions, YinYangConfiguration
 {
-    private static final double OPACITY__TERM       = 1.0d;
-    private static final double OPACITY__ZERO       = 0.0d;
+    private static final double OPACITY__TERM    = 1.0d;
+    private static final double OPACITY__ZERO    = 0.0d;
     
     private static final Random RANDOM = new Random();
     private static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
@@ -53,6 +55,7 @@ public final class YinYangTerms implements
         return INSTANCE.get();
     }
     
+    private HBox  hbYinYangTerms;
     private Label lYangTerm;
     private Label lYinTerm;
     
@@ -66,57 +69,102 @@ public final class YinYangTerms implements
         this.register();
     }
     
-    public void configure(final Label lYinTerm, final Label lYangTerm) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.configure(Label, Label)"); // NOI18N
+    public void configure(final HBox hbYinYangTerms, final Label lYinTerm, final Label lYangTerm) {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.configure(HBox, Label, Label)"); // NOI18N
         
-        this.lYinTerm  = lYinTerm;
-        this.lYangTerm = lYangTerm;
+        this.hbYinYangTerms = hbYinYangTerms;
+        this.lYinTerm       = lYinTerm;
+        this.lYangTerm      = lYangTerm;
         
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR,  YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        this.hbYinYangTerms.getChildren().clear();
+        
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YIN_COLOR,  YIN_YANG__SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YANG_COLOR, YIN_YANG__SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         
         this.lYinTerm.setOpacity(OPACITY__ZERO);
+        this.lYinTerm.setPrefWidth(RADIUS__BIG_SYMBOL);
         this.lYinTerm.setStyle(String.format(
                 "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N
                 ColorConverter.convertToBrighter(yinSelectedColor, 0.8d)));
         this.lYinTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
         this.lYangTerm.setOpacity(OPACITY__ZERO);
+        this.lYangTerm.setPrefWidth(RADIUS__BIG_SYMBOL);
         this.lYangTerm.setStyle(String.format(
                 "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N
                 ColorConverter.convertToBrighter(yangSelectedColor, 0.8d)));
         this.lYangTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
     }
     
+    /**
+     * 1) Start delay
+     * 2) Blend in   YinTerm
+     * 3) Delay show YinTerm
+     * 4) Blend out  YinTerm
+     * 5) Switch to  YangTerm
+     * 6) Blend in   YangTerm
+     * 7) Delay show YangTerm
+     * 8) Blend out  YangTerm
+     * 9) Like 1)
+     */
     private SequentialTransition createSequentialTransition() {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.createSequentialTransition()"); // NOI18N
         
         final SequentialTransition st = new SequentialTransition();
-        
+
         // 1
         PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(5000.0d + RANDOM.nextInt(15000)));
+        pt.setOnFinished((event) -> {
+            hbYinYangTerms.getChildren().clear();
+            hbYinYangTerms.setAlignment(Pos.CENTER_RIGHT);
+            hbYinYangTerms.getChildren().add(lYinTerm);
+        });
         st.getChildren().add(pt);
         
         // 2
         Timeline tl = new Timeline(
-                new KeyFrame(Duration.ZERO,           new KeyValue(lYinTerm.opacityProperty(),  OPACITY__ZERO)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinTerm.opacityProperty(),  OPACITY__TERM)),
-                new KeyFrame(Duration.ZERO,           new KeyValue(lYangTerm.opacityProperty(),  OPACITY__ZERO)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYangTerm.opacityProperty(),  OPACITY__TERM)));
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYinTerm.opacityProperty(), OPACITY__ZERO)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinTerm.opacityProperty(), OPACITY__TERM)));
         st.getChildren().add(tl);
         
         // 3
+        final double durationShowTerm = 5000.0d + RANDOM.nextInt(15000);
         pt = new PauseTransition();
-        pt.setDuration(Duration.millis(5000.0d + RANDOM.nextInt(15000)));
+        pt.setDuration(Duration.millis(durationShowTerm));
         st.getChildren().add(pt);
         
         // 4
         tl = new Timeline(
-                new KeyFrame(Duration.ZERO,           new KeyValue(lYinTerm.opacityProperty(),  OPACITY__TERM)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinTerm.opacityProperty(),  OPACITY__ZERO)),
-                new KeyFrame(Duration.ZERO,           new KeyValue(lYangTerm.opacityProperty(),  OPACITY__TERM)),
-                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYangTerm.opacityProperty(),  OPACITY__ZERO)));
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYinTerm.opacityProperty(), OPACITY__TERM)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYinTerm.opacityProperty(), OPACITY__ZERO)));
+        st.getChildren().add(tl);
+        
+        // 5
+        pt = new PauseTransition();
+        pt.setDuration(Duration.millis(750.0d));
+        pt.setOnFinished((event) -> {
+            hbYinYangTerms.getChildren().clear();
+            hbYinYangTerms.setAlignment(Pos.CENTER_LEFT);
+            hbYinYangTerms.getChildren().add(lYangTerm);
+        });
+        st.getChildren().add(pt);
+        
+        // 6
+        tl = new Timeline(
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYangTerm.opacityProperty(), OPACITY__ZERO)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYangTerm.opacityProperty(), OPACITY__TERM)));
+        st.getChildren().add(tl);
+        
+        // 7
+        pt = new PauseTransition();
+        pt.setDuration(Duration.millis(durationShowTerm));
+        st.getChildren().add(pt);
+        
+        // 8
+        tl = new Timeline(
+                new KeyFrame(Duration.ZERO,           new KeyValue(lYangTerm.opacityProperty(), OPACITY__TERM)),
+                new KeyFrame(Duration.millis(500.0d), new KeyValue(lYangTerm.opacityProperty(), OPACITY__ZERO)));
         st.getChildren().add(tl);
         
         return st;

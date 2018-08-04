@@ -21,11 +21,14 @@ package com.github.naoghuman.yin.yang.configuration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface YinYangSymbolConfiguration {
+public interface YinYangConfiguration {
     
-    public static final String YIN_YANG_SYMBOL__YANG_COLOR               = "YIN_YANG_SYMBOL__YANG_COLOR"; // NOI18N
-    public static final String YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE = "255, 255, 255"; // NOI18N
-    public static final String YIN_YANG_SYMBOL__YIN_COLOR                = "YIN_YANG_SYMBOL__YIN_COLOR"; // NOI18N
-    public static final String YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE  = "0, 0, 0"; // NOI18N
+    public static final double RADIUS__BIG_SYMBOL    = 150.0d;
+    public static final double RADIUS__LITTLE_SYMBOL = 150.0d / 10.0d;
+    
+    public static final String YIN_YANG__SYMBOL__YANG_COLOR               = "YIN_YANG__SYMBOL__YANG_COLOR"; // NOI18N
+    public static final String YIN_YANG__SYMBOL__YANG_COLOR_DEFAULT_VALUE = "255, 255, 255"; // NOI18N
+    public static final String YIN_YANG__SYMBOL__YIN_COLOR                = "YIN_YANG__SYMBOL__YIN_COLOR"; // NOI18N
+    public static final String YIN_YANG__SYMBOL__YIN_COLOR_DEFAULT_VALUE  = "0, 0, 0"; // NOI18N
     
 }

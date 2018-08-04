@@ -23,7 +23,7 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
-import com.github.naoghuman.yin.yang.configuration.YinYangSymbolConfiguration;
+import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.time.LocalDate;
 import java.util.Optional;
 import javafx.animation.Animation;
@@ -49,11 +49,10 @@ import javafx.util.Duration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class YinYangSymbol implements ActionConfiguration, RegisterActions, YinYangSymbolConfiguration {
+public final class YinYangSymbol implements ActionConfiguration, RegisterActions, YinYangConfiguration {
     
     private static final double CENTER_X     = 155.0d;
     private static final double CENTER_Y     = 155.0d;
-    private static final double RADIUS       = 150.0d;
     private static final double STROKE_WIDTH = 4.0d;
     
     private static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
@@ -94,8 +93,8 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
        
         // Little YangSymbol
         littleYangSymbol = new Circle();
-        littleYangSymbol.setRadius(RADIUS / 10.0d);
-        littleYangSymbol.setCenterX(CENTER_X - RADIUS / 2.0d);
+        littleYangSymbol.setRadius(RADIUS__LITTLE_SYMBOL);
+        littleYangSymbol.setCenterX(CENTER_X - RADIUS__BIG_SYMBOL / 2.0d);
         littleYangSymbol.setCenterY(CENTER_Y);
     }
     
@@ -104,8 +103,8 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
        
         // Little YinSymbol
         littleYinSymbol = new Circle();
-        littleYinSymbol.setRadius(RADIUS / 10.0d);
-        littleYinSymbol.setCenterX(CENTER_X + RADIUS / 2.0d);
+        littleYinSymbol.setRadius(RADIUS__LITTLE_SYMBOL);
+        littleYinSymbol.setCenterX(CENTER_X + RADIUS__BIG_SYMBOL / 2.0d);
         littleYinSymbol.setCenterY(CENTER_Y);
     }
 
@@ -138,21 +137,21 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         halfYangSymbol = new Arc();
         halfYangSymbol.setCenterX(CENTER_X);
         halfYangSymbol.setCenterY(CENTER_Y);
-        halfYangSymbol.setRadiusX(RADIUS - STROKE_WIDTH);
-        halfYangSymbol.setRadiusY(RADIUS - STROKE_WIDTH);
+        halfYangSymbol.setRadiusX(RADIUS__BIG_SYMBOL - STROKE_WIDTH);
+        halfYangSymbol.setRadiusY(RADIUS__BIG_SYMBOL - STROKE_WIDTH);
         halfYangSymbol.setStartAngle(0.0f);
         halfYangSymbol.setLength(180.0f);
         halfYangSymbol.setType(ArcType.CHORD);
         
         Circle littleAddCirle = new Circle();
-        littleAddCirle.setRadius(RADIUS / 2.0d - STROKE_WIDTH / 2);
-        littleAddCirle.setCenterX(CENTER_X + RADIUS / 2.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setRadius(RADIUS__BIG_SYMBOL / 2.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setCenterX(CENTER_X + RADIUS__BIG_SYMBOL / 2.0d - STROKE_WIDTH / 2);
         littleAddCirle.setCenterY(CENTER_Y);
         yangSymbol = Shape.union(halfYangSymbol, littleAddCirle);
         
         Circle littleMinusCirle = new Circle();
-        littleMinusCirle.setRadius(RADIUS / 2.0d - STROKE_WIDTH / 2);
-        littleMinusCirle.setCenterX(CENTER_X - RADIUS / 2.0d + STROKE_WIDTH / 2);
+        littleMinusCirle.setRadius(RADIUS__BIG_SYMBOL / 2.0d - STROKE_WIDTH / 2);
+        littleMinusCirle.setCenterX(CENTER_X - RADIUS__BIG_SYMBOL / 2.0d + STROKE_WIDTH / 2);
         littleMinusCirle.setCenterY(CENTER_Y);
         yangSymbol = Shape.subtract(yangSymbol, littleMinusCirle);
         
@@ -172,7 +171,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         
         yinSymbol = new Circle();
         yinSymbol.setCursor(Cursor.DEFAULT);
-        yinSymbol.setRadius(RADIUS);
+        yinSymbol.setRadius(RADIUS__BIG_SYMBOL);
         yinSymbol.setCenterX(CENTER_X);
         yinSymbol.setCenterY(CENTER_Y);
         
@@ -256,10 +255,10 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     public void configure(final AnchorPane apApplication) {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
         
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YANG_COLOR, YIN_YANG_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YANG_COLOR, YIN_YANG__SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG_SYMBOL__YIN_COLOR, YIN_YANG_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YIN_COLOR, YIN_YANG__SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         apApplication.getChildren().add(0, yinSymbol);
@@ -279,7 +278,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(YIN_YANG_SYMBOL__YANG_COLOR, color);
+        PreferencesFacade.getDefault().put(YIN_YANG__SYMBOL__YANG_COLOR, color);
     }
     
     private void onActionChangeColorYinSymbol(final String color) {
@@ -287,7 +286,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(YIN_YANG_SYMBOL__YIN_COLOR, color);
+        PreferencesFacade.getDefault().put(YIN_YANG__SYMBOL__YIN_COLOR, color);
     }
     
     public void onActionStartYinYangRotation() {
