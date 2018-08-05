@@ -48,7 +48,7 @@ public class ColorConverter {
               c = Color.color(c.getRed(), c.getGreen(), c.getBlue(), opacity);
         
         double brightness = c.getBrightness();
-               brightness = (brightness >= 0.15d) ? brightness - 0.1d : brightness + 0.1d;
+               brightness = (brightness <= 0.8d) ? brightness + 0.1d : brightness - 0.1d;
                         c = Color.hsb(c.getHue(), c.getSaturation(), brightness, opacity);
         
         sb.append("rgba("); // NOI18N
