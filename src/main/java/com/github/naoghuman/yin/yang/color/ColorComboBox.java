@@ -265,7 +265,7 @@ public final class ColorComboBox implements ActionConfiguration {
                                 .build());
                 
                 // Update term colors
-                ActionHandlerFacade.getDefault().handle(ON_ACTION__CHANGE_COLOR__UPDATE_TERM_COLORS);      
+                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE_TERM_COLORS);      
             }
         });
     }
