@@ -28,7 +28,8 @@ public class ColorConverter {
     
     /**
      * Returns a color string which can be transformed to a color with 
-     * Color.web(string).
+     * Color.web(string). The color will be a brighter(0.1) version from the 
+     * 'color'.
      * 
      * Format: rgba(int, int, int, double)
      *         where int    == 0-255
@@ -44,8 +45,11 @@ public class ColorConverter {
         final StringBuilder sb = new StringBuilder();
         
         Color c = Color.web(String.format("rgb(%s)", color)); // NOI18N
-        c = Color.color(c.getRed(), c.getGreen(), c.getBlue(), opacity);
-        c = c.brighter().brighter();
+              c = Color.color(c.getRed(), c.getGreen(), c.getBlue(), opacity);
+        
+        double brightness = c.getBrightness();
+               brightness = (brightness >= 0.15d) ? brightness - 0.1d : brightness + 0.1d;
+                        c = Color.hsb(c.getHue(), c.getSaturation(), brightness, opacity);
         
         sb.append("rgba("); // NOI18N
         sb.append((int)(255 * c.getRed()));
