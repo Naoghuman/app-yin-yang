@@ -19,9 +19,11 @@ package com.github.naoghuman.yin.yang.yinyang;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import com.github.naoghuman.yin.yang.color.ColorConverter;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 import javafx.animation.KeyFrame;
@@ -55,9 +57,13 @@ public final class YinYangTerms implements
         return INSTANCE.get();
     }
     
-    private HBox  hbYinYangTerms;
-    private Label lYangTerm;
-    private Label lYinTerm;
+    private int termIndex       = 0;
+    private int termMaxQuantity = 0;
+    
+    private HBox   hbYinYangTerms;
+    private Label  lYangTerm;
+    private Label  lYinTerm;
+    private Locale language = Locale.ENGLISH;
     
     private YinYangTerms() {
         this.initialize();
@@ -65,6 +71,11 @@ public final class YinYangTerms implements
     
     private void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangTerms.initialize()"); // NOI18N
+        
+        PropertiesFacade.getDefault().register(PREF_KEY__YIN_YANG_TERM__RESOURCE_BUNDLE_DE);
+        PropertiesFacade.getDefault().register(PREF_KEY__YIN_YANG_TERM__RESOURCE_BUNDLE_EN);
+        
+        termMaxQuantity = Integer.parseInt(this.getProperty(PREF_KEY__YIN_YANG_TERM__MAX_QUANTITY));
         
         this.register();
     }
@@ -111,6 +122,7 @@ public final class YinYangTerms implements
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.createSequentialTransition()"); // NOI18N
         
         final SequentialTransition st = new SequentialTransition();
+        termIndex = RANDOM.nextInt(termMaxQuantity) + 1;
 
         // 1
         PauseTransition pt = new PauseTransition();
@@ -119,6 +131,8 @@ public final class YinYangTerms implements
             hbYinYangTerms.getChildren().clear();
             hbYinYangTerms.setAlignment(Pos.CENTER_RIGHT);
             hbYinYangTerms.getChildren().add(lYinTerm);
+            
+            lYinTerm.setText(this.getProperty(String.format(PREF_KEY__YIN_YANG_TERM__YIN, termIndex)));
         });
         st.getChildren().add(pt);
         
@@ -147,6 +161,8 @@ public final class YinYangTerms implements
             hbYinYangTerms.getChildren().clear();
             hbYinYangTerms.setAlignment(Pos.CENTER_LEFT);
             hbYinYangTerms.getChildren().add(lYangTerm);
+            
+            lYangTerm.setText(this.getProperty(String.format(PREF_KEY__YIN_YANG_TERM__YANG, termIndex)));
         });
         st.getChildren().add(pt);
         
@@ -168,6 +184,24 @@ public final class YinYangTerms implements
         st.getChildren().add(tl);
         
         return st;
+    }
+    
+    private String getProperty(final String propertyKey) {
+        return PropertiesFacade.getDefault().getProperty(
+                (language == Locale.ENGLISH) ? PREF_KEY__YIN_YANG_TERM__RESOURCE_BUNDLE_EN 
+                        : PREF_KEY__YIN_YANG_TERM__RESOURCE_BUNDLE_DE,
+                propertyKey);
+    }
+
+    public void onActionChangeLanguage(final Locale language) {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionChangeLanguage(Locale)"); // NOI18N
+        
+        // Change language
+        this.language = language;
+        
+        // Update gui
+        lYangTerm.setText(this.getProperty(String.format(PREF_KEY__YIN_YANG_TERM__YANG, termIndex)));
+        lYinTerm.setText(this.getProperty(String.format(PREF_KEY__YIN_YANG_TERM__YIN, termIndex)));
     }
 
     public void onActionShowYinAndYangTerm() {

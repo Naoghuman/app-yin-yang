@@ -32,13 +32,21 @@ public interface ApplicationConfiguration {
     public static final String APPLICATION_WINDOW__POSITION_Y               = "APPLICATION_WINDOW__POSITION_Y"; // NOI18N
     public static final double APPLICATION_WINDOW__POSITION_Y_DEFAULT_VALUE = 0.0d;
     
-    public static final String KEY__APPLICATION__BORDER_SIGN     = "application.border.sign"; // NOI18N
-    public static final String KEY__APPLICATION__BUILD_DATETIME  = "application.build.datetime"; // NOI18N
-    public static final String KEY__APPLICATION__DATABASE        = "application.database"; // NOI18N
-    public static final String KEY__APPLICATION__MESSAGE_START   = "application.message.start"; // NOI18N
-    public static final String KEY__APPLICATION__MESSAGE_STOP    = "application.message.stop"; // NOI18N
-    public static final String KEY__APPLICATION__RESOURCE_BUNDLE = "/com/github/naoghuman/yin/yang/application/application.properties"; // NOI18N
-    public static final String KEY__APPLICATION__TITLE           = "application.title"; // NOI18N
-    public static final String KEY__APPLICATION__VERSION         = "application.version"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__BORDER_SIGN     = "application.border.sign"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__BUILD_DATETIME  = "application.build.datetime"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__DATABASE        = "application.database"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__MESSAGE_START   = "application.message.start"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__MESSAGE_STOP    = "application.message.stop"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__RESOURCE_BUNDLE = "/com/github/naoghuman/yin/yang/application/application.properties"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_DE = "/com/github/naoghuman/yin/yang/application/options_de.properties"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_EN = "/com/github/naoghuman/yin/yang/application/options_en.properties"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_COLORS             = "application.options.colors"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_LANGUAGES          = "application.options.languages"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_LANGUAGE_ENGLISH   = "application.options.language.english"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_LANGUAGE_GERMAN    = "application.options.language.german"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_YANG_COLOR         = "application.options.yangcolor"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__OPTIONS_YIN_COLOR          = "application.options.yincolor"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__TITLE   = "application.title"; // NOI18N
+    public static final String PREF_KEY__APPLICATION__VERSION = "application.version"; // NOI18N
     
 }

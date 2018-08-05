@@ -23,6 +23,12 @@ package com.github.naoghuman.yin.yang.configuration;
  */
 public interface YinYangConfiguration {
     
+    public static final String PREF_KEY__YIN_YANG_TERM__MAX_QUANTITY       = "yinyangterms.maxquantity"; // NOI18N
+    public static final String PREF_KEY__YIN_YANG_TERM__RESOURCE_BUNDLE_DE = "/com/github/naoghuman/yin/yang/yinyang/yinyangterms_de.properties"; // NOI18N
+    public static final String PREF_KEY__YIN_YANG_TERM__RESOURCE_BUNDLE_EN = "/com/github/naoghuman/yin/yang/yinyang/yinyangterms_en.properties"; // NOI18N
+    public static final String PREF_KEY__YIN_YANG_TERM__YANG = "yinyangterm%d.yang"; // NOI18N
+    public static final String PREF_KEY__YIN_YANG_TERM__YIN  = "yinyangterm%d.yin"; // NOI18N
+    
     public static final double RADIUS__BIG_SYMBOL    = 150.0d;
     public static final double RADIUS__LITTLE_SYMBOL = 150.0d / 10.0d;
     

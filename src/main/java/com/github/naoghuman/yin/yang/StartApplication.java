@@ -64,17 +64,17 @@ public class StartApplication extends Application implements
         
         LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.init()"); // NOI18N
         
-        PropertiesFacade.getDefault().register(KEY__APPLICATION__RESOURCE_BUNDLE);
+        PropertiesFacade.getDefault().register(PREF_KEY__APPLICATION__RESOURCE_BUNDLE);
         
-        final char borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message = this.getProperty(KEY__APPLICATION__MESSAGE_START);
-        final String title = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
+        final char borderSign = this.getProperty(PREF_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String message = this.getProperty(PREF_KEY__APPLICATION__MESSAGE_START);
+        final String title = this.getProperty(PREF_KEY__APPLICATION__TITLE) + this.getProperty(PREF_KEY__APPLICATION__VERSION);
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
-        DatabaseFacade.getDefault().register(this.getProperty(KEY__APPLICATION__DATABASE));
+        DatabaseFacade.getDefault().register(this.getProperty(PREF_KEY__APPLICATION__DATABASE));
         
         this.register();
     }
@@ -90,7 +90,7 @@ public class StartApplication extends Application implements
         scene.setFill(Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle(this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION));
+        stage.setTitle(this.getProperty(PREF_KEY__APPLICATION__TITLE) + this.getProperty(PREF_KEY__APPLICATION__VERSION));
         stage.setScene(scene);
         
         this.onActionSetApplicationPosition();
@@ -106,7 +106,7 @@ public class StartApplication extends Application implements
     }
     
     private String getProperty(String propertyKey) {
-        return PropertiesFacade.getDefault().getProperty(KEY__APPLICATION__RESOURCE_BUNDLE, propertyKey);
+        return PropertiesFacade.getDefault().getProperty(PREF_KEY__APPLICATION__RESOURCE_BUNDLE, propertyKey);
     }
     
     private void onActionCloseRequest() {
@@ -119,9 +119,9 @@ public class StartApplication extends Application implements
         DatabaseFacade.getDefault().shutdown();
         
         // Message
-        final char   borderSign = this.getProperty(KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message    = this.getProperty(KEY__APPLICATION__MESSAGE_STOP);
-        final String title      = this.getProperty(KEY__APPLICATION__TITLE) + this.getProperty(KEY__APPLICATION__VERSION);
+        final char   borderSign = this.getProperty(PREF_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String message    = this.getProperty(PREF_KEY__APPLICATION__MESSAGE_STOP);
+        final String title      = this.getProperty(PREF_KEY__APPLICATION__TITLE) + this.getProperty(PREF_KEY__APPLICATION__VERSION);
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         // Timer
@@ -135,7 +135,7 @@ public class StartApplication extends Application implements
     }
     
     private void onActionSavePositionToPreferences() {
-        // Command out to avoid spawning messages
+        // Commant out to avoid spawning messages
         // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onActionSavePositionToPreferences()"); // NOI18N
         
         // Check if the PauseTransition is running
@@ -164,7 +164,7 @@ public class StartApplication extends Application implements
     }
     
     private void onMouseDragged(final MouseEvent mouseEvent) {
-        // Command out to avoid spawning messages
+        // Commant out to avoid spawning messages
         // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMouseDragged(MouseEvent)"); // NOI18N
         
         stage.setX(mouseEvent.getScreenX() - xOffset);

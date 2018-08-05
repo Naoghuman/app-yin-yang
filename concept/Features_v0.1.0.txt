@@ -11,6 +11,7 @@ Application
      restored during the next application start.
 - Mouseover(-exit) the TaiChiSymbol blend in(out) the options.
    - Options have a transparent background color.
+- Multilingual: Supports english and german languages.
 - Preferences.properties
    - Contains simple application data.
    - For example the last application position will so be saved.
@@ -32,6 +33,7 @@ Options
 - User can choose the Yin-, Yang-Color in the corresponding ComboBox.
    - The user choose will be saved to the file Preferences.properties and 
      restored during the next application start.
+- User can choose between 'English' and 'German' language.
 
 --------------------------------------------------------------------------------
 
