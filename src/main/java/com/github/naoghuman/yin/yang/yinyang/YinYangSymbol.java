@@ -63,13 +63,15 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         return INSTANCE.get();
     }
     
-    private Arc      halfYangSymbol;
-    private Circle   littleYangSymbol;
-    private Circle   littleYinSymbol;
-    private Circle   yinSymbol;
-    private Rotate   rotation;
-    private Shape    yangSymbol;
-    private Timeline tlRotation;
+    
+    private Arc       halfYangSymbol;
+    private Circle    littleYangSymbol;
+    private Circle    littleYinSymbol;
+    private Circle    yinSymbol;
+    private LocalDate oldDayInYear = LocalDate.now();
+    private Rotate    rotation;
+    private Shape     yangSymbol;
+    private Timeline  tlRotation;
     
     private YinYangSymbol() {
         this.initialize();
@@ -84,6 +86,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         this.initializeLittleYangSymbol();
         this.initializeYangSymbol();
         this.initializeYinYangRotation();
+        this.initializeYinYangTimeline();
         
         this.register();
     }
@@ -116,6 +119,12 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
         rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
         
+        yangSymbol.getTransforms().add(rotation);
+    }
+
+    private void initializeYinYangTimeline() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinYangTimeline()"); // NOI18N
+        
         /*
           Yang -> odd  nummers -> right spinning
           Yin  -> even nummers -> left  spinning
@@ -126,8 +135,6 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
                 new KeyFrame(Duration.ZERO,        new KeyValue(rotation.angleProperty(), 0.0d)),
                 new KeyFrame(Duration.seconds(10), new KeyValue(rotation.angleProperty(), endValue)));
         tlRotation.setCycleCount(Animation.INDEFINITE);
-        
-        yangSymbol.getTransforms().add(rotation);
     }
 
     private void initializeYangSymbol() {
@@ -273,6 +280,22 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         return yangSymbol;
     }
     
+    private boolean isNewDayInYear(LocalDate newDayInYear) {
+        boolean isNewDayInYear = Boolean.FALSE;
+        if (newDayInYear.getYear() > oldDayInYear.getYear()) {
+            isNewDayInYear = Boolean.TRUE;
+        }
+        
+        if (
+                newDayInYear.getYear() == oldDayInYear.getYear()
+                && newDayInYear.getDayOfYear() > oldDayInYear.getDayOfYear()
+        ) {
+            isNewDayInYear = Boolean.TRUE;
+        }
+        
+        return isNewDayInYear;
+    }
+    
     private void onActionChangeColorYangSymbol(final String color) {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeColorYangSymbol(String)"); // NOI18N
     
@@ -295,6 +318,9 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         pt.setOnFinished((event) -> {
             LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.onActionStartYinYangRotation()"); // NOI18N
         
+            if (this.isNewDayInYear(LocalDate.now())) {
+                this.initializeYinYangTimeline();
+            }
             tlRotation.playFromStart();
         });
         
