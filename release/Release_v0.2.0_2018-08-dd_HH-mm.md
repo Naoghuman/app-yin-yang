@@ -7,9 +7,10 @@ aso..
 
 
 #### Summary
-* YinYangSymbol: If during the runtime of the application the day changes in the 
-  year, then the rotation direction of the symbol adapts automatically.
-* ...
+* YinYangSymbol
+    * If during the runtime of the application the day changes in the year, then 
+      the rotation direction of the symbol adapts automatically.
+    * Depending from the month in year the symbol will be rotate slower or faster.
 
 
 

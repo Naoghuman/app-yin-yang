@@ -25,12 +25,16 @@ import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.time.LocalDate;
+import java.time.Month;
+import java.util.HashMap;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
@@ -55,20 +59,39 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     private static final double CENTER_Y     = 155.0d;
     private static final double STROKE_WIDTH = 4.0d;
     
-    private static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
+    private static final String                       PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
+    private static final ObservableMap<Month, Double> MONTH_ROTATIONS    = FXCollections.observableHashMap();
+    private static final Optional<YinYangSymbol>      INSTANCE           = Optional.of(new YinYangSymbol());
     
-    private static final Optional<YinYangSymbol> INSTANCE = Optional.of(new YinYangSymbol());
+    static {
+        /*
+            January, February, March,     April,   May,      June, 
+            July,    August,   September, October, November, December.
+        */
+//        MONTH_ROTATIONS.put(Month.JANUARY,    6.400d); // Slowest month in year
+//        MONTH_ROTATIONS.put(Month.FEBRUARY,   8.530d);
+//        MONTH_ROTATIONS.put(Month.MARCH,     10.664d);
+//        MONTH_ROTATIONS.put(Month.APRIL,     12.798d);
+//        MONTH_ROTATIONS.put(Month.MAY,       14.932d);
+//        MONTH_ROTATIONS.put(Month.JUNE,      17.066d);
+//        MONTH_ROTATIONS.put(Month.JULY,      19.200d); // Fastest month in year
+//        MONTH_ROTATIONS.put(Month.AUGUST,    17.066d);
+//        MONTH_ROTATIONS.put(Month.SEPTEMBER, 14.932d);
+//        MONTH_ROTATIONS.put(Month.OCTOBER,   12.798d);
+//        MONTH_ROTATIONS.put(Month.NOVEMBER,  10.664d);
+//        MONTH_ROTATIONS.put(Month.DECEMBER,   8.530d);
+    }
 
     public static final YinYangSymbol getDefault() {
         return INSTANCE.get();
     }
     
-    
     private Arc       halfYangSymbol;
     private Circle    littleYangSymbol;
     private Circle    littleYinSymbol;
     private Circle    yinSymbol;
-    private LocalDate oldDayInYear = LocalDate.now();
+    private LocalDate oldDayInYear   = LocalDate.now();
+    private LocalDate oldMonthInYear = LocalDate.now();
     private Rotate    rotation;
     private Shape     yangSymbol;
     private Timeline  tlRotation;
@@ -120,6 +143,20 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
         
         yangSymbol.getTransforms().add(rotation);
+        
+        // Rotation speed
+        MONTH_ROTATIONS.put(Month.JANUARY,   19.200d); // Slowest month in year
+        MONTH_ROTATIONS.put(Month.FEBRUARY,  17.066d);
+        MONTH_ROTATIONS.put(Month.MARCH,     14.932d);
+        MONTH_ROTATIONS.put(Month.APRIL,     12.798d);
+        MONTH_ROTATIONS.put(Month.MAY,       10.664d);
+        MONTH_ROTATIONS.put(Month.JUNE,       8.530d);
+        MONTH_ROTATIONS.put(Month.JULY,       6.400d); // Fastest month in year
+        MONTH_ROTATIONS.put(Month.AUGUST,     8.530d);
+        MONTH_ROTATIONS.put(Month.SEPTEMBER, 10.664d);
+        MONTH_ROTATIONS.put(Month.OCTOBER,   12.798d);
+        MONTH_ROTATIONS.put(Month.NOVEMBER,  14.932d);
+        MONTH_ROTATIONS.put(Month.DECEMBER,  17.066d);
     }
 
     private void initializeYinYangTimeline() {
@@ -129,11 +166,12 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
           Yang -> odd  nummers -> right spinning
           Yin  -> even nummers -> left  spinning
         */
-        final LocalDate now      = LocalDate.now(); 
-        final double    endValue = (now.getDayOfMonth() % 2) == 0 ? -360.0d : 360.0d;
+        final LocalDate now         = LocalDate.now(); 
+        final double    endDuration = MONTH_ROTATIONS.get(now.getMonth());
+        final double    endValue    = (now.getDayOfMonth() % 2) == 0 ? -360.0d : 360.0d;
         tlRotation = new Timeline(
-                new KeyFrame(Duration.ZERO,        new KeyValue(rotation.angleProperty(), 0.0d)),
-                new KeyFrame(Duration.seconds(10), new KeyValue(rotation.angleProperty(), endValue)));
+                new KeyFrame(Duration.ZERO,                 new KeyValue(rotation.angleProperty(), 0.0d)),
+                new KeyFrame(Duration.seconds(endDuration), new KeyValue(rotation.angleProperty(), endValue)));
         tlRotation.setCycleCount(Animation.INDEFINITE);
     }
 
@@ -284,6 +322,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         boolean isNewDayInYear = Boolean.FALSE;
         if (newDayInYear.getYear() > oldDayInYear.getYear()) {
             isNewDayInYear = Boolean.TRUE;
+            oldDayInYear   = newDayInYear;
         }
         
         if (
@@ -291,9 +330,28 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
                 && newDayInYear.getDayOfYear() > oldDayInYear.getDayOfYear()
         ) {
             isNewDayInYear = Boolean.TRUE;
+            oldDayInYear   = newDayInYear;
         }
         
         return isNewDayInYear;
+    }
+    
+    private boolean isNewMonthInYear(LocalDate newMonthInYear) {
+        boolean isNewMonthInYear = Boolean.FALSE;
+        if (newMonthInYear.getYear() > oldMonthInYear.getYear()) {
+            isNewMonthInYear = Boolean.TRUE;
+            oldMonthInYear   = newMonthInYear;
+        }
+        
+        if (
+                newMonthInYear.getYear() == oldMonthInYear.getYear()
+                && newMonthInYear.getMonthValue() > oldMonthInYear.getMonthValue()
+        ) {
+            isNewMonthInYear = Boolean.TRUE;
+            oldMonthInYear   = newMonthInYear;
+        }
+        
+        return isNewMonthInYear;
     }
     
     private void onActionChangeColorYangSymbol(final String color) {
@@ -318,9 +376,13 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         pt.setOnFinished((event) -> {
             LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.onActionStartYinYangRotation()"); // NOI18N
         
-            if (this.isNewDayInYear(LocalDate.now())) {
+            if (
+                    this.isNewDayInYear(LocalDate.now())
+                    || this.isNewMonthInYear(LocalDate.now())
+            ) {
                 this.initializeYinYangTimeline();
             }
+            
             tlRotation.playFromStart();
         });
         

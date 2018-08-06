@@ -22,6 +22,9 @@ YinYangSymbol
    - If the day in year is even(yin),  then the symbol is left  spinning.
    - If during the runtime of the application the day changes in the year, then 
      the rotation direction of the symbol adapts automatically.
+- Depending from the month in year the symbol will be rotate slower or faster.
+   - The slowest rotation is in the month January.
+   - The fastest rotation is in the month July.
 
 YinYangTerm
  - In the middle of the TaiChi-Symbol a term pair (yin and yang word) will be 
