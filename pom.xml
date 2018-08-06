@@ -4,11 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.naoghuman</groupId>
     <artifactId>yin-yang</artifactId>
-    <version>0.1.0-SNAPSHOT</version> <!-- -SNAPSHOT -PRERELEASE -->
+    <version>0.1.0</version> <!-- -SNAPSHOT -PRERELEASE -->
     <packaging>jar</packaging>
     <name>Yin-Yang</name>
     
-    <description>TODO</description>
+    <description>Yin-Yang is a little [JavaFX] &amp; [Maven] desktop application which demonstrate some nice JavaFX features like borderless application, multilingualism, animations aso..</description>
     
     <developers>
         <developer>
@@ -103,12 +103,6 @@
         <dependency>
             <groupId>com.github.naoghuman</groupId>
             <artifactId>lib-action</artifactId>
-            <version>0.5.1</version>
-            <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.github.naoghuman</groupId>
-            <artifactId>lib-database-objectdb</artifactId>
             <version>0.5.1</version>
             <type>jar</type>
         </dependency>

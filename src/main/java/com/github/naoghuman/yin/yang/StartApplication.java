@@ -20,7 +20,6 @@ import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
-import com.github.naoghuman.lib.database.core.DatabaseFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
@@ -74,8 +73,6 @@ public class StartApplication extends Application implements
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
-        DatabaseFacade.getDefault().register(this.getProperty(PREF_KEY__APPLICATION__DATABASE));
-        
         this.register();
     }
     
@@ -114,9 +111,6 @@ public class StartApplication extends Application implements
         
         // afterburner.fx
         Injector.forgetAll();
-        
-        // Database
-        DatabaseFacade.getDefault().shutdown();
         
         // Message
         final char   borderSign = this.getProperty(PREF_KEY__APPLICATION__BORDER_SIGN).charAt(0);
