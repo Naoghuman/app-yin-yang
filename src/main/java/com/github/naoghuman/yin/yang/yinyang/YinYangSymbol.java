@@ -26,7 +26,6 @@ import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.HashMap;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -63,25 +62,6 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     private static final ObservableMap<Month, Double> MONTH_ROTATIONS    = FXCollections.observableHashMap();
     private static final Optional<YinYangSymbol>      INSTANCE           = Optional.of(new YinYangSymbol());
     
-    static {
-        /*
-            January, February, March,     April,   May,      June, 
-            July,    August,   September, October, November, December.
-        */
-//        MONTH_ROTATIONS.put(Month.JANUARY,    6.400d); // Slowest month in year
-//        MONTH_ROTATIONS.put(Month.FEBRUARY,   8.530d);
-//        MONTH_ROTATIONS.put(Month.MARCH,     10.664d);
-//        MONTH_ROTATIONS.put(Month.APRIL,     12.798d);
-//        MONTH_ROTATIONS.put(Month.MAY,       14.932d);
-//        MONTH_ROTATIONS.put(Month.JUNE,      17.066d);
-//        MONTH_ROTATIONS.put(Month.JULY,      19.200d); // Fastest month in year
-//        MONTH_ROTATIONS.put(Month.AUGUST,    17.066d);
-//        MONTH_ROTATIONS.put(Month.SEPTEMBER, 14.932d);
-//        MONTH_ROTATIONS.put(Month.OCTOBER,   12.798d);
-//        MONTH_ROTATIONS.put(Month.NOVEMBER,  10.664d);
-//        MONTH_ROTATIONS.put(Month.DECEMBER,   8.530d);
-    }
-
     public static final YinYangSymbol getDefault() {
         return INSTANCE.get();
     }

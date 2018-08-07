@@ -24,7 +24,7 @@ import javafx.stage.Stage;
 /**
  *
  * @author Naoghuman
- * @since  0.1.0
+ * @since  0.2.0
  */
 public class ColorConverterDemo extends Application {
 
