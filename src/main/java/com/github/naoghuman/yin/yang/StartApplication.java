@@ -63,7 +63,7 @@ public class StartApplication extends Application implements
         
         LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.init()"); // NOI18N
         
-        PropertiesFacade.getDefault().register(PREF_KEY__APPLICATION__RESOURCE_BUNDLE);
+        PropertiesFacade.getDefault().register(PREF__APPLICATION__RESOURCE_BUNDLE);
         
         final char borderSign = this.getProperty(PREF_KEY__APPLICATION__BORDER_SIGN).charAt(0);
         final String message = this.getProperty(PREF_KEY__APPLICATION__MESSAGE_START);
@@ -83,7 +83,7 @@ public class StartApplication extends Application implements
         stage = primaryStage;
         
         final ApplicationView view  = new ApplicationView();
-        final Scene           scene = new Scene(view.getView(), 310, 310);
+        final Scene           scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);
@@ -97,13 +97,13 @@ public class StartApplication extends Application implements
         ptSavePositionToPreferences = new PauseTransition();
         ptSavePositionToPreferences.setDuration(DURATION__125);
         ptSavePositionToPreferences.setOnFinished((event) -> {
-            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_X, stage.getX());
-            PreferencesFacade.getDefault().putDouble(APPLICATION_WINDOW__POSITION_Y, stage.getY());
+            PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_X, stage.getX());
+            PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_Y, stage.getY());
         });
     }
     
     private String getProperty(String propertyKey) {
-        return PropertiesFacade.getDefault().getProperty(PREF_KEY__APPLICATION__RESOURCE_BUNDLE, propertyKey);
+        return PropertiesFacade.getDefault().getProperty(PREF__APPLICATION__RESOURCE_BUNDLE, propertyKey);
     }
     
     private void onActionCloseRequest() {
@@ -145,14 +145,14 @@ public class StartApplication extends Application implements
         LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onActionSetApplicationPosition()"); // NOI18N
         
         // X
-        final double x = PreferencesFacade.getDefault().getDouble(APPLICATION_WINDOW__POSITION_X, APPLICATION_WINDOW__POSITION_X_DEFAULT_VALUE);
-        if (x != APPLICATION_WINDOW__POSITION_X_DEFAULT_VALUE) {
+        final double x = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_X, PREF__APPLICATION__POSITION_X_DEFAULT_VALUE);
+        if (x != PREF__APPLICATION__POSITION_X_DEFAULT_VALUE) {
             stage.setX(x);
         }
         
         // Y
-        final double y = PreferencesFacade.getDefault().getDouble(APPLICATION_WINDOW__POSITION_Y, APPLICATION_WINDOW__POSITION_Y_DEFAULT_VALUE);
-        if (y != APPLICATION_WINDOW__POSITION_Y_DEFAULT_VALUE) {
+        final double y = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_Y, PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE);
+        if (y != PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE) {
             stage.setY(y);
         }
     }

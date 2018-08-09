@@ -25,8 +25,6 @@ import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
-import static com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration.PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_DE;
-import static com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration.PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_EN;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.util.Locale;
 import java.util.Optional;
@@ -117,18 +115,18 @@ public final class Options implements
         cOptionsBackground.setStroke(null);
         
         final ColorComboBox yangColorComboBox = new ColorComboBox();
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YANG_COLOR, YIN_YANG__SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YANG_COLOR, PREF__YIN_YANG__YANG_COLOR_DEFAULT_VALUE);
         yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YIN_COLOR, YIN_YANG__SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YIN_COLOR, PREF__YIN_YANG__YIN_COLOR_DEFAULT_VALUE);
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     
     private String getProperty(final String propertyKey) {
         return PropertiesFacade.getDefault().getProperty((language == Locale.ENGLISH)
-                        ? PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_EN 
-                        : PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_DE,
+                        ? PREF__APPLICATION__RESOURCE_BUNDLE_OPTIONS_EN 
+                        : PREF__APPLICATION__RESOURCE_BUNDLE_OPTIONS_DE,
                 propertyKey);
     }
     
@@ -213,7 +211,7 @@ public final class Options implements
     }
     
     private void registerOnActionShowOptions() {
-        LoggerFacade.getDefault().info(this.getClass(), "Options.registerOnActionShowOptions()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "Options.registerOnActionShowOptions()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__SHOW_OPTIONS,

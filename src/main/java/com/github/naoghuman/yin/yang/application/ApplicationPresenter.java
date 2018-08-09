@@ -72,8 +72,8 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        PropertiesFacade.getDefault().register(PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_DE);
-        PropertiesFacade.getDefault().register(PREF_KEY__APPLICATION__OPTIONS_RESOURCE_BUNDLE_EN);
+        PropertiesFacade.getDefault().register(PREF__APPLICATION__RESOURCE_BUNDLE_OPTIONS_DE);
+        PropertiesFacade.getDefault().register(PREF__APPLICATION__RESOURCE_BUNDLE_OPTIONS_EN);
         
         this.register();
         

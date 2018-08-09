@@ -48,15 +48,13 @@ import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
 /**
- *
+ * 
  * @author Naoghuman
  * @since  0.1.0
  */
 public final class YinYangSymbol implements ActionConfiguration, RegisterActions, YinYangConfiguration {
     
-    private static final double CENTER_X     = 155.0d;
-    private static final double CENTER_Y     = 155.0d;
-    private static final double STROKE_WIDTH = 4.0d;
+    private static final double STROKE_WIDTH          = 4.0d;
     
     private static final String                       PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
     private static final ObservableMap<Month, Double> MONTH_ROTATIONS    = FXCollections.observableHashMap();
@@ -65,6 +63,11 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     public static final YinYangSymbol getDefault() {
         return INSTANCE.get();
     }
+    
+    private double centerXtheOne       = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
+    private double centerYtheOne       = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
+    private double diameterTheOne      = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
+    private double radiusLittleYinYang = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
     
     private Arc       halfYangSymbol;
     private Circle    littleYangSymbol;
@@ -83,6 +86,19 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     private void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initialize()"); // NOI18N
         
+        /*
+         * Rework math for the TaiChi-Symbol
+         *  - The One       == 1 == d   == Circle
+         *  - Yin, Yang     == 2 == d/2 == 2 Half
+         *  - Yin, Yang     == 4 == d/4 ==   Half +- half/2
+         *  - l.Yin, l.Yang == 8 == d/8 == Size of the little yin, yang 
+         *
+         */
+        diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__YIN_YANG__SYMBOL_DIAMETER, PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
+        centerXtheOne       = diameterTheOne / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
+        centerYtheOne       = diameterTheOne / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
+        radiusLittleYinYang = diameterTheOne / 8.0d / 2.0d;
+        
         this.initializeLittleYinSymbol();
         this.initializeYinSymbol();
         this.initializeYinSymbolMouseListeners();
@@ -99,9 +115,9 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
        
         // Little YangSymbol
         littleYangSymbol = new Circle();
-        littleYangSymbol.setRadius(RADIUS__LITTLE_SYMBOL);
-        littleYangSymbol.setCenterX(CENTER_X - RADIUS__BIG_SYMBOL / 2.0d);
-        littleYangSymbol.setCenterY(CENTER_Y);
+        littleYangSymbol.setRadius(radiusLittleYinYang);
+        littleYangSymbol.setCenterX(centerXtheOne - diameterTheOne / 4.0d);
+        littleYangSymbol.setCenterY(centerYtheOne);
     }
     
     private void initializeLittleYinSymbol() {
@@ -109,9 +125,9 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
        
         // Little YinSymbol
         littleYinSymbol = new Circle();
-        littleYinSymbol.setRadius(RADIUS__LITTLE_SYMBOL);
-        littleYinSymbol.setCenterX(CENTER_X + RADIUS__BIG_SYMBOL / 2.0d);
-        littleYinSymbol.setCenterY(CENTER_Y);
+        littleYinSymbol.setRadius(radiusLittleYinYang);
+        littleYinSymbol.setCenterX(centerXtheOne + diameterTheOne / 4.0d);
+        littleYinSymbol.setCenterY(centerYtheOne);
     }
 
     private void initializeYinYangRotation() {
@@ -160,24 +176,24 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         
         // YangSymbol
         halfYangSymbol = new Arc();
-        halfYangSymbol.setCenterX(CENTER_X);
-        halfYangSymbol.setCenterY(CENTER_Y);
-        halfYangSymbol.setRadiusX(RADIUS__BIG_SYMBOL - STROKE_WIDTH);
-        halfYangSymbol.setRadiusY(RADIUS__BIG_SYMBOL - STROKE_WIDTH);
+        halfYangSymbol.setCenterX(centerXtheOne);
+        halfYangSymbol.setCenterY(centerYtheOne);
+        halfYangSymbol.setRadiusX(diameterTheOne / 2.0d - STROKE_WIDTH);
+        halfYangSymbol.setRadiusY(diameterTheOne / 2.0d - STROKE_WIDTH);
         halfYangSymbol.setStartAngle(0.0f);
         halfYangSymbol.setLength(180.0f);
         halfYangSymbol.setType(ArcType.CHORD);
         
         Circle littleAddCirle = new Circle();
-        littleAddCirle.setRadius(RADIUS__BIG_SYMBOL / 2.0d - STROKE_WIDTH / 2);
-        littleAddCirle.setCenterX(CENTER_X + RADIUS__BIG_SYMBOL / 2.0d - STROKE_WIDTH / 2);
-        littleAddCirle.setCenterY(CENTER_Y);
+        littleAddCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setCenterX(centerXtheOne + diameterTheOne / 4.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setCenterY(centerYtheOne);
         yangSymbol = Shape.union(halfYangSymbol, littleAddCirle);
         
         Circle littleMinusCirle = new Circle();
-        littleMinusCirle.setRadius(RADIUS__BIG_SYMBOL / 2.0d - STROKE_WIDTH / 2);
-        littleMinusCirle.setCenterX(CENTER_X - RADIUS__BIG_SYMBOL / 2.0d + STROKE_WIDTH / 2);
-        littleMinusCirle.setCenterY(CENTER_Y);
+        littleMinusCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2);
+        littleMinusCirle.setCenterX(centerXtheOne - diameterTheOne / 4.0d + STROKE_WIDTH / 2);
+        littleMinusCirle.setCenterY(centerYtheOne);
         yangSymbol = Shape.subtract(yangSymbol, littleMinusCirle);
         
         // Little YinSymbol
@@ -196,9 +212,9 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         
         yinSymbol = new Circle();
         yinSymbol.setCursor(Cursor.DEFAULT);
-        yinSymbol.setRadius(RADIUS__BIG_SYMBOL);
-        yinSymbol.setCenterX(CENTER_X);
-        yinSymbol.setCenterY(CENTER_Y);
+        yinSymbol.setRadius(diameterTheOne / 2.0d);
+        yinSymbol.setCenterX(centerXtheOne);
+        yinSymbol.setCenterY(centerYtheOne);
         
         final DropShadow glow = new DropShadow();
         glow.setOffsetY(0f);
@@ -280,10 +296,10 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     public void configure(final AnchorPane apApplication) {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
         
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YANG_COLOR, YIN_YANG__SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YANG_COLOR, PREF__YIN_YANG__YANG_COLOR_DEFAULT_VALUE);
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(YIN_YANG__SYMBOL__YIN_COLOR, YIN_YANG__SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YIN_COLOR, PREF__YIN_YANG__YIN_COLOR_DEFAULT_VALUE);
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         apApplication.getChildren().add(0, yinSymbol);
@@ -339,7 +355,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(YIN_YANG__SYMBOL__YANG_COLOR, color);
+        PreferencesFacade.getDefault().put(PREF__YIN_YANG__YANG_COLOR, color);
     }
     
     private void onActionChangeColorYinSymbol(final String color) {
@@ -347,7 +363,7 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(YIN_YANG__SYMBOL__YIN_COLOR, color);
+        PreferencesFacade.getDefault().put(PREF__YIN_YANG__YIN_COLOR, color);
     }
     
     public void onActionStartYinYangRotation() {
