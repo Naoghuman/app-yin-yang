@@ -20,7 +20,7 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
-import com.github.naoghuman.yin.yang.application.options.Options;
+import com.github.naoghuman.yin.yang.options.Options;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
@@ -71,9 +71,6 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initialize(URL, ResourceBundle)"); // NOI18N
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
-        
-        PropertiesFacade.getDefault().register(PREF__APPLICATION__RESOURCE_BUNDLE_OPTIONS_DE);
-        PropertiesFacade.getDefault().register(PREF__APPLICATION__RESOURCE_BUNDLE_OPTIONS_EN);
         
         this.register();
         

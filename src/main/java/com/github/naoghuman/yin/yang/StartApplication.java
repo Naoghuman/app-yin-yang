@@ -22,10 +22,11 @@ import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import com.github.naoghuman.yin.yang.application.ApplicationView;
 import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
+import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
+import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
@@ -45,7 +46,8 @@ import javafx.stage.StageStyle;
  * @since  0.1.0
  */
 public class StartApplication extends Application implements 
-        ApplicationConfiguration, ActionConfiguration, RegisterActions
+        ApplicationConfiguration, ActionConfiguration, I18nConfiguration,
+        RegisterActions
 {
     public static void main(String[] args) {
         launch(args);
@@ -63,11 +65,12 @@ public class StartApplication extends Application implements
         
         LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.init()"); // NOI18N
         
-        PropertiesFacade.getDefault().register(PREF__APPLICATION__RESOURCE_BUNDLE);
+        I18nProvider.getDefault().register();
         
-        final char borderSign = this.getProperty(PREF_KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message = this.getProperty(PREF_KEY__APPLICATION__MESSAGE_START);
-        final String title = this.getProperty(PREF_KEY__APPLICATION__TITLE) + this.getProperty(PREF_KEY__APPLICATION__VERSION);
+        final char borderSign = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String message  = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
+        final String title    = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
+                + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION);
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
@@ -87,7 +90,8 @@ public class StartApplication extends Application implements
         scene.setFill(Color.TRANSPARENT);
         
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle(this.getProperty(PREF_KEY__APPLICATION__TITLE) + this.getProperty(PREF_KEY__APPLICATION__VERSION));
+        stage.setTitle(I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
+                + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION));
         stage.setScene(scene);
         
         this.onActionSetApplicationPosition();
@@ -102,10 +106,6 @@ public class StartApplication extends Application implements
         });
     }
     
-    private String getProperty(String propertyKey) {
-        return PropertiesFacade.getDefault().getProperty(PREF__APPLICATION__RESOURCE_BUNDLE, propertyKey);
-    }
-    
     private void onActionCloseRequest() {
         LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionCloseRequest()"); // NOI18N
         
@@ -113,9 +113,10 @@ public class StartApplication extends Application implements
         Injector.forgetAll();
         
         // Message
-        final char   borderSign = this.getProperty(PREF_KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message    = this.getProperty(PREF_KEY__APPLICATION__MESSAGE_STOP);
-        final String title      = this.getProperty(PREF_KEY__APPLICATION__TITLE) + this.getProperty(PREF_KEY__APPLICATION__VERSION);
+        final char   borderSign = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String message    = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__MESSAGE_STOP);
+        final String title      = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
+                + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION);
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         // Timer
