@@ -19,7 +19,6 @@ package com.github.naoghuman.yin.yang.color;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -28,13 +27,14 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.util.Callback;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class ColorComboBox implements ActionConfiguration {
+public final class ColorComboBox implements EventConfiguration {
     
     private static final int INDEX_TO_REMOVE__YANG_SYMBOL = 11;
     private static final int INDEX_TO_REMOVE__YIN_SYMBOL  = 0;

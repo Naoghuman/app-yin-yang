@@ -23,13 +23,6 @@ package com.github.naoghuman.yin.yang.configuration;
  */
 public interface YinYangConfiguration {
     
-    public static final String PREF__YIN_YANG__SYMBOL_DIAMETER               = "PREF__YIN_YANG__SYMBOL_DIAMETER"; // NOI18N
-    public static final double PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE = 320.0d;
-    public static final String PREF__YIN_YANG__YANG_COLOR                    = "PREF__YIN_YANG__YANG_COLOR"; // NOI18N
-    public static final String PREF__YIN_YANG__YANG_COLOR_DEFAULT_VALUE      = "255, 255, 255"; // NOI18N
-    public static final String PREF__YIN_YANG__YIN_COLOR                     = "PREF__YIN_YANG__YIN_COLOR"; // NOI18N
-    public static final String PREF__YIN_YANG__YIN_COLOR_DEFAULT_VALUE       = "0, 0, 0"; // NOI18N
-    
-    public static final double YIN_YANG_SYMBOLE__OUTER_BORDER = 5.0d;
+    public static final double YINYANG_SYMBOLE__OUTER_BORDER = 5.0d;
     
 }

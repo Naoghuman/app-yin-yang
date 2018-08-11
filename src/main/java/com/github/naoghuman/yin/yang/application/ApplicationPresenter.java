@@ -19,11 +19,9 @@ package com.github.naoghuman.yin.yang.application;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import com.github.naoghuman.yin.yang.options.Options;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
-import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import java.net.URL;
 import java.util.Locale;
@@ -39,6 +37,7 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 
 /**
  *
@@ -46,7 +45,7 @@ import javafx.scene.shape.Circle;
  * @since  0.1.0
  */
 public class ApplicationPresenter implements 
-        Initializable, ActionConfiguration, ApplicationConfiguration,
+        Initializable, EventConfiguration, ApplicationConfiguration,
         RegisterActions
 {
     @FXML private AnchorPane  apApplication;

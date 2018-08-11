@@ -22,7 +22,8 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.time.LocalDate;
 import java.time.Month;
@@ -52,9 +53,13 @@ import javafx.util.Duration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class YinYangSymbol implements ActionConfiguration, RegisterActions, YinYangConfiguration {
-    
-    private static final double STROKE_WIDTH          = 4.0d;
+public final class YinYangSymbol implements 
+        EventConfiguration,
+        PreferencesConfiguration,
+        RegisterActions,
+        YinYangConfiguration
+{
+    private static final double STROKE_WIDTH = 4.0d;
     
     private static final String                       PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
     private static final ObservableMap<Month, Double> MONTH_ROTATIONS    = FXCollections.observableHashMap();
@@ -64,10 +69,10 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
         return INSTANCE.get();
     }
     
-    private double centerXtheOne       = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
-    private double centerYtheOne       = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
-    private double diameterTheOne      = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
-    private double radiusLittleYinYang = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
+    private double centerXtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
+    private double centerYtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
+    private double diameterTheOne      = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
+    private double radiusLittleYinYang = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
     
     private Arc       halfYangSymbol;
     private Circle    littleYangSymbol;
@@ -94,9 +99,9 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
          *  - l.Yin, l.Yang == 8 == d/8 == Size of the little yin, yang 
          *
          */
-        diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__YIN_YANG__SYMBOL_DIAMETER, PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
-        centerXtheOne       = diameterTheOne / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
-        centerYtheOne       = diameterTheOne / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER;
+        diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__YINYANG__SYMBOL_DIAMETER, PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
+        centerXtheOne       = diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
+        centerYtheOne       = diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
         radiusLittleYinYang = diameterTheOne / 8.0d / 2.0d;
         
         this.initializeLittleYinSymbol();
@@ -296,10 +301,10 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     public void configure(final AnchorPane apApplication) {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
         
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YANG_COLOR, PREF__YIN_YANG__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YIN_COLOR, PREF__YIN_YANG__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR, PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         apApplication.getChildren().add(0, yinSymbol);
@@ -351,19 +356,19 @@ public final class YinYangSymbol implements ActionConfiguration, RegisterActions
     }
     
     private void onActionChangeColorYangSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeColorYangSymbol(String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.onActionChangeColorYangSymbol(String)"); // NOI18N
     
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(PREF__YIN_YANG__YANG_COLOR, color);
+        PreferencesFacade.getDefault().put(PREF__YINYANG__YANG_COLOR, color);
     }
     
     private void onActionChangeColorYinSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeColorYinSymbol(String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.onActionChangeColorYinSymbol(String)"); // NOI18N
     
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(PREF__YIN_YANG__YIN_COLOR, color);
+        PreferencesFacade.getDefault().put(PREF__YINYANG__YIN_COLOR, color);
     }
     
     public void onActionStartYinYangRotation() {

@@ -21,8 +21,9 @@ import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorConverter;
-import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
+import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Locale;
@@ -46,8 +47,8 @@ import javafx.util.Duration;
  * @since  0.1.0
  */
 public final class YinYangTerms implements 
-        ActionConfiguration, I18nConfiguration, RegisterActions,
-        YinYangConfiguration
+        EventConfiguration, I18nConfiguration, PreferencesConfiguration,
+        RegisterActions, YinYangConfiguration
 {
     private static final double OPACITY__TERM = 1.0d;
     private static final double OPACITY__ZERO = 0.0d;
@@ -61,7 +62,7 @@ public final class YinYangTerms implements
         return INSTANCE.get();
     }
     
-    private double diameterTheOne  = PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
+    private double diameterTheOne  = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
     private int    termIndex       = 0;
     private int    termMaxQuantity = 0;
     
@@ -76,7 +77,7 @@ public final class YinYangTerms implements
     private void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangTerms.initialize()"); // NOI18N
         
-        diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__YIN_YANG__SYMBOL_DIAMETER, PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
+        diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__YINYANG__SYMBOL_DIAMETER, PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
         termMaxQuantity = Integer.parseInt(I18nProvider.getDefault().getI18nYinYang().getProperty(I18N_KEY__YINYANG__TERM_QUANTITY));
         
         this.register();
@@ -89,12 +90,12 @@ public final class YinYangTerms implements
         this.lYinTerm       = lYinTerm;
         this.lYangTerm      = lYangTerm;
         
-        diameterTheOne = PreferencesFacade.getDefault().getDouble(PREF__YIN_YANG__SYMBOL_DIAMETER, PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
+        diameterTheOne = PreferencesFacade.getDefault().getDouble(PREF__YINYANG__SYMBOL_DIAMETER, PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
         
         this.hbYinYangTerms.getChildren().clear();
 //        this.hbYinYangTerms.setPrefHeight(PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER * 2.0d);
         this.hbYinYangTerms.setPrefWidth(diameterTheOne - diameterTheOne / 4.0d);
-        this.hbYinYangTerms.setLayoutX(diameterTheOne / 8.0d + YIN_YANG_SYMBOLE__OUTER_BORDER);
+        this.hbYinYangTerms.setLayoutX(diameterTheOne / 8.0d + YINYANG_SYMBOLE__OUTER_BORDER);
 //        this.hbYinYangTerms.setLayoutY((diameterTheOne / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER));
 //        this.hbYinYangTerms.setStyle("-fx-background-color:red");
         
@@ -212,8 +213,8 @@ public final class YinYangTerms implements
     private void onActionUpdateTermColors() {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionUpdateTermColors()"); // NOI18N
         
-        final String yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YIN_COLOR,  PREF__YIN_YANG__YIN_COLOR_DEFAULT_VALUE);
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YIN_YANG__YANG_COLOR, PREF__YIN_YANG__YANG_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR,  PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
         
         this.lYinTerm.setStyle(String.format(
                 "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N

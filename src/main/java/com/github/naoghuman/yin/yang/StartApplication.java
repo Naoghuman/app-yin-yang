@@ -23,9 +23,10 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.application.ApplicationView;
-import com.github.naoghuman.yin.yang.configuration.ActionConfiguration;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
+import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Optional;
 import javafx.animation.Animation;
@@ -46,8 +47,8 @@ import javafx.stage.StageStyle;
  * @since  0.1.0
  */
 public class StartApplication extends Application implements 
-        ApplicationConfiguration, ActionConfiguration, I18nConfiguration,
-        RegisterActions
+        ApplicationConfiguration, EventConfiguration, I18nConfiguration,
+        PreferencesConfiguration, RegisterActions
 {
     public static void main(String[] args) {
         launch(args);
