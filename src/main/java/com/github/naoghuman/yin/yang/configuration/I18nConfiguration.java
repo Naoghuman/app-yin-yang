@@ -47,8 +47,7 @@ public interface I18nConfiguration {
     public static final String I18N_KEY__OPTIONS__YANG_COLOR       = "i18n.key.options.yangcolor"; // NOI18N
     public static final String I18N_KEY__OPTIONS__YIN_COLOR        = "i18n.key.options.yincolor"; // NOI18N
     
-    public static final String I18N_KEY__YINYANG__TERM_NR_YANG  = "i18n.key.yinyang.term.nr%d.yang"; // NOI18N
-    public static final String I18N_KEY__YINYANG__TERM_NR_YIN   = "i18n.key.yinyang.term.nr%d.yin"; // NOI18N
+    public static final String I18N_KEY__YINYANG__TERM_NR       = "i18n.key.yinyang.term.nr%d"; // NOI18N
     public static final String I18N_KEY__YINYANG__TERM_QUANTITY = "i18n.key.yinyang.term.quantity"; // NOI18N
     
 }

@@ -29,9 +29,10 @@ YinYangSymbol
 YinYangTerm
  - In the middle of the TaiChi-Symbol a term pair (yin and yang word) will be 
    blend in and out.
- - First on the right side the yin  term will be blend in and out.
+ - First on the right side the yin term will be blend in and out.
  - Then shortly afterwards on the left side the yang term will be blend in and 
    out.
+ - Now 30 terms (yin-yang pairs) are supported.
 
 Options
 - Button 'X' close the application.

@@ -49,8 +49,9 @@ public final class YinYangTerms implements
         EventConfiguration, I18nConfiguration, PreferencesConfiguration,
         RegisterActions, YinYangConfiguration
 {
-    private static final double OPACITY__TERM = 1.0d;
-    private static final double OPACITY__ZERO = 0.0d;
+    private static final char   TERM_SEPERATOR = ';'; // NOI18N
+    private static final double OPACITY__TERM  = 1.0d;
+    private static final double OPACITY__ZERO  = 0.0d;
     
     private static final Random RANDOM                              = new Random();
     private static final String PATTERN__RGB_COLOR                  = "rgb(%s)"; // NOI18N
@@ -133,7 +134,8 @@ public final class YinYangTerms implements
             hbYinYangTerms.setAlignment(Pos.CENTER_RIGHT);
             hbYinYangTerms.getChildren().add(lYinTerm);
             
-            lYinTerm.setText(I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YIN, termIndex)));
+            final String termYinYang = I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR, termIndex));
+            lYinTerm.setText(termYinYang.substring(0, termYinYang.indexOf(TERM_SEPERATOR)));
         });
         st.getChildren().add(pt);
         
@@ -163,7 +165,8 @@ public final class YinYangTerms implements
             hbYinYangTerms.setAlignment(Pos.CENTER_LEFT);
             hbYinYangTerms.getChildren().add(lYangTerm);
             
-            lYangTerm.setText(I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YANG, termIndex)));
+            final String termYinYang = I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR, termIndex));
+            lYangTerm.setText(termYinYang.substring(termYinYang.indexOf(TERM_SEPERATOR) + 1, termYinYang.length()));
         });
         st.getChildren().add(pt);
         
@@ -202,8 +205,9 @@ public final class YinYangTerms implements
     private void onActionUpdateLanguageYinYangTerms() {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionUpdateLanguageYinYangTerms()"); // NOI18N
         
-        lYangTerm.setText(I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YANG, termIndex)));
-        lYinTerm.setText( I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YIN,  termIndex)));
+        final String termYinYang = I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR, termIndex));
+        lYinTerm.setText( termYinYang.substring(0,                                       termYinYang.indexOf(TERM_SEPERATOR)));
+        lYangTerm.setText(termYinYang.substring(termYinYang.indexOf(TERM_SEPERATOR) + 1, termYinYang.length()));
     }
     
     private void onActionUpdateTermColors() {
