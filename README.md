@@ -16,11 +16,50 @@ TODO Current `version` is `0.1.0` (08.06.2018 / MM.dd.yyyy).
 Content
 ---
 
+* [Screenshots](#Screenshots)
+* [Features](#Features)
+    - [Borderless application](#BordAppl)
+    - [Multilingualism application](#MultAppl)
+    - [JavaFX animations](#JavaAnim)
+    - [Action event handling](#ActiEvenHand)
+    - [Simple data storage](#SimpDataStor)
 * [Contribution](#Contribution)
 * [Installation](#Installation)
 * [License](#License)
 * [Autor](#Autor)
 * [Contact](#Contact)
+
+
+
+Features<a name="Features" />
+---
+
+TODO
+
+
+### Borderless application<a name="BordAppl" />
+
+TODO
+
+
+### Multilingualism application<a name="MultAppl" />
+
+TODO
+
+
+### JavaFX animations<a name="JavaAnim" />
+
+TODO
+
+
+### Action event handling<a name="ActiEvenHand" />
+
+TODO
+
+
+### Simple data storage<a name="SimpDataStor" />
+
+TODO
 
 
 
