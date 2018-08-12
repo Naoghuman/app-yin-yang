@@ -27,7 +27,7 @@ import java.util.Optional;
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18nYinYang implements I18nConfiguration, I18nProperty, I18nRegister {
+public final class I18nYinYang implements I18nConfiguration, I18nLanguage, I18nProperty, I18nRegister {
     
     private static final Optional<I18nYinYang> INSTANCE = Optional.of(new I18nYinYang());
     
@@ -63,6 +63,7 @@ public final class I18nYinYang implements I18nConfiguration, I18nProperty, I18nR
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__YINYANG_EN);
     }
     
+    @Override
     public void setLanguage(final Locale language) {
         LoggerFacade.getDefault().debug(this.getClass(), "I18nYinYang.setLanguage(Locale)"); // NOI18N
         

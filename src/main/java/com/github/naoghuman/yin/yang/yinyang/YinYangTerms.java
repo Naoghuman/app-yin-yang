@@ -26,7 +26,6 @@ import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Random;
 import javafx.animation.KeyFrame;
@@ -53,8 +52,9 @@ public final class YinYangTerms implements
     private static final double OPACITY__TERM = 1.0d;
     private static final double OPACITY__ZERO = 0.0d;
     
-    private static final Random RANDOM = new Random();
-    private static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
+    private static final Random RANDOM                              = new Random();
+    private static final String PATTERN__RGB_COLOR                  = "rgb(%s)"; // NOI18N
+    private static final String STYLE_TERM__BACKGROUND_COLOR_RADIUS = "-fx-background-color:%s;-fx-background-radius:5.0;"; // NOI18N
     
     private static final Optional<YinYangTerms> INSTANCE = Optional.of(new YinYangTerms());
 
@@ -187,17 +187,6 @@ public final class YinYangTerms implements
         return st;
     }
 
-    public void onActionChangeLanguage(final Locale language) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionChangeLanguage(Locale)"); // NOI18N
-        
-        // Change language
-        I18nProvider.getDefault().getI18nYinYang().setLanguage(language);
-        
-        // Update gui
-        lYangTerm.setText(I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YANG, termIndex)));
-        lYinTerm.setText( I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YIN,  termIndex)));
-    }
-
     public void onActionShowYinAndYangTerm() {
         // Comment out to avoid spawning messages
 //        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionShowYinAndYangTerm()"); // NOI18N
@@ -210,6 +199,13 @@ public final class YinYangTerms implements
         st.playFromStart();
     }
     
+    private void onActionUpdateLanguageYinYangTerms() {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionUpdateLanguageYinYangTerms()"); // NOI18N
+        
+        lYangTerm.setText(I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YANG, termIndex)));
+        lYinTerm.setText( I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR_YIN,  termIndex)));
+    }
+    
     private void onActionUpdateTermColors() {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionUpdateTermColors()"); // NOI18N
         
@@ -217,12 +213,12 @@ public final class YinYangTerms implements
         final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
         
         this.lYinTerm.setStyle(String.format(
-                "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N
+                STYLE_TERM__BACKGROUND_COLOR_RADIUS,
                 ColorConverter.convertToBrighter(yinSelectedColor, 0.8d)));
         this.lYinTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
         this.lYangTerm.setStyle(String.format(
-                "-fx-background-color:%s;-fx-background-radius:5;", // NOI18N
+                STYLE_TERM__BACKGROUND_COLOR_RADIUS,
                 ColorConverter.convertToBrighter(yangSelectedColor, 0.8d)));
         this.lYangTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
     }
@@ -231,7 +227,18 @@ public final class YinYangTerms implements
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.register()"); // NOI18N
         
+        this.registerOnActionUpdateLanguageYinYangTerms();
         this.registerOnActionUpdateTermColors();
+    }
+    
+    private void registerOnActionUpdateLanguageYinYangTerms() {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangTerms.registerOnActionUpdateLanguageYinYangTerms()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS,
+                (ActionEvent event) -> {
+                    this.onActionUpdateLanguageYinYangTerms();
+                });
     }
     
     private void registerOnActionUpdateTermColors() {
@@ -243,7 +250,5 @@ public final class YinYangTerms implements
                     this.onActionUpdateTermColors();
                 });
     }
-    
-    
     
 }

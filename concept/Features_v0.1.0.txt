@@ -14,7 +14,7 @@ Application
 - Multilingual: Supports english and german languages.
 - Preferences.properties
    - Contains simple application data.
-   - For example the last application position will so be saved.
+   - Save following data: application position, yin-yang color, language.
 
 YinYangSymbol
 - Depending from the day in year the symbol will rotate left or right.

@@ -29,6 +29,12 @@ public interface PreferencesConfiguration {
     public static final String PREF__APPLICATION__POSITION_Y                 = "PREF__APPLICATION__POSITION_Y"; // NOI18N
     public static final double PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE   = 0.0d;
     
+    // Language
+    public static final String PREF__I18N__LANGUAGE               = "PREF__I18N__LANGUAGE"; // NOI18N
+    public static final String PREF__I18N__LANGUAGE_DEFAULT_VALUE = "ENGLISH"; // NOI18N
+    public static final String PREF__I18N__LANGUAGE_ENGLISH       = "ENGLISH"; // NOI18N
+    public static final String PREF__I18N__LANGUAGE_GERMAN        = "GERMAN"; // NOI18N
+    
     // YinYang
     public static final String PREF__YINYANG__SYMBOL_DIAMETER               = "PREF__YINYANG__SYMBOL_DIAMETER"; // NOI18N
     public static final double PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE = 320.0d;

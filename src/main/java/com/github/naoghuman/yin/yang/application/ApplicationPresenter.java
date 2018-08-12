@@ -17,14 +17,13 @@
 package com.github.naoghuman.yin.yang.application;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
-import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.options.Options;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
-import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -37,7 +36,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 
 /**
  *
@@ -45,8 +43,7 @@ import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
  * @since  0.1.0
  */
 public class ApplicationPresenter implements 
-        Initializable, EventConfiguration, ApplicationConfiguration,
-        RegisterActions
+        Initializable, EventConfiguration, ApplicationConfiguration
 {
     @FXML private AnchorPane  apApplication;
     @FXML private Button      bCloseApplication;
@@ -71,8 +68,6 @@ public class ApplicationPresenter implements
         
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
-        this.register();
-        
         Options.getDefault().configure(
                 cOptionsBackground, bCloseApplication, bSeparator1, 
                 lYinYangColors, lYinColors, cbYinColors, lYangColors, 
@@ -88,20 +83,13 @@ public class ApplicationPresenter implements
     public void onActionChangeLanguage() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeLanguage()"); // NOI18N
         
-        final Locale language = Options.getDefault().onActionChangeLanguage();
-        YinYangTerms.getDefault().onActionChangeLanguage(language);
+        Options.getDefault().onActionChangeLanguage();
     }
     
     public void onActionCloseRequest() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionCloseRequest()"); // NOI18N
     
         ActionHandlerFacade.getDefault().handle(ON_ACTION__CLOSE_REQUEST);
-    }
-    
-    @Override
-    public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
-        
     }
     
 }

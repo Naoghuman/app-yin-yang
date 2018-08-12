@@ -27,6 +27,7 @@ import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.i18n.I18nProperty;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Optional;
 import javafx.animation.Animation;
@@ -68,11 +69,13 @@ public class StartApplication extends Application implements
         
         I18nProvider.getDefault().register();
         
-        final char borderSign = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message  = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
-        final String title    = I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
-                + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION);
-        LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
+        final I18nProperty i18nProperty = I18nProvider.getDefault().getI18nApplication();
+        final char         borderSign   = i18nProperty.getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String       message      = i18nProperty.getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
+        final String       title        = i18nProperty.getProperty(I18N_KEY__APPLICATION__TITLE);
+        final String       version      = i18nProperty.getProperty(I18N_KEY__APPLICATION__VERSION);
+        final String       titleVersion = title + version;
+        LoggerFacade.getDefault().message(borderSign, 80, String.format(message, titleVersion));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
@@ -86,6 +89,13 @@ public class StartApplication extends Application implements
         
         stage = primaryStage;
         
+        ptSavePositionToPreferences = new PauseTransition();
+        ptSavePositionToPreferences.setDuration(DURATION__125);
+        ptSavePositionToPreferences.setOnFinished((event) -> {
+            PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_X, stage.getX());
+            PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_Y, stage.getY());
+        });
+        
         final ApplicationView view  = new ApplicationView();
         final Scene           scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
@@ -98,13 +108,6 @@ public class StartApplication extends Application implements
         this.onActionSetApplicationPosition();
         
         stage.show();
-        
-        ptSavePositionToPreferences = new PauseTransition();
-        ptSavePositionToPreferences.setDuration(DURATION__125);
-        ptSavePositionToPreferences.setOnFinished((event) -> {
-            PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_X, stage.getX());
-            PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_Y, stage.getY());
-        });
     }
     
     private void onActionCloseRequest() {

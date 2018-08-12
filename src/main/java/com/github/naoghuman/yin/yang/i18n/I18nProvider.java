@@ -16,16 +16,23 @@
  */
 package com.github.naoghuman.yin.yang.i18n;
 
+import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import java.util.Locale;
 import java.util.Optional;
+import javafx.event.ActionEvent;
 
 /**
  *
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18nProvider implements I18nRegister {
-    
+public final class I18nProvider implements 
+        EventConfiguration, I18nRegister, PreferencesConfiguration
+{
     private static final Optional<I18nProvider> INSTANCE = Optional.of(new I18nProvider());
     
     public static final I18nProvider getDefault() {
@@ -52,6 +59,26 @@ public final class I18nProvider implements I18nRegister {
         return I18nYinYang.getDefault();
     }
     
+    private void onActionLoadLanguageFromProperties() {
+        LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.onActionLoadLanguageFromProperties(String)"); // NOI18N
+
+        // Load locale
+        Locale locale = Locale.ENGLISH;
+        final String language = PreferencesFacade.getDefault().get(PREF__I18N__LANGUAGE, PREF__I18N__LANGUAGE_DEFAULT_VALUE);
+        switch(language) {
+            case PREF__I18N__LANGUAGE_ENGLISH: { locale = Locale.ENGLISH; break; }
+            case PREF__I18N__LANGUAGE_GERMAN:  { locale = Locale.GERMAN;  break; }
+        }
+        
+        // Set locale
+        I18nOptions.getDefault().setLanguage(locale);
+        I18nYinYang.getDefault().setLanguage(locale);
+        
+        // Update gui
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE_LANGUAGE__OPTIONS);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS);
+    }
+    
     @Override
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "I18nProvider.register()"); // NOI18N
@@ -59,6 +86,18 @@ public final class I18nProvider implements I18nRegister {
         I18nApplication.getDefault().register();
         I18nOptions.getDefault().register();
         I18nYinYang.getDefault().register();
+        
+        this.registerOnActionLoadLanguageFromProperties();
+    }
+
+    private void registerOnActionLoadLanguageFromProperties() {
+        LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.registerOnActionLoadLanguageFromProperties()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES,
+                (ActionEvent event) -> {
+                    this.onActionLoadLanguageFromProperties();
+                });
     }
     
 }
