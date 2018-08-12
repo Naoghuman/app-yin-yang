@@ -7,10 +7,15 @@ aso..
 
 
 #### Summary
+* Language
+    - The choosen language will now be persist and restored during the 
+      application start.
+* YinYangTerms
+    - In v0.2.0 now 30 pairs of yin-yang terms are available.
 * YinYangSymbol
-    * If during the runtime of the application the day changes in the year, then 
+    - If during the runtime of the application the day changes in the year, then 
       the rotation direction of the symbol adapts automatically.
-    * Depending from the month in year the symbol will be rotate slower or faster.
+    - Depending from the month in year the symbol will be rotate slower or faster.
 
 
 
