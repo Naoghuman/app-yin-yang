@@ -135,7 +135,8 @@ public final class YinYangTerms implements
             hbYinYangTerms.getChildren().add(lYinTerm);
             
             final String termYinYang = I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR, termIndex));
-            lYinTerm.setText(termYinYang.substring(0, termYinYang.indexOf(TERM_SEPERATOR)));
+            final String termYin     = this.extractYinTerm(termYinYang);
+            lYinTerm.setText(termYin);
         });
         st.getChildren().add(pt);
         
@@ -166,7 +167,8 @@ public final class YinYangTerms implements
             hbYinYangTerms.getChildren().add(lYangTerm);
             
             final String termYinYang = I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR, termIndex));
-            lYangTerm.setText(termYinYang.substring(termYinYang.indexOf(TERM_SEPERATOR) + 1, termYinYang.length()));
+            final String termYang    = this.extractYangTerm(termYinYang);
+            lYangTerm.setText(termYang);
         });
         st.getChildren().add(pt);
         
@@ -189,6 +191,14 @@ public final class YinYangTerms implements
         
         return st;
     }
+    
+    private String extractYangTerm(final String termYinYang) {
+        return termYinYang.substring(termYinYang.indexOf(TERM_SEPERATOR) + 1, termYinYang.length());
+    }
+    
+    private String extractYinTerm(final String termYinYang) {
+        return termYinYang.substring(0, termYinYang.indexOf(TERM_SEPERATOR));
+    }
 
     public void onActionShowYinAndYangTerm() {
         // Comment out to avoid spawning messages
@@ -206,8 +216,11 @@ public final class YinYangTerms implements
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionUpdateLanguageYinYangTerms()"); // NOI18N
         
         final String termYinYang = I18nProvider.getDefault().getI18nYinYang().getProperty(String.format(I18N_KEY__YINYANG__TERM_NR, termIndex));
-        lYinTerm.setText( termYinYang.substring(0,                                       termYinYang.indexOf(TERM_SEPERATOR)));
-        lYangTerm.setText(termYinYang.substring(termYinYang.indexOf(TERM_SEPERATOR) + 1, termYinYang.length()));
+        final String termYin     = this.extractYinTerm(termYinYang);
+        lYinTerm.setText(termYin);
+        
+        final String termYang = this.extractYangTerm(termYinYang);
+        lYangTerm.setText(termYang);
     }
     
     private void onActionUpdateTermColors() {
