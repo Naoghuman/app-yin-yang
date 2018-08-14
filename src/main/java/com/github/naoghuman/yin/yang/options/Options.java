@@ -19,6 +19,7 @@ package com.github.naoghuman.yin.yang.options;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
+import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
@@ -29,6 +30,7 @@ import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Optional;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -54,6 +56,7 @@ public final class Options implements
     }
     
     private Button      bCloseApplication;
+    private CheckBox    cbAlwaysOnTop;
     private Circle      cOptionsBackground;
     private ComboBox    cbYangColors;
     private ComboBox    cbYinColors;
@@ -83,7 +86,7 @@ public final class Options implements
             final Label       lYinColors,         final ComboBox    cbYinColors,
             final Label       lYangColors,        final ComboBox    cbYangColors,
             final Label       lLanguages,         final RadioButton rbEnglishLanguage,
-            final RadioButton rbGermanLanguage
+            final RadioButton rbGermanLanguage,   final CheckBox    cbAlwaysOnTop
     ) {
         LoggerFacade.getDefault().debug(this.getClass(), "Options.configure()"); // NOI18N
         
@@ -98,6 +101,7 @@ public final class Options implements
         this.lLanguages         = lLanguages;
         this.rbEnglishLanguage  = rbEnglishLanguage;
         this.rbGermanLanguage   = rbGermanLanguage;
+        this.cbAlwaysOnTop      = cbAlwaysOnTop;
         
         this.configureOptions();
         
@@ -129,6 +133,23 @@ public final class Options implements
         }
         
         ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
+        
+        // Always on top
+        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, PREF__APPLICATION__ALWAYS_ON_TOP_DEFAULT_VALUE);
+        cbAlwaysOnTop.setSelected(alwaysOnTop);
+    }
+
+    public void onActionChangeAlwaysOnTop() {
+        LoggerFacade.getDefault().info(this.getClass(), "Options.onActionChangeAlwaysOnTop()"); // NOI18N
+
+        final boolean alwaysOnTop = cbAlwaysOnTop.isSelected();
+        PreferencesFacade.getDefault().putBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, alwaysOnTop);
+        
+        ActionHandlerFacade.getDefault()
+                .handle(TransferDataBuilder.create()
+                        .actionId(ON_ACTION__CHANGE__ALWAYS_ON_TOP)
+                        .booleanValue(alwaysOnTop)
+                        .build());
     }
     
     /**
@@ -192,6 +213,10 @@ public final class Options implements
         
         rbGermanLanguage.setManaged(showOptions);
         rbGermanLanguage.setVisible(showOptions);
+        
+        // Always on top
+        cbAlwaysOnTop.setManaged(showOptions);
+        cbAlwaysOnTop.setVisible(showOptions);
     }
     
     private void onActionUpdateLanguageOptions() {

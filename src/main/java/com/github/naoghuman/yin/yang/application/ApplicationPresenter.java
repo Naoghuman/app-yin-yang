@@ -28,6 +28,7 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -47,6 +48,7 @@ public class ApplicationPresenter implements
 {
     @FXML private AnchorPane  apApplication;
     @FXML private Button      bCloseApplication;
+    @FXML private CheckBox    cbAlwaysOnTop;
     @FXML private Circle      cOptionsBackground;
     @FXML private ComboBox    cbYangColors;
     @FXML private ComboBox    cbYinColors;
@@ -71,13 +73,20 @@ public class ApplicationPresenter implements
         Options.getDefault().configure(
                 cOptionsBackground, bCloseApplication, bSeparator1, 
                 lYinYangColors, lYinColors, cbYinColors, lYangColors, 
-                cbYangColors, lLanguages, rbEnglishLanguage, rbGermanLanguage);
+                cbYangColors, lLanguages, rbEnglishLanguage, rbGermanLanguage,
+                cbAlwaysOnTop);
         
         YinYangSymbol.getDefault().configure(apApplication);
         YinYangSymbol.getDefault().onActionStartYinYangRotation();
         
         YinYangTerms.getDefault().configure(hbYinYangTerms, lYinTerm, lYangTerm);
         YinYangTerms.getDefault().onActionShowYinAndYangTerm();
+    }
+    
+    public void onActionChangeAlwaysOnTop() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeAlwaysOnTop()"); // NOI18N
+        
+        Options.getDefault().onActionChangeAlwaysOnTop();
     }
     
     public void onActionChangeLanguage() {

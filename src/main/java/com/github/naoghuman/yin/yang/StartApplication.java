@@ -65,7 +65,7 @@ public class StartApplication extends Application implements
     public void init() throws Exception {
         super.init();
         
-        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.init()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.init()"); // NOI18N
         
         I18nProvider.getDefault().register();
         
@@ -85,7 +85,7 @@ public class StartApplication extends Application implements
     
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.start(Stage)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.start(Stage)"); // NOI18N
         
         stage = primaryStage;
         
@@ -100,6 +100,8 @@ public class StartApplication extends Application implements
         final Scene           scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
         
+        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, PREF__APPLICATION__ALWAYS_ON_TOP_DEFAULT_VALUE);
+        stage.setAlwaysOnTop(alwaysOnTop);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle(I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
                 + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION));
@@ -108,6 +110,14 @@ public class StartApplication extends Application implements
         this.onActionSetApplicationPosition();
         
         stage.show();
+    }
+    
+    private void onActionChangeAlwaysOnTop(final boolean alwaysOnTop) {
+        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionChangeAlwaysOnTop()"); // NOI18N
+        
+        Platform.runLater(() -> {
+            stage.setAlwaysOnTop(alwaysOnTop);
+        });
     }
     
     private void onActionCloseRequest() {
@@ -147,7 +157,7 @@ public class StartApplication extends Application implements
     }
     
     private void onActionSetApplicationPosition() {
-        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onActionSetApplicationPosition()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionSetApplicationPosition()"); // NOI18N
         
         // X
         final double x = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_X, PREF__APPLICATION__POSITION_X_DEFAULT_VALUE);
@@ -173,7 +183,7 @@ public class StartApplication extends Application implements
     }
     
     private void onMousePressed(final MouseEvent mouseEvent) {
-        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMousePressed(MouseEvent)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onMousePressed(MouseEvent)"); // NOI18N
         
         xOffset = mouseEvent.getSceneX();
         yOffset = mouseEvent.getSceneY();
@@ -181,11 +191,31 @@ public class StartApplication extends Application implements
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.register()"); // NOI18N
         
+        this.registerOnActionChangeAlwaysOnTop();
         this.registerOnActionCloseRequest();
         this.registerOnMouseDragged();
         this.registerOnMousePressed();
+    }
+    
+    private void registerOnActionChangeAlwaysOnTop() {
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.registerOnActionChangeAlwaysOnTop()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__CHANGE__ALWAYS_ON_TOP,
+                (ActionEvent event) -> {
+                    
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData     transferData = (TransferData) source;
+                        final Optional<Boolean> optional     = transferData.getBoolean();
+                        if(optional.isPresent()) {
+                            final boolean alwaysOnTop = optional.get();
+                            this.onActionChangeAlwaysOnTop(alwaysOnTop);
+                        }
+                    }
+                });
     }
     
     private void registerOnActionCloseRequest() {

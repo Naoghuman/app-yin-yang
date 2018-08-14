@@ -402,7 +402,7 @@ public final class YinYangSymbol implements
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.registerOnActionChangeColorYangSymbol()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHANGE_COLOR__YANG_SYMBOL,
+                ON_ACTION__CHANGE__COLOR_YANG_SYMBOL,
                 (ActionEvent event) -> {
                     final Object source = event.getSource();
                     if (source instanceof TransferData) {
@@ -420,7 +420,7 @@ public final class YinYangSymbol implements
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.registerOnActionChangeColorYinSymbol()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHANGE_COLOR__YIN_SYMBOL,
+                ON_ACTION__CHANGE__COLOR_YIN_SYMBOL,
                 (ActionEvent event) -> {
                     final Object source = event.getSource();
                     if (source instanceof TransferData) {

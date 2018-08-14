@@ -254,8 +254,8 @@ public final class ColorComboBox implements EventConfiguration {
                 // Update Yin-, YangSymbol color
                 String actionId = ON_ACTION__UNKNOWN_ACTION;
                 switch(type) {
-                    case YANG_SYMBOL: { actionId = ON_ACTION__CHANGE_COLOR__YANG_SYMBOL; break; }
-                    case YIN_SYMBOL:  { actionId = ON_ACTION__CHANGE_COLOR__YIN_SYMBOL;  break;}
+                    case YANG_SYMBOL: { actionId = ON_ACTION__CHANGE__COLOR_YANG_SYMBOL; break; }
+                    case YIN_SYMBOL:  { actionId = ON_ACTION__CHANGE__COLOR_YIN_SYMBOL;  break;}
                 }
                 
                 ActionHandlerFacade.getDefault()

@@ -1,5 +1,5 @@
 --------------------------------------------------------------------------------
-Features v0.1.0
+Features v0.3.0
 --------------------------------------------------------------------------------
 Application
 - Transparent borderless application.
@@ -40,6 +40,8 @@ Options
    - The user choose will be saved to the file Preferences.properties and 
      restored during the next application start.
 - User can choose between 'English' and 'German' language.
+- User can choose if the application is always on top or not. Always on top 
+  means that the application is always in front for other applications.
 
 --------------------------------------------------------------------------------
 

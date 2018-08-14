@@ -24,10 +24,12 @@ package com.github.naoghuman.yin.yang.configuration;
 public interface PreferencesConfiguration {
     
     // Application
-    public static final String PREF__APPLICATION__POSITION_X                 = "PREF__APPLICATION__POSITION_X"; // NOI18N
-    public static final double PREF__APPLICATION__POSITION_X_DEFAULT_VALUE   = 0.0d;
-    public static final String PREF__APPLICATION__POSITION_Y                 = "PREF__APPLICATION__POSITION_Y"; // NOI18N
-    public static final double PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE   = 0.0d;
+    public static final String  PREF__APPLICATION__ALWAYS_ON_TOP               = "PREF__APPLICATION__ALWAYS_ON_TOP"; // NOI18N
+    public static final boolean PREF__APPLICATION__ALWAYS_ON_TOP_DEFAULT_VALUE = Boolean.TRUE;
+    public static final String  PREF__APPLICATION__POSITION_X                  = "PREF__APPLICATION__POSITION_X"; // NOI18N
+    public static final double  PREF__APPLICATION__POSITION_X_DEFAULT_VALUE    = 0.0d;
+    public static final String  PREF__APPLICATION__POSITION_Y                  = "PREF__APPLICATION__POSITION_Y"; // NOI18N
+    public static final double  PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE    = 0.0d;
     
     // Language
     public static final String PREF__I18N__LANGUAGE               = "PREF__I18N__LANGUAGE"; // NOI18N

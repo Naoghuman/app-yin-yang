@@ -20,7 +20,8 @@ Content
 * [Features](#Features)
     - [Borderless application](#BordAppl)
     - [Multilingualism application](#MultAppl)
-    - [JavaFX animations](#JavaAnim)
+    - [Always on top](#AlwaOnTop)
+    - [Animations](#Anim)
     - [Action event handling](#ActiEvenHand)
     - [Simple data storage](#SimpDataStor)
 * [Contribution](#Contribution)
@@ -47,7 +48,13 @@ TODO
 TODO
 
 
-### JavaFX animations<a name="JavaAnim" />
+### Always on top<a name="AlwaOnTop" />
+
+TODO
+
+
+
+### Animations<a name="Anim" />
 
 TODO
 

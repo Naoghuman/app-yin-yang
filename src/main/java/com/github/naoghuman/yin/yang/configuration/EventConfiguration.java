@@ -23,8 +23,9 @@ package com.github.naoghuman.yin.yang.configuration;
  */
 public interface EventConfiguration {
 
-    public static final String ON_ACTION__CHANGE_COLOR__YANG_SYMBOL      = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
-    public static final String ON_ACTION__CHANGE_COLOR__YIN_SYMBOL       = "ON_ACTION__CHANGE_COLOR__YIN_SYMBOL"; // NOI18N
+    public static final String ON_ACTION__CHANGE__ALWAYS_ON_TOP          = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
+    public static final String ON_ACTION__CHANGE__COLOR_YANG_SYMBOL      = "ON_ACTION__CHANGE__COLOR_YANG_SYMBOL"; // NOI18N
+    public static final String ON_ACTION__CHANGE__COLOR_YIN_SYMBOL       = "ON_ACTION__CHANGE__COLOR_YIN_SYMBOL"; // NOI18N
     public static final String ON_ACTION__CLOSE_REQUEST                  = "ON_ACTION__CLOSE_REQUEST"; // NOI18N
     public static final String ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES = "ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES"; // NOI18N
     public static final String ON_ACTION__SHOW_OPTIONS                   = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
