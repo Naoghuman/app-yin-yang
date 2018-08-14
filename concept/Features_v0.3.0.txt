@@ -3,10 +3,10 @@ Features v0.3.0
 --------------------------------------------------------------------------------
 Application
 - Transparent borderless application.
-- D&D from the application.
-   - D&D starts with STRG + left mouseclick.
-   - Then move the application with STRG + left mousebutton pressed.
-   - Release STRG + left mousebutton stops D&D.
+- D&d from the application.
+   - D&d starts with left mouseclick.
+   - Then move the application with left mousebutton pressed.
+   - Release left mousebutton to stop the d&d.
    - The last position will be saved to the file Preferences.properties and 
      restored during the next application start.
 - Mouseover(-exit) the TaiChiSymbol blend in(out) the options.

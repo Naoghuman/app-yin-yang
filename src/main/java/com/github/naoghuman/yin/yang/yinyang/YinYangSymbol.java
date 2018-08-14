@@ -235,10 +235,7 @@ public final class YinYangSymbol implements
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinSymbolMouseListeners()"); // NOI18N
         
         yinSymbol.setOnMouseDragged((event) -> {
-            if (
-                    event.getButton() == MouseButton.PRIMARY
-                    && event.isControlDown()
-            ) {
+            if (event.getButton() == MouseButton.PRIMARY) {
                 ActionHandlerFacade.getDefault()
                         .handle(TransferDataBuilder.create()
                                 .actionId(ON_MOUSE__DRAGGED)
@@ -276,7 +273,6 @@ public final class YinYangSymbol implements
             if (
                     event.getButton() == MouseButton.PRIMARY
                     && event.isPrimaryButtonDown()
-                    && event.isControlDown()
             ) {
                 yinSymbol.setCursor(Cursor.MOVE);
                 
@@ -289,10 +285,7 @@ public final class YinYangSymbol implements
         });
         
         yinSymbol.setOnMouseReleased((event) -> {
-            if (
-                    event.getButton() == MouseButton.PRIMARY
-                    && event.isControlDown()
-            ) {
+            if (event.getButton() == MouseButton.PRIMARY) {
                 yinSymbol.setCursor(Cursor.DEFAULT);
             }
         });
