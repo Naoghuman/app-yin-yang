@@ -35,6 +35,7 @@ YinYangTerm
  - Now 30 terms (yin-yang pairs) are supported.
 
 Options
+- Button '_' minimize the application.
 - Button 'X' close the application.
 - User can choose the Yin-, Yang-Color in the corresponding ComboBox.
    - The user choose will be saved to the file Preferences.properties and 

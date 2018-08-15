@@ -36,7 +36,7 @@
             </children>
         </HBox>
         <Circle fx:id="cOptionsBackground" centerX="165.0" centerY="165.0" fill="DODGERBLUE" mouseTransparent="true" radius="160.0" stroke="BLACK" strokeType="INSIDE" />
-        <Button fx:id="bCloseApplication" layoutX="143.0" layoutY="23.0" mnemonicParsing="false" onAction="#onActionCloseRequest" text="X" />
+        <Button fx:id="bCloseApplication" layoutX="160.0" layoutY="23.0" mnemonicParsing="false" onAction="#onActionCloseApplication" text="X" />
         <Separator fx:id="bSeparator1" layoutX="44.0" layoutY="57.0" prefHeight="15.0" prefWidth="222.0" AnchorPane.topAnchor="57.0" />
         <Label fx:id="lYinYangColors" layoutX="138.0" layoutY="72.0" text="Colors" />
         <Label fx:id="lYinColors" layoutX="29.0" layoutY="91.0" text="Yin" />
@@ -50,6 +50,7 @@
             </toggleGroup>
         </RadioButton>
         <RadioButton fx:id="rbGermanLanguage" layoutX="165.0" layoutY="166.0" mnemonicParsing="false" onAction="#onActionChangeLanguage" text="German" toggleGroup="$tgLanguages" />
-      <CheckBox fx:id="cbAlwaysOnTop" layoutX="110.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionChangeAlwaysOnTop" text="Always on top" />
+        <CheckBox fx:id="cbAlwaysOnTop" layoutX="110.0" layoutY="200.0" mnemonicParsing="false" onAction="#onActionChangeAlwaysOnTop" text="Always on top" />
+        <Button fx:id="bMinimizeApplication" layoutX="128.0" layoutY="23.0" mnemonicParsing="false" onAction="#onActionMinimizeApplication" text="_" />
     </children>
 </AnchorPane>

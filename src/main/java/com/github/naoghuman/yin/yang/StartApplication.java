@@ -97,7 +97,8 @@ public class StartApplication extends Application implements
         });
         
         final ApplicationView view  = new ApplicationView();
-        final Scene           scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
+//        final Application2View view  = new Application2View();
+        final Scene            scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
         
         final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, PREF__APPLICATION__ALWAYS_ON_TOP_DEFAULT_VALUE);
@@ -120,7 +121,7 @@ public class StartApplication extends Application implements
         });
     }
     
-    private void onActionCloseRequest() {
+    private void onActionCloseApplication() {
         LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionCloseRequest()"); // NOI18N
         
         // afterburner.fx
@@ -141,6 +142,14 @@ public class StartApplication extends Application implements
         });
         
         pt.playFromStart();
+    }
+    
+    public void onActionMinimizeApplication() {
+        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionMinimizeApplication()"); // NOI18N
+        
+        Platform.runLater(() -> {
+            stage.setIconified(Boolean.TRUE);
+        });
     }
     
     private void onActionSavePositionToPreferences() {
@@ -194,7 +203,8 @@ public class StartApplication extends Application implements
         LoggerFacade.getDefault().info(this.getClass(), "StartApplication.register()"); // NOI18N
         
         this.registerOnActionChangeAlwaysOnTop();
-        this.registerOnActionCloseRequest();
+        this.registerOnActionCloseApplication();
+        this.registerOnActionMinimizeApplication();
         this.registerOnMouseDragged();
         this.registerOnMousePressed();
     }
@@ -218,13 +228,23 @@ public class StartApplication extends Application implements
                 });
     }
     
-    private void registerOnActionCloseRequest() {
-        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.registerOnActionCloseRequest()"); // NOI18N
+    private void registerOnActionCloseApplication() {
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.registerOnActionCloseApplication()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CLOSE_REQUEST,
+                ON_ACTION__CLOSE_APPLICATION,
                 (ActionEvent event) -> {
-                    this.onActionCloseRequest();
+                    this.onActionCloseApplication();
+                });
+    }
+    
+    private void registerOnActionMinimizeApplication() {
+        LoggerFacade.getDefault().info(this.getClass(), "StartApplication.registerOnActionMinimizeApplication()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__MINIMIZE_APPLICATION,
+                (ActionEvent event) -> {
+                    this.onActionMinimizeApplication();
                 });
     }
 

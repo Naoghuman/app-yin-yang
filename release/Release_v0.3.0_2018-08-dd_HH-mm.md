@@ -7,9 +7,10 @@ aso..
 
 
 #### Summary
-* aa
-* bb
-* cc
+* User have a new option 'always on top'. Selecting this options shows always 
+  the application in front from others applications.
+* The user can now d&d the application without the STRG key.
+* Click on the '_' button minimize the application.
 
 
 

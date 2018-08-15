@@ -55,6 +55,7 @@ public final class Options implements
         return INSTANCE.get();
     }
     
+    private Button      bMinimizeApplication;
     private Button      bCloseApplication;
     private CheckBox    cbAlwaysOnTop;
     private Circle      cOptionsBackground;
@@ -81,27 +82,29 @@ public final class Options implements
     }
     
     public void configure(
-            final Circle      cOptionsBackground, final Button      bCloseApplication,
-            final Separator   bSeparator1,        final Label       lYinYangColors,
-            final Label       lYinColors,         final ComboBox    cbYinColors,
-            final Label       lYangColors,        final ComboBox    cbYangColors,
-            final Label       lLanguages,         final RadioButton rbEnglishLanguage,
-            final RadioButton rbGermanLanguage,   final CheckBox    cbAlwaysOnTop
+            final Circle      cOptionsBackground, final Button      bMinimizeApplication,
+            final Button      bCloseApplication,  final Separator   bSeparator1,
+            final Label       lYinYangColors,     final Label       lYinColors,
+            final ComboBox    cbYinColors,        final Label       lYangColors,
+            final ComboBox    cbYangColors,       final Label       lLanguages,
+            final RadioButton rbEnglishLanguage,  final RadioButton rbGermanLanguage,
+            final CheckBox    cbAlwaysOnTop
     ) {
         LoggerFacade.getDefault().debug(this.getClass(), "Options.configure()"); // NOI18N
         
-        this.cOptionsBackground = cOptionsBackground;
-        this.bCloseApplication  = bCloseApplication;
-        this.bSeparator1        = bSeparator1;
-        this.lYinYangColors     = lYinYangColors;
-        this.lYinColors         = lYinColors;
-        this.cbYinColors        = cbYinColors;
-        this.lYangColors        = lYangColors;
-        this.cbYangColors       = cbYangColors;
-        this.lLanguages         = lLanguages;
-        this.rbEnglishLanguage  = rbEnglishLanguage;
-        this.rbGermanLanguage   = rbGermanLanguage;
-        this.cbAlwaysOnTop      = cbAlwaysOnTop;
+        this.cOptionsBackground   = cOptionsBackground;
+        this.bMinimizeApplication = bMinimizeApplication;
+        this.bCloseApplication    = bCloseApplication;
+        this.bSeparator1          = bSeparator1;
+        this.lYinYangColors       = lYinYangColors;
+        this.lYinColors           = lYinColors;
+        this.cbYinColors          = cbYinColors;
+        this.lYangColors          = lYangColors;
+        this.cbYangColors         = cbYangColors;
+        this.lLanguages           = lLanguages;
+        this.rbEnglishLanguage    = rbEnglishLanguage;
+        this.rbGermanLanguage     = rbGermanLanguage;
+        this.cbAlwaysOnTop        = cbAlwaysOnTop;
         
         this.configureOptions();
         
@@ -183,7 +186,9 @@ public final class Options implements
         cOptionsBackground.setManaged(showOptions);
         cOptionsBackground.setVisible(showOptions);
         
-        // Close
+        // Actioons
+        bMinimizeApplication.setManaged(showOptions);
+        bMinimizeApplication.setVisible(showOptions);
         bCloseApplication.setManaged(showOptions);
         bCloseApplication.setVisible(showOptions);
         

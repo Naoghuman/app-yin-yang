@@ -17,14 +17,17 @@
 package com.github.naoghuman.yin.yang.application;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import static com.github.naoghuman.yin.yang.configuration.EventConfiguration.ON_ACTION__SHOW_OPTIONS;
 import com.github.naoghuman.yin.yang.options.Options;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -48,6 +51,7 @@ public class ApplicationPresenter implements
 {
     @FXML private AnchorPane  apApplication;
     @FXML private Button      bCloseApplication;
+    @FXML private Button      bMinimizeApplication;
     @FXML private CheckBox    cbAlwaysOnTop;
     @FXML private Circle      cOptionsBackground;
     @FXML private ComboBox    cbYangColors;
@@ -71,9 +75,10 @@ public class ApplicationPresenter implements
 //        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
         
         Options.getDefault().configure(
-                cOptionsBackground, bCloseApplication, bSeparator1, 
-                lYinYangColors, lYinColors, cbYinColors, lYangColors, 
-                cbYangColors, lLanguages, rbEnglishLanguage, rbGermanLanguage,
+                cOptionsBackground, bMinimizeApplication, bCloseApplication,
+                bSeparator1,        lYinYangColors,       lYinColors,
+                cbYinColors,        lYangColors,          cbYangColors,
+                lLanguages,         rbEnglishLanguage,    rbGermanLanguage,
                 cbAlwaysOnTop);
         
         YinYangSymbol.getDefault().configure(apApplication);
@@ -95,10 +100,32 @@ public class ApplicationPresenter implements
         Options.getDefault().onActionChangeLanguage();
     }
     
-    public void onActionCloseRequest() {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionCloseRequest()"); // NOI18N
+    public void onActionCloseApplication() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionCloseApplication()"); // NOI18N
     
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__CLOSE_REQUEST);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__CLOSE_APPLICATION);
+    }
+    
+    public void onActionMinimizeApplication() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionMinimizeApplication()"); // NOI18N
+    
+        // Minimize the application
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__MINIMIZE_APPLICATION);
+        
+        // Hide the options
+        final PauseTransition pt = new PauseTransition();
+        pt.setDuration(DURATION__125);
+        pt.setOnFinished((event) -> {
+            // Hide it a little later (mouseover)
+            final boolean showOptions = Boolean.FALSE;
+            ActionHandlerFacade.getDefault()
+                    .handle(TransferDataBuilder.create()
+                            .actionId(ON_ACTION__SHOW_OPTIONS)
+                            .booleanValue(showOptions)
+                            .build());
+        });
+        
+        pt.playFromStart();
     }
     
 }

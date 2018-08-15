@@ -26,8 +26,9 @@ public interface EventConfiguration {
     public static final String ON_ACTION__CHANGE__ALWAYS_ON_TOP          = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
     public static final String ON_ACTION__CHANGE__COLOR_YANG_SYMBOL      = "ON_ACTION__CHANGE__COLOR_YANG_SYMBOL"; // NOI18N
     public static final String ON_ACTION__CHANGE__COLOR_YIN_SYMBOL       = "ON_ACTION__CHANGE__COLOR_YIN_SYMBOL"; // NOI18N
-    public static final String ON_ACTION__CLOSE_REQUEST                  = "ON_ACTION__CLOSE_REQUEST"; // NOI18N
+    public static final String ON_ACTION__CLOSE_APPLICATION              = "ON_ACTION__CLOSE_APPLICATION"; // NOI18N
     public static final String ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES = "ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES"; // NOI18N
+    public static final String ON_ACTION__MINIMIZE_APPLICATION           = "ON_ACTION__MINIMIZE_APPLICATION"; // NOI18N
     public static final String ON_ACTION__SHOW_OPTIONS                   = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
     public static final String ON_ACTION__UNKNOWN_ACTION                 = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
     public static final String ON_ACTION__UPDATE_LANGUAGE__OPTIONS       = "ON_ACTION__UPDATE_LANGUAGE__OPTIONS"; // NOI18N
