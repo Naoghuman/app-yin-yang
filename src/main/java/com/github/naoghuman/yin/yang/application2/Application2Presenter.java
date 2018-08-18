@@ -23,10 +23,12 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorConverter;
-import static com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration.DURATION__125;
+import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
+import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.options.OptionsView;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import java.net.URL;
@@ -51,8 +53,9 @@ import javafx.stage.Modality;
  * @author PRo
  */
 public class Application2Presenter implements 
-        EventConfiguration, Initializable, PreferencesConfiguration,
-        RegisterActions, YinYangConfiguration
+        ApplicationConfiguration, EventConfiguration, Initializable,
+        I18nConfiguration, PreferencesConfiguration, RegisterActions,
+        YinYangConfiguration
 {
     private static final String STYLE__BACKGROUND_COLOR_RADIUS = "-fx-background-color:%s;-fx-background-radius:5.0;"; // NOI18N
     
@@ -149,18 +152,19 @@ public class Application2Presenter implements
     
     public void onActionShowOptionDialog() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionShowOptionDialog()"); // NOI18N
-    
+        
         final Dialog<String> dialog = new Dialog<>();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.setTitle("Options"); // TODO load from preferences
+        dialog.setTitle(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__DIALOG_TITLE)));
         dialog.setWidth(400.0d);
         dialog.setHeight(300.0d);
         dialog.setResizable(Boolean.FALSE);
         
         final OptionsView view = new OptionsView();
         dialog.getDialogPane().setContent(view.getView());
-         // TODO load from preferences
-        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+        final ButtonType buttonTypeOk = new ButtonType(
+                I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__DIALOG_BUTTON)),
+                ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
         
         dialog.showAndWait();

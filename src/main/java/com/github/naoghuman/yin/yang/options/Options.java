@@ -227,13 +227,13 @@ public final class Options implements
     private void onActionUpdateLanguageOptions() {
         LoggerFacade.getDefault().info(this.getClass(), "Options.onActionUpdateLanguageOptions()"); // NOI18N
         
-        lYinYangColors.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTIONS__COLORS)));
-        lYangColors.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTIONS__YANG_COLOR)));
-        lYinColors.setText(    I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTIONS__YIN_COLOR)));
+        lYinYangColors.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__COLORS)));
+        lYangColors.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YANG_COLOR)));
+        lYinColors.setText(    I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YIN_COLOR)));
         
-        lLanguages.setText(       I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTIONS__LANGUAGES)));
-        rbEnglishLanguage.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTIONS__LANGUAGE_ENGLISH)));
-        rbGermanLanguage.setText( I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTIONS__LANGUAGE_GERMAN)));
+        lLanguages.setText(       I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGES)));
+        rbEnglishLanguage.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_ENGLISH)));
+        rbGermanLanguage.setText( I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_GERMAN)));
     }
     
     @Override
