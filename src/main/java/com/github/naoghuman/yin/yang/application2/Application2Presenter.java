@@ -27,6 +27,7 @@ import static com.github.naoghuman.yin.yang.configuration.ApplicationConfigurati
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
+import com.github.naoghuman.yin.yang.options.OptionsView;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import java.net.URL;
 import java.time.LocalDate;
@@ -38,8 +39,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
 
 /**
  *
@@ -145,7 +150,20 @@ public class Application2Presenter implements
     public void onActionShowOptionDialog() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionShowOptionDialog()"); // NOI18N
     
+        final Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.setTitle("Options"); // TODO load from preferences
+        dialog.setWidth(400.0d);
+        dialog.setHeight(300.0d);
+        dialog.setResizable(Boolean.FALSE);
         
+        final OptionsView view = new OptionsView();
+        dialog.getDialogPane().setContent(view.getView());
+         // TODO load from preferences
+        final ButtonType buttonTypeOk = new ButtonType("Okay", ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        
+        dialog.showAndWait();
     }
     
     private void onActionShowOptionMenu(final boolean showOptionMenu) {
