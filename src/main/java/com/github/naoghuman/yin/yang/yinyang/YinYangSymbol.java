@@ -40,6 +40,7 @@ import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.ArcType;
@@ -69,8 +70,8 @@ public final class YinYangSymbol implements
         return INSTANCE.get();
     }
     
-    private double centerXtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
-    private double centerYtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
+    private double centerXtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
+    private double centerYtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
     private double diameterTheOne      = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
     private double radiusLittleYinYang = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
     
@@ -100,9 +101,12 @@ public final class YinYangSymbol implements
          *
          */
         diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__YINYANG__SYMBOL_DIAMETER, PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
-        centerXtheOne       = diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
-        centerYtheOne       = diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER;
+        centerXtheOne       = diameterTheOne / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
+        centerYtheOne       = 50; //diameterTheOne / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
         radiusLittleYinYang = diameterTheOne / 8.0d / 2.0d;
+        
+        System.out.println("cx: " + centerXtheOne);
+        System.out.println("cy: " + centerYtheOne);
         
         this.initializeLittleYinSymbol();
         this.initializeYinSymbol();
@@ -139,7 +143,7 @@ public final class YinYangSymbol implements
         LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinYangRotation()"); // NOI18N
         
         // Rotation
-        rotation = new Rotate();
+        rotation = new Rotate();//0, diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER, diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER);
         rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
         rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
         
@@ -189,15 +193,22 @@ public final class YinYangSymbol implements
         halfYangSymbol.setLength(180.0f);
         halfYangSymbol.setType(ArcType.CHORD);
         
+//        Circle dummy = new Circle();
+//        dummy.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
+//        dummy.setCenterX(centerXtheOne);
+//        dummy.setCenterY(centerYtheOne + diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
+//        dummy.setFill(Color.BLUE);
+//        yangSymbol = Shape.union(halfYangSymbol, dummy);
+        
         Circle littleAddCirle = new Circle();
-        littleAddCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2);
-        littleAddCirle.setCenterX(centerXtheOne + diameterTheOne / 4.0d - STROKE_WIDTH / 2);
+        littleAddCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
+        littleAddCirle.setCenterX(centerXtheOne + diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
         littleAddCirle.setCenterY(centerYtheOne);
         yangSymbol = Shape.union(halfYangSymbol, littleAddCirle);
         
         Circle littleMinusCirle = new Circle();
-        littleMinusCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2);
-        littleMinusCirle.setCenterX(centerXtheOne - diameterTheOne / 4.0d + STROKE_WIDTH / 2);
+        littleMinusCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
+        littleMinusCirle.setCenterX(centerXtheOne - diameterTheOne / 4.0d + STROKE_WIDTH / 2.0d);
         littleMinusCirle.setCenterY(centerYtheOne);
         yangSymbol = Shape.subtract(yangSymbol, littleMinusCirle);
         
@@ -208,8 +219,9 @@ public final class YinYangSymbol implements
         yangSymbol = Shape.union(yangSymbol, littleYangSymbol);
         
         // Tweak the ready YangSymbol
-        yangSymbol.setFill(Color.LIGHTGREEN);
+//        yangSymbol.setFill(Color.LIGHTGREEN);
         yangSymbol.setMouseTransparent(Boolean.TRUE);
+        yangSymbol.setTranslateY(yangSymbol.getTranslateY() + -littleAddCirle.getRadius() / 2);
     }
 
     private void initializeYinSymbol() {
@@ -218,8 +230,8 @@ public final class YinYangSymbol implements
         yinSymbol = new Circle();
         yinSymbol.setCursor(Cursor.DEFAULT);
         yinSymbol.setRadius(diameterTheOne / 2.0d);
-        yinSymbol.setCenterX(centerXtheOne);
-        yinSymbol.setCenterY(centerYtheOne);
+//        yinSymbol.setCenterX(centerXtheOne);
+//        yinSymbol.setCenterY(centerYtheOne);
         
         final DropShadow glow = new DropShadow();
         glow.setOffsetY(0f);
@@ -302,6 +314,19 @@ public final class YinYangSymbol implements
         
         apApplication.getChildren().add(0, yinSymbol);
         apApplication.getChildren().add(1, yangSymbol);
+    }
+    
+    public void configure(final StackPane spApplication) {
+        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
+        
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
+        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
+        
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR, PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
+        
+        spApplication.getChildren().add(0, yinSymbol);
+        spApplication.getChildren().add(1, yangSymbol);
     }
     
     public Shape getYinSymbol() {

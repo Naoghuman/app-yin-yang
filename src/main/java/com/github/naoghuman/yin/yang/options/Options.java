@@ -186,7 +186,7 @@ public final class Options implements
         cOptionsBackground.setManaged(showOptions);
         cOptionsBackground.setVisible(showOptions);
         
-        // Actioons
+        // Actions
         bMinimizeApplication.setManaged(showOptions);
         bMinimizeApplication.setVisible(showOptions);
         bCloseApplication.setManaged(showOptions);
@@ -240,7 +240,7 @@ public final class Options implements
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "Options.register()"); // NOI18N
         
-        this.registerOnActionShowOptions();
+//        this.registerOnActionShowOptions();
         this.registerOnActionUpdateLanguageOptions();
     }
     

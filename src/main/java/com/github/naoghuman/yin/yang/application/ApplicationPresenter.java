@@ -21,7 +21,6 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import static com.github.naoghuman.yin.yang.configuration.EventConfiguration.ON_ACTION__SHOW_OPTIONS;
 import com.github.naoghuman.yin.yang.options.Options;
 import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
 import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
