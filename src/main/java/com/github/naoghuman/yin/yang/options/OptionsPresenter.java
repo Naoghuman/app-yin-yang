@@ -19,14 +19,20 @@ package com.github.naoghuman.yin.yang.options;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.yin.yang.color.ColorComboBox;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
+import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 
@@ -37,21 +43,26 @@ import javafx.scene.control.TabPane;
  */
 public class OptionsPresenter implements 
         EventConfiguration, I18nConfiguration, Initializable,
-        RegisterActions
+        PreferencesConfiguration, RegisterActions
 {
-    @FXML private Tab     tOptionAbout;
-    @FXML private Tab     tOptionColor;
-    @FXML private Tab     tOptionExtras;
-    @FXML private Tab     tOptionLanguage;
-    @FXML private Tab     tOptionSpeed;
-    @FXML private TabPane tpOptions;
+    @FXML private ComboBox    cbYangColors;
+    @FXML private ComboBox    cbYinColors;
+    @FXML private Label       lYangColors;
+    @FXML private Label       lYinColors;
+    @FXML private RadioButton rbSingleColors;
+    @FXML private Tab         tOptionAbout;
+    @FXML private Tab         tOptionColor;
+    @FXML private Tab         tOptionExtras;
+    @FXML private Tab         tOptionLanguage;
+    @FXML private Tab         tOptionSpeed;
+    @FXML private TabPane     tpOptions;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initialize(URL, ResourceBundle)"); // NOI18N
         
         this.initializeOptionTabPane();
-        this.initializeOptionTabs();
+        this.initializeOptionTabColor();
         
         this.register();
     }
@@ -61,9 +72,16 @@ public class OptionsPresenter implements
          
     }
     
-    private void initializeOptionTabs() {
-       LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabs()"); // NOI18N
-         
+    private void initializeOptionTabColor() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabColor()"); // NOI18N
+        
+        final ColorComboBox yangColorComboBox = new ColorComboBox();
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
+        yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
+        
+        final ColorComboBox yinColorComboBox = new ColorComboBox();
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR, PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     
     private void onActionUpdateLanguageInOptions() {

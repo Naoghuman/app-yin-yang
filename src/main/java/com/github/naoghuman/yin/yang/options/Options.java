@@ -265,7 +265,8 @@ public final class Options implements
     private void registerOnActionUpdateLanguageOptions() {
         LoggerFacade.getDefault().debug(this.getClass(), "Options.registerOnActionUpdateLanguageOptions()"); // NOI18N
         
-        ActionHandlerFacade.getDefault().register(ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS,
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS,
                 (ActionEvent event) -> {
                     this.onActionUpdateLanguageOptions();
                 });
