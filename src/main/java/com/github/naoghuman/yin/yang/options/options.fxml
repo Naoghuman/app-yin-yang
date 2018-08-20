@@ -1,7 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="120.0" style="-fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.options.OptionsPresenter">
+<AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.options.OptionsPresenter">
+    <children>
+        <TabPane fx:id="tpOptions" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+            <tabs>
+                <Tab fx:id="tOptionColor" text="Color">
+                </Tab>
+                <Tab fx:id="tOptionSpeed" text="Speed">
+                </Tab>
+                <Tab fx:id="tOptionLanguage" text="Language">
+                </Tab>
+                <Tab fx:id="tOptionExtras" text="Extras">
+                </Tab>
+            <Tab fx:id="tOptionAbout" closable="false" text="About" />
+            </tabs>
+        </TabPane>
+    </children>
 </AnchorPane>

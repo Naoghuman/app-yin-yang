@@ -155,15 +155,15 @@ public class Application2Presenter implements
         
         final Dialog<String> dialog = new Dialog<>();
         dialog.initModality(Modality.APPLICATION_MODAL);
-        dialog.setTitle(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__DIALOG_TITLE)));
-        dialog.setWidth(400.0d);
-        dialog.setHeight(300.0d);
+        dialog.setTitle(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TITLE)));
+        dialog.setWidth(800.0d);
+        dialog.setHeight(600.0d);
         dialog.setResizable(Boolean.FALSE);
         
         final OptionsView view = new OptionsView();
         dialog.getDialogPane().setContent(view.getView());
         final ButtonType buttonTypeOk = new ButtonType(
-                I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__DIALOG_BUTTON)),
+                I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__BUTTON)),
                 ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
         

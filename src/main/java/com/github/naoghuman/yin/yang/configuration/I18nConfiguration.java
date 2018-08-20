@@ -41,13 +41,19 @@ public interface I18nConfiguration {
     public static final String I18N_KEY__APPLICATION__VERSION        = "i18n.key.application.version"; // NOI18N
     
     public static final String I18N_KEY__OPTION__COLORS           = "i18n.key.option.colors"; // NOI18N
-    public static final String I18N_KEY__OPTION__DIALOG_BUTTON    = "i18n.key.option.dialog.button"; // NOI18N
-    public static final String I18N_KEY__OPTION__DIALOG_TITLE     = "i18n.key.option.dialog.title"; // NOI18N
     public static final String I18N_KEY__OPTION__LANGUAGES        = "i18n.key.option.languages"; // NOI18N
     public static final String I18N_KEY__OPTION__LANGUAGE_ENGLISH = "i18n.key.option.language.english"; // NOI18N
     public static final String I18N_KEY__OPTION__LANGUAGE_GERMAN  = "i18n.key.option.language.german"; // NOI18N
     public static final String I18N_KEY__OPTION__YANG_COLOR       = "i18n.key.option.yangcolor"; // NOI18N
     public static final String I18N_KEY__OPTION__YIN_COLOR        = "i18n.key.option.yincolor"; // NOI18N
+    
+    public static final String I18N_KEY__OPTION_DIALOG__BUTTON       = "i18n.key.option.dialog.button"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_ABOUT    = "i18n.key.option.dialog.tab.about"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_COLOR    = "i18n.key.option.dialog.tab.color"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_EXTRAS   = "i18n.key.option.dialog.tab.extras"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE = "i18n.key.option.dialog.tab.language"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_SPEED    = "i18n.key.option.dialog.tab.speed"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TITLE        = "i18n.key.option.dialog.title"; // NOI18N
     
     public static final String I18N_KEY__YINYANG__TERM_NR       = "i18n.key.yinyang.term.nr%d"; // NOI18N
     public static final String I18N_KEY__YINYANG__TERM_QUANTITY = "i18n.key.yinyang.term.quantity"; // NOI18N

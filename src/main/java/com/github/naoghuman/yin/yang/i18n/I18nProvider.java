@@ -75,7 +75,7 @@ public final class I18nProvider implements
         I18nYinYang.getDefault().setLanguage(locale);
         
         // Update gui
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE_LANGUAGE__OPTIONS);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS);
         ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS);
     }
     
