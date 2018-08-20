@@ -23,6 +23,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.application.ApplicationView;
+import com.github.naoghuman.yin.yang.application2.Application2Presenter;
 import com.github.naoghuman.yin.yang.application2.Application2View;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
@@ -98,7 +99,10 @@ public class StartApplication extends Application implements
         });
         
 //        final ApplicationView view  = new ApplicationView();
-        final Application2View view  = new Application2View();
+        final Application2View      view      = new Application2View();
+        final Application2Presenter presenter = view.getRealPresenter();
+        presenter.configure(stage);
+        
         final Scene            scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
         

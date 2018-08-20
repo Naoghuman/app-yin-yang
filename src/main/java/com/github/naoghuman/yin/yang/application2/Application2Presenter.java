@@ -47,6 +47,7 @@ import javafx.scene.control.Dialog;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
+import javafx.stage.Window;
 
 /**
  *
@@ -67,6 +68,8 @@ public class Application2Presenter implements
     @FXML private StackPane spApplication;
     
     private double diameterTheOne  = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
+    
+    private Window owner;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -122,6 +125,12 @@ public class Application2Presenter implements
         }
     }
     
+    public void configure(final Window owner) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.configure(Window)"); // NOI18N
+    
+        this.owner = owner;
+    }
+    
     public void onActionCloseApplication() {
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionCloseApplication()"); // NOI18N
     
@@ -155,6 +164,7 @@ public class Application2Presenter implements
         
         final Dialog<String> dialog = new Dialog<>();
         dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(owner);
         dialog.setTitle(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TITLE)));
         dialog.setWidth(800.0d);
         dialog.setHeight(600.0d);
