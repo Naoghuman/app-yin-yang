@@ -31,8 +31,8 @@ public interface EventConfiguration {
     public static final String ON_ACTION__MINIMIZE_APPLICATION           = "ON_ACTION__MINIMIZE_APPLICATION"; // NOI18N
     public static final String ON_ACTION__SHOW_OPTIONS                   = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
     public static final String ON_ACTION__UNKNOWN_ACTION                 = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
-    public static final String ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS    = "ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS"; // NOI18N
-    public static final String ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS = "ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS"; // NOI18N
+    public static final String ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG  = "ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG"; // NOI18N
+    public static final String ON_ACTION__UPDATE__LANGUAGE_IN_YINYANG_TERMS = "ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS"; // NOI18N
     public static final String ON_ACTION__UPDATE_TERM_COLORS             = "ON_ACTION__UPDATE_TERM_COLORS"; // NOI18N
     
     public static final String ON_MOUSE__DRAGGED = "ON_MOUSE__DRAGGED"; // NOI18N

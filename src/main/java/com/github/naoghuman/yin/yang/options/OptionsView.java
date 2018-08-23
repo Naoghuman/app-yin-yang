@@ -21,7 +21,7 @@ import com.airhacks.afterburner.views.FXMLView;
 /**
  *
  * @author Naoghuman
- * @since  0.2.0
+ * @since  0.3.0
  */
 public class OptionsView extends FXMLView {
     

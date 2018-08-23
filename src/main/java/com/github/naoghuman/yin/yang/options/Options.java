@@ -129,11 +129,11 @@ public final class Options implements
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
         
         // Language
-        final String language = PreferencesFacade.getDefault().get(PREF__I18N__LANGUAGE, PREF__I18N__LANGUAGE_DEFAULT_VALUE);
-        switch(language) {
-            case PREF__I18N__LANGUAGE_ENGLISH: { rbEnglishLanguage.setSelected(Boolean.TRUE); break; }
-            case PREF__I18N__LANGUAGE_GERMAN:  { rbGermanLanguage.setSelected(Boolean.TRUE);  break; }
-        }
+//        final String language = PreferencesFacade.getDefault().get(PREF__I18N__LANGUAGE, PREF__I18N__LANGUAGE_DEFAULT_VALUE);
+//        switch(language) {
+//            case PREF__I18N__LANGUAGE_ENGLISH: { rbEnglishLanguage.setSelected(Boolean.TRUE); break; }
+//            case PREF__I18N__LANGUAGE_GERMAN:  { rbGermanLanguage.setSelected(Boolean.TRUE);  break; }
+//        }
         
         ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
         
@@ -162,14 +162,14 @@ public final class Options implements
         LoggerFacade.getDefault().info(this.getClass(), "Options.onActionChangeLanguage()"); // NOI18N
         
         // Compute the new locale
-        String language = PREF__I18N__LANGUAGE_DEFAULT_VALUE;
-        if (rbEnglishLanguage.isSelected()) {
-            language = PREF__I18N__LANGUAGE_ENGLISH;
-        }
-        
-        if (rbGermanLanguage.isSelected()) {
-            language = PREF__I18N__LANGUAGE_GERMAN;
-        }
+        String language = ""; //PREF__I18N__LANGUAGE_DEFAULT_VALUE;
+//        if (rbEnglishLanguage.isSelected()) {
+//            language = PREF__I18N__LANGUAGE_ENGLISH;
+//        }
+//        
+//        if (rbGermanLanguage.isSelected()) {
+//            language = PREF__I18N__LANGUAGE_GERMAN;
+//        }
         
         // Save the new locale
         PreferencesFacade.getDefault().put(PREF__I18N__LANGUAGE, language);
@@ -227,7 +227,7 @@ public final class Options implements
     private void onActionUpdateLanguageOptions() {
         LoggerFacade.getDefault().info(this.getClass(), "Options.onActionUpdateLanguageOptions()"); // NOI18N
         
-        lYinYangColors.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__COLORS)));
+        lYinYangColors.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__SINGLE_COLORS)));
         lYangColors.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YANG_COLOR)));
         lYinColors.setText(    I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YIN_COLOR)));
         
@@ -266,7 +266,7 @@ public final class Options implements
         LoggerFacade.getDefault().debug(this.getClass(), "Options.registerOnActionUpdateLanguageOptions()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS,
+                ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG,
                 (ActionEvent event) -> {
                     this.onActionUpdateLanguageOptions();
                 });

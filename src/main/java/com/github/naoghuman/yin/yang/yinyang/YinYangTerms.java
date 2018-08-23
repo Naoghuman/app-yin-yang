@@ -251,8 +251,7 @@ public final class YinYangTerms implements
     private void registerOnActionUpdateLanguageYinYangTerms() {
         LoggerFacade.getDefault().info(this.getClass(), "YinYangTerms.registerOnActionUpdateLanguageYinYangTerms()"); // NOI18N
         
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE_LANGUAGE__YINYANG_TERMS,
+        ActionHandlerFacade.getDefault().register(ON_ACTION__UPDATE__LANGUAGE_IN_YINYANG_TERMS,
                 (ActionEvent event) -> {
                     this.onActionUpdateLanguageYinYangTerms();
                 });

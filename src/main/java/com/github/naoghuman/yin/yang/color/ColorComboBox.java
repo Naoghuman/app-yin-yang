@@ -184,19 +184,19 @@ public final class ColorComboBox implements EventConfiguration {
        
     }
     
-    public void configure(final ComboBox comboBox, final Type type, final String selectedColor) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configure(ComboBox, Type, String)"); // NOI18N
+    public void configure(final ComboBox<String> comboBox, final Type type, final String selectedColor) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configure(ComboBox<String>, Type, String)"); // NOI18N
         
         this.configureComboBoxColors(comboBox, type);
-        this.configureButtonCell(comboBox);
-        this.configureCellFactory(comboBox);
-        this.configureValueProperty(comboBox, type);
+        this.configureComboBoxButtonCell(comboBox);
+        this.configureComboBoxCellFactory(comboBox);
+        this.configureComboBoxValueProperty(comboBox, type);
         
         comboBox.getSelectionModel().select(selectedColor);
     }
     
-    private void configureComboBoxColors(final ComboBox comboBox, final Type type) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxColors(ComboBox, Type)"); // NOI18N
+    private void configureComboBoxColors(final ComboBox<String> comboBox, final Type type) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxColors(ComboBox<String>, Type)"); // NOI18N
         
         switch(type) {
             case YANG_SYMBOL: { COLORS.remove(INDEX_TO_REMOVE__YANG_SYMBOL); break; }
@@ -206,8 +206,8 @@ public final class ColorComboBox implements EventConfiguration {
         comboBox.setItems(COLORS);
     }
     
-    private void configureButtonCell(final ComboBox comboBox) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureButtonCell(ComboBox)"); // NOI18N
+    private void configureComboBoxButtonCell(final ComboBox<String> comboBox) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxButtonCell(ComboBox<String>)"); // NOI18N
         
         comboBox.setButtonCell(new ListCell<String>() {
             @Override
@@ -222,8 +222,8 @@ public final class ColorComboBox implements EventConfiguration {
         });
     }
     
-    private void configureCellFactory(final ComboBox comboBox) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureCellFactory(ComboBox)"); // NOI18N
+    private void configureComboBoxCellFactory(final ComboBox<String> comboBox) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxCellFactory(ComboBox<String>)"); // NOI18N
         
         comboBox.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override
@@ -245,8 +245,8 @@ public final class ColorComboBox implements EventConfiguration {
         });
     }
     
-    private void configureValueProperty(final ComboBox comboBox, final Type type) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureValueProperty(ComboBox, ColorType)"); // NOI18N
+    private void configureComboBoxValueProperty(final ComboBox<String> comboBox, final Type type) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxValueProperty(ComboBox<String>, ColorType)"); // NOI18N
         
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override

@@ -26,6 +26,7 @@ import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -35,27 +36,35 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.ToggleGroup;
 
 /**
  *
  * @author Naoghuman
- * @since  0.2.0
+ * @since  0.3.0
  */
 public class OptionsPresenter implements 
         EventConfiguration, I18nConfiguration, Initializable,
         PreferencesConfiguration, RegisterActions
 {
-    @FXML private ComboBox    cbYangColors;
-    @FXML private ComboBox    cbYinColors;
+    @FXML private ComboBox<String> cbYangColors;
+    @FXML private ComboBox<String> cbYinColors;
+    @FXML private Label       lSingleLanguage;
     @FXML private Label       lYangColors;
     @FXML private Label       lYinColors;
     @FXML private RadioButton rbSingleColors;
+    @FXML private RadioButton rbMultiLanguages;
+    @FXML private RadioButton rbSingleLanguage;
+    @FXML private RadioButton rbSingleLanguageEnglish;
+    @FXML private RadioButton rbSingleLanguageGerman;
     @FXML private Tab         tOptionAbout;
     @FXML private Tab         tOptionColor;
     @FXML private Tab         tOptionExtras;
     @FXML private Tab         tOptionLanguage;
     @FXML private Tab         tOptionSpeed;
     @FXML private TabPane     tpOptions;
+    @FXML private ToggleGroup tgLanguages;
+    @FXML private ToggleGroup tgSingleLanguages;
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -63,13 +72,24 @@ public class OptionsPresenter implements
         
         this.initializeOptionTabPane();
         this.initializeOptionTabColor();
+        this.initializeOptionTabSpeed();
+        this.initializeOptionTabLanguage();
+        this.initializeOptionTabExtras();
+        this.initializeOptionTabAbout();
         
         this.register();
+        
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
     }
     
     private void initializeOptionTabPane() {
        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabPane()"); // NOI18N
          
+    }
+    
+    private void initializeOptionTabAbout() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabAbout()"); // NOI18N
+        
     }
     
     private void initializeOptionTabColor() {
@@ -84,14 +104,110 @@ public class OptionsPresenter implements
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     
-    private void onActionUpdateLanguageInOptions() {
-        LoggerFacade.getDefault().info(this.getClass(), "Options.onActionUpdateLanguageInOptions()"); // NOI18N
+    private void initializeOptionTabExtras() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabExtras()"); // NOI18N
+        
+    }
+    
+    private void initializeOptionTabLanguage() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabLanguage()"); // NOI18N
+        
+        // Language
+        final String language = PreferencesFacade.getDefault().get(PREF__I18N__LANGUAGE, PREF__I18N__LANGUAGE_DEFAULT_VALUE);
+        switch(language) {
+            case PREF__I18N__LANGUAGE_ENGLISH: { rbSingleLanguageEnglish.setSelected(Boolean.TRUE); break; }
+            case PREF__I18N__LANGUAGE_GERMAN:  { rbSingleLanguageGerman.setSelected( Boolean.TRUE);  break; }
+        }
+    }
+    
+    private void initializeOptionTabSpeed() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabSpeed()"); // NOI18N
+        
+    }
+    
+    public void onActionChangeLanguage() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionChangeLanguage()"); // NOI18N
+        
+        // Compute the new locale
+        String language = PREF__I18N__LANGUAGE_DEFAULT_VALUE;
+        if (rbSingleLanguageEnglish.isSelected()) {
+            language = PREF__I18N__LANGUAGE_ENGLISH;
+        }
+        
+        if (rbSingleLanguageGerman.isSelected()) {
+            language = PREF__I18N__LANGUAGE_GERMAN;
+        }
+        
+        // Save the new locale
+        PreferencesFacade.getDefault().put(PREF__I18N__LANGUAGE, language);
+        
+        // Reload the gui
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
+    }
+    
+    public void onActionSwitchLanguageMode() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionSwitchLanguageMode()"); // NOI18N
+        
+//        String language = PREF__I18N__LANGUAGE_DEFAULT_VALUE;
+//        if (rbSingleLanguage.isSelected()) {
+//            language = PREF__I18N__LANGUAGE_ENGLISH;
+//        }
+//        
+//        if (rbMultiLanguages.isSelected()) {
+//            language = PREF__I18N__LANGUAGE_GERMAN;
+//        }
+// 
+//        // Save the new locale
+//        PreferencesFacade.getDefault().put(PREF__I18N__LANGUAGE, language);
+//        
+//        // Reload the gui
+//        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG);
+    }
+
+    private void onActionUpdateLanguageInTabPane() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabPane()"); // NOI18N
         
         tOptionAbout.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_ABOUT)));
         tOptionColor.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_COLOR)));
         tOptionExtras.setText(  I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_EXTRAS)));
         tOptionLanguage.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE)));
         tOptionSpeed.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_SPEED)));
+    }
+
+    private void onActionUpdateLanguageInTabColor() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabColor()"); // NOI18N
+        
+        // Single Colors
+        rbSingleColors.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__SINGLE_COLORS)));
+        lYinColors.setText(    I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YIN_COLOR)));
+        lYangColors.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YANG_COLOR)));
+    }
+
+    private void onActionUpdateLanguageInTabSpeed() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabSpeed()"); // NOI18N
+        
+    }
+
+    private void onActionUpdateLanguageInTabLanguage() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabLanguage()"); // NOI18N
+        
+        // Single Language
+        rbSingleLanguage.setText(       I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_SINGLE)));
+        rbSingleLanguageEnglish.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_ENGLISH)));
+        rbSingleLanguageGerman.setText( I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_GERMAN)));
+        
+        // Multi Language
+        rbMultiLanguages.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_MULTI)));
+    }
+
+    private void onActionUpdateLanguageInTabExtras() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabExtras()"); // NOI18N
+        
+    }
+
+    private void onActionUpdateLanguageInTabAbout() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabAbout()"); // NOI18N
+        
     }
 
     @Override
@@ -105,9 +221,14 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "Options.registerOnActionUpdateLanguageInOptions()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONS,
+                ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG,
                 (ActionEvent event) -> {
-                    this.onActionUpdateLanguageInOptions();
+                    this.onActionUpdateLanguageInTabPane();
+                    this.onActionUpdateLanguageInTabColor();
+                    this.onActionUpdateLanguageInTabSpeed();
+                    this.onActionUpdateLanguageInTabLanguage();
+                    this.onActionUpdateLanguageInTabExtras();
+                    this.onActionUpdateLanguageInTabAbout();
                 });
     }
     

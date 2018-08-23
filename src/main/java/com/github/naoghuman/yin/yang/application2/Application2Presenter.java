@@ -172,6 +172,7 @@ public class Application2Presenter implements
         
         final OptionsView view = new OptionsView();
         dialog.getDialogPane().setContent(view.getView());
+        
         final ButtonType buttonTypeOk = new ButtonType(
                 I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__BUTTON)),
                 ButtonData.OK_DONE);

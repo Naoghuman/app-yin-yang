@@ -40,10 +40,12 @@ public interface I18nConfiguration {
     public static final String I18N_KEY__APPLICATION__TITLE          = "i18n.key.application.title"; // NOI18N
     public static final String I18N_KEY__APPLICATION__VERSION        = "i18n.key.application.version"; // NOI18N
     
-    public static final String I18N_KEY__OPTION__COLORS           = "i18n.key.option.colors"; // NOI18N
     public static final String I18N_KEY__OPTION__LANGUAGES        = "i18n.key.option.languages"; // NOI18N
     public static final String I18N_KEY__OPTION__LANGUAGE_ENGLISH = "i18n.key.option.language.english"; // NOI18N
     public static final String I18N_KEY__OPTION__LANGUAGE_GERMAN  = "i18n.key.option.language.german"; // NOI18N
+    public static final String I18N_KEY__OPTION__LANGUAGE_MULTI   = "i18n.key.option.language.multi"; // NOI18N
+    public static final String I18N_KEY__OPTION__LANGUAGE_SINGLE  = "i18n.key.option.language.single"; // NOI18N
+    public static final String I18N_KEY__OPTION__SINGLE_COLORS    = "i18n.key.option.singlecolors"; // NOI18N
     public static final String I18N_KEY__OPTION__YANG_COLOR       = "i18n.key.option.yangcolor"; // NOI18N
     public static final String I18N_KEY__OPTION__YIN_COLOR        = "i18n.key.option.yincolor"; // NOI18N
     
