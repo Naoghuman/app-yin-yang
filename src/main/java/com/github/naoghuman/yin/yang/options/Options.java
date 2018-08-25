@@ -138,7 +138,7 @@ public final class Options implements
         ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
         
         // Always on top
-        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, PREF__APPLICATION__ALWAYS_ON_TOP_DEFAULT_VALUE);
+        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP, PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP_DEFAULT_VALUE);
         cbAlwaysOnTop.setSelected(alwaysOnTop);
     }
 
@@ -146,7 +146,7 @@ public final class Options implements
         LoggerFacade.getDefault().info(this.getClass(), "Options.onActionChangeAlwaysOnTop()"); // NOI18N
 
         final boolean alwaysOnTop = cbAlwaysOnTop.isSelected();
-        PreferencesFacade.getDefault().putBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, alwaysOnTop);
+        PreferencesFacade.getDefault().putBoolean(PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP, alwaysOnTop);
         
         ActionHandlerFacade.getDefault()
                 .handle(TransferDataBuilder.create()

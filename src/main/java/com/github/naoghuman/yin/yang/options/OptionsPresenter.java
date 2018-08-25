@@ -18,19 +18,22 @@ package com.github.naoghuman.yin.yang.options;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
+import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import static com.github.naoghuman.yin.yang.configuration.EventConfiguration.ON_ACTION__CHANGE__ALWAYS_ON_TOP;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import static com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration.PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.net.URL;
-import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
@@ -47,9 +50,9 @@ public class OptionsPresenter implements
         EventConfiguration, I18nConfiguration, Initializable,
         PreferencesConfiguration, RegisterActions
 {
+    @FXML private CheckBox    cbAlwaysOnTop;
     @FXML private ComboBox<String> cbYangColors;
     @FXML private ComboBox<String> cbYinColors;
-    @FXML private Label       lSingleLanguage;
     @FXML private Label       lYangColors;
     @FXML private Label       lYinColors;
     @FXML private RadioButton rbSingleColors;
@@ -96,33 +99,57 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabColor()"); // NOI18N
         
         final ColorComboBox yangColorComboBox = new ColorComboBox();
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(
+                PREF__YINYANG__YANG_COLOR,
+                PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
         yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR, PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(
+                PREF__YINYANG__YIN_COLOR,
+                PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     
     private void initializeOptionTabExtras() {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabExtras()"); // NOI18N
         
+        // Always on top
+        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(
+                PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP,
+                PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP_DEFAULT_VALUE);
+        cbAlwaysOnTop.setSelected(alwaysOnTop);
     }
     
     private void initializeOptionTabLanguage() {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabLanguage()"); // NOI18N
         
         // Language
-        final String language = PreferencesFacade.getDefault().get(PREF__I18N__LANGUAGE, PREF__I18N__LANGUAGE_DEFAULT_VALUE);
+        final String language = PreferencesFacade.getDefault().get(
+                PREF__I18N__LANGUAGE,
+                PREF__I18N__LANGUAGE_DEFAULT_VALUE);
         switch(language) {
             case PREF__I18N__LANGUAGE_ENGLISH: { rbSingleLanguageEnglish.setSelected(Boolean.TRUE); break; }
-            case PREF__I18N__LANGUAGE_GERMAN:  { rbSingleLanguageGerman.setSelected( Boolean.TRUE);  break; }
+            case PREF__I18N__LANGUAGE_GERMAN:  { rbSingleLanguageGerman.setSelected( Boolean.TRUE); break; }
         }
     }
     
     private void initializeOptionTabSpeed() {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabSpeed()"); // NOI18N
         
+    }
+
+    public void onActionChangeAlwaysOnTop() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.onActionChangeAlwaysOnTop()"); // NOI18N
+
+        final boolean alwaysOnTop = cbAlwaysOnTop.isSelected();
+        PreferencesFacade.getDefault().putBoolean(PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP, alwaysOnTop);
+        
+        ActionHandlerFacade.getDefault()
+                .handle(TransferDataBuilder.create()
+                        .actionId(ON_ACTION__CHANGE__ALWAYS_ON_TOP)
+                        .booleanValue(alwaysOnTop)
+                        .build());
     }
     
     public void onActionChangeLanguage() {
@@ -203,6 +230,8 @@ public class OptionsPresenter implements
     private void onActionUpdateLanguageInTabExtras() {
         LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabExtras()"); // NOI18N
         
+        // Always on top TODO
+        cbAlwaysOnTop.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__EXTRAS__ALWAYS_ON_TOP)));
     }
 
     private void onActionUpdateLanguageInTabAbout() {

@@ -106,7 +106,7 @@ public class StartApplication extends Application implements
         final Scene            scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
         
-        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__APPLICATION__ALWAYS_ON_TOP, PREF__APPLICATION__ALWAYS_ON_TOP_DEFAULT_VALUE);
+        final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP, PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP_DEFAULT_VALUE);
         stage.setAlwaysOnTop(alwaysOnTop);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.setTitle(I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)

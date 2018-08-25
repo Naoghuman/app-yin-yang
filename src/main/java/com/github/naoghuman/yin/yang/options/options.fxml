@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
@@ -12,7 +13,7 @@
     <children>
         <TabPane fx:id="tpOptions" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
             <tabs>
-                <Tab fx:id="tOptionColor" text="Color">
+                <Tab fx:id="tOptionColor" closable="false" text="Color">
                     <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
                             <children>
@@ -25,28 +26,36 @@
                         </AnchorPane>
                     </content>
                 </Tab>
-                <Tab fx:id="tOptionSpeed" disable="true" text="Speed">
+                <Tab fx:id="tOptionSpeed" closable="false" disable="true" text="Speed">
                 </Tab>
-                <Tab fx:id="tOptionLanguage" text="Language">
-               <content>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SLATEBLUE;">
-                     <children>
-                        <RadioButton fx:id="rbSingleLanguage" mnemonicParsing="false" onAction="#onActionSwitchLanguageMode" selected="true" text="Single Language" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="tgLanguages" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="rbSingleLanguageEnglish" layoutX="36.0" layoutY="38.0" mnemonicParsing="false" onAction="#onActionChangeLanguage" selected="true" text="English">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="tgSingleLanguages" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton fx:id="rbSingleLanguageGerman" layoutX="153.0" layoutY="38.0" mnemonicParsing="false" onAction="#onActionChangeLanguage" text="German" toggleGroup="$tgSingleLanguages" />
-                        <RadioButton fx:id="rbMultiLanguages" layoutX="14.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionSwitchLanguageMode" text="Multi Languages" toggleGroup="$tgLanguages" AnchorPane.leftAnchor="14.0" />
-                     </children>
-                  </AnchorPane>
-               </content></Tab>
-                <Tab fx:id="tOptionExtras" disable="true" text="Extras">
+                <Tab fx:id="tOptionLanguage" closable="false" text="Language">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SLATEBLUE;">
+                            <children>
+                                <RadioButton fx:id="rbSingleLanguage" mnemonicParsing="false" onAction="#onActionSwitchLanguageMode" selected="true" text="Single Language" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="tgLanguages" />
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="rbSingleLanguageEnglish" layoutX="36.0" layoutY="38.0" mnemonicParsing="false" onAction="#onActionChangeLanguage" selected="true" text="English">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="tgSingleLanguages" />
+                                    </toggleGroup>
+                                </RadioButton>
+                                <RadioButton fx:id="rbSingleLanguageGerman" layoutX="153.0" layoutY="38.0" mnemonicParsing="false" onAction="#onActionChangeLanguage" text="German" toggleGroup="$tgSingleLanguages" />
+                                <RadioButton fx:id="rbMultiLanguages" layoutX="14.0" layoutY="100.0" mnemonicParsing="false" onAction="#onActionSwitchLanguageMode" text="Multi Languages" toggleGroup="$tgLanguages" AnchorPane.leftAnchor="14.0" />
+                            </children>
+                        </AnchorPane>
+                    </content>
+                </Tab>
+                <Tab fx:id="tOptionExtras" closable="false" text="Extras">
+                    <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SIENNA;">
+                            <children>
+                                <CheckBox fx:id="cbAlwaysOnTop" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionChangeAlwaysOnTop" text="Always On Top" />
+                            </children>
+                        </AnchorPane>
+                    </content>
                 </Tab>
                 <Tab fx:id="tOptionAbout" closable="false" disable="true" text="About" />
             </tabs>

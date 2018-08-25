@@ -10,6 +10,8 @@ Application
    - The last position will be saved to the file Preferences.properties and 
      restored during the next application start.
 - Mouseover(-exit) the TaiChiSymbol blend in(out) the options.
+   - Options in the OptionMenu are: Show OptionsDialog, minimize and close the 
+     application.
    - Options have a transparent background color.
 - Multilingual: Supports english and german languages.
 - Preferences.properties
@@ -35,14 +37,16 @@ YinYangTerm
  - Now 30 terms (yin-yang pairs) are supported.
 
 Options
-- Button '_' minimize the application.
-- Button 'X' close the application.
-- User can choose the Yin-, Yang-Color in the corresponding ComboBox.
-   - The user choose will be saved to the file Preferences.properties and 
-     restored during the next application start.
-- User can choose between 'English' and 'German' language.
-- User can choose if the application is always on top or not. Always on top 
-  means that the application is always in front for other applications.
+ - Button '...' shows the OptionsDialog.
+ - Button '_' minimize the application.
+ - Button 'X' close the application.
+
+OptionsDialog
+ - The dialog have the tabs: Color, Speed (coming soon), Language, Extras and
+   About (coming soon).
+ - Tab 'Color' shows options for coloring the application (TaiChiSymbol).
+ - Tab 'Language' shows options to choose different languages.
+ - Tab 'Extras' shows additional options like 'always on top'.
 
 --------------------------------------------------------------------------------
 
