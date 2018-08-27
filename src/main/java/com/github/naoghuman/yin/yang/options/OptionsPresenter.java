@@ -99,15 +99,13 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabColor()"); // NOI18N
         
         final ColorComboBox yangColorComboBox = new ColorComboBox();
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(
-                PREF__YINYANG__YANG_COLOR,
-                PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR,
+                PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(
-                PREF__YINYANG__YIN_COLOR,
-                PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,
+                PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
     }
     

@@ -27,22 +27,22 @@ import java.util.Optional;
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18nYinYang implements I18nConfiguration, I18nLanguage, I18nProperty, I18nRegister {
+public final class I18nTaiChi implements I18nConfiguration, I18nLanguage, I18nProperty, I18nRegister {
     
-    private static final Optional<I18nYinYang> INSTANCE = Optional.of(new I18nYinYang());
+    private static final Optional<I18nTaiChi> INSTANCE = Optional.of(new I18nTaiChi());
     
-    public static final I18nYinYang getDefault() {
+    public static final I18nTaiChi getDefault() {
         return INSTANCE.get();
     }
     
     private Locale language = Locale.ENGLISH;
     
-    private I18nYinYang() {
+    private I18nTaiChi() {
         this.initialize();
     }
     
     private void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nYinYang.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "I18nTaiChi.initialize()"); // NOI18N
         
     }
 
@@ -50,22 +50,22 @@ public final class I18nYinYang implements I18nConfiguration, I18nLanguage, I18nP
     public String getProperty(String key) {
         return PropertiesFacade.getDefault().getProperty(
                 (language == Locale.ENGLISH)
-                        ? I18N__RESOURCE_BUNDLE__YINYANG_EN 
-                        : I18N__RESOURCE_BUNDLE__YINYANG_DE,
+                        ? I18N__RESOURCE_BUNDLE__TAICHI_EN 
+                        : I18N__RESOURCE_BUNDLE__TAICHI_DE,
                 key);
     }
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nYinYang.register()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "I18nTaiChi.register()"); // NOI18N
         
-        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__YINYANG_DE);
-        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__YINYANG_EN);
+        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_DE);
+        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_EN);
     }
     
     @Override
     public void setLanguage(final Locale language) {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nYinYang.setLanguage(Locale)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "I18nTaiChi.setLanguage(Locale)"); // NOI18N
         
         this.language = language;
     }

@@ -17,96 +17,128 @@
 package com.github.naoghuman.yin.yang.application;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.action.core.RegisterActions;
+import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.yin.yang.color.ColorConverter;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.options.Options;
-import com.github.naoghuman.yin.yang.yinyang.YinYangSymbol;
-import com.github.naoghuman.yin.yang.yinyang.YinYangTerms;
+import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
+import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.i18n.I18nProvider;
+import com.github.naoghuman.yin.yang.options.OptionsView;
+import com.github.naoghuman.yin.yang.taichi.TaiChiTerms;
+import com.github.naoghuman.yin.yang.taichi.TaiChiSymbol;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.animation.PauseTransition;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
-import javafx.scene.control.RadioButton;
-import javafx.scene.control.Separator;
-import javafx.scene.control.ToggleGroup;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.shape.Circle;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Modality;
+import javafx.stage.Window;
+import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 
 /**
  *
  * @author Naoghuman
- * @since  0.1.0
+ * @since  0.4.0
  */
 public class ApplicationPresenter implements 
-        Initializable, EventConfiguration, ApplicationConfiguration
+        ApplicationConfiguration, EventConfiguration, Initializable,
+        I18nConfiguration, PreferencesConfiguration, RegisterActions,
+        TaiChiConfiguration
 {
-    @FXML private AnchorPane  apApplication;
-    @FXML private Button      bCloseApplication;
-    @FXML private Button      bMinimizeApplication;
-    @FXML private CheckBox    cbAlwaysOnTop;
-    @FXML private Circle      cOptionsBackground;
-    @FXML private ComboBox    cbYangColors;
-    @FXML private ComboBox    cbYinColors;
-    @FXML private HBox        hbYinYangTerms;
-    @FXML private Label       lLanguages;
-    @FXML private Label       lYangColors;
-    @FXML private Label       lYinColors;
-    @FXML private Label       lYinYangColors;
-    @FXML private Label       lYangTerm;
-    @FXML private Label       lYinTerm;
-    @FXML private RadioButton rbEnglishLanguage;
-    @FXML private RadioButton rbGermanLanguage;
-    @FXML private Separator   bSeparator1;
-    @FXML private ToggleGroup tgLanguages;
+    private static final String STYLE__BACKGROUND_COLOR_RADIUS = "-fx-background-color:%s;-fx-background-radius:5.0;"; // NOI18N
     
+    @FXML private Button    bCloseApplication;
+    @FXML private Button    bMinimizeApplication;
+    @FXML private Button    bShowOptionDialog;
+    @FXML private HBox      hbMenuButtons;
+    @FXML private HBox      hbTaiChiTerms;
+    @FXML private Label     lYangTerm;
+    @FXML private Label     lYinTerm;
+    @FXML private StackPane spApplication;
+    
+    private double diameterTheOne  = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE;
+    
+    private Window owner;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initialize(URL, ResourceBundle)"); // NOI18N
         
-//        assert (apView != null) : "fx:id=\"apView\" was not injected: check your FXML file 'application.fxml'."; // NOI18N
+        this.initializeMenu();
         
-        Options.getDefault().configure(
-                cOptionsBackground, bMinimizeApplication, bCloseApplication,
-                bSeparator1,        lYinYangColors,       lYinColors,
-                cbYinColors,        lYangColors,          cbYangColors,
-                lLanguages,         rbEnglishLanguage,    rbGermanLanguage,
-                cbAlwaysOnTop);
+        final boolean showOptionMenu = Boolean.FALSE;
+        this.onActionShowOptionMenu(showOptionMenu);
         
-        YinYangSymbol.getDefault().configure(apApplication);
-        YinYangSymbol.getDefault().onActionStartYinYangRotation();
+        TaiChiSymbol.getDefault().configure(spApplication);
+        TaiChiSymbol.getDefault().onActionStartTaiChiRotation();
         
-        YinYangTerms.getDefault().configure(hbYinYangTerms, lYinTerm, lYangTerm);
-        YinYangTerms.getDefault().onActionShowYinAndYangTerm();
+        TaiChiTerms.getDefault().configure(hbTaiChiTerms, lYinTerm, lYangTerm);
+        TaiChiTerms.getDefault().onActionShowTaiChiTerms();
+        
+        this.register();
     }
     
-    public void onActionChangeAlwaysOnTop() {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeAlwaysOnTop()"); // NOI18N
+    private void initializeMenu() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeMenu()"); // NOI18N
+    
+        // HBoxes
+        diameterTheOne = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
+        hbMenuButtons.setPrefWidth(diameterTheOne / 2.0d);
         
-        Options.getDefault().onActionChangeAlwaysOnTop();
+        // Menubuttons
+        final LocalDate now    = LocalDate.now();
+        final boolean   oddDay = now.getDayOfMonth() % 2 != 0;
+        if (oddDay) {
+            // odd == yang == left side
+            hbMenuButtons.getChildren().clear();
+            hbMenuButtons.getChildren().addAll(bCloseApplication, bMinimizeApplication, bShowOptionDialog);
+            
+            final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+            hbMenuButtons.setStyle(String.format(
+                STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorConverter.convertToBrighter(yangSelectedColor, 0.8d)));
+        }
+        else {
+            // even == yin == right side
+            hbMenuButtons.getChildren().clear();
+            hbMenuButtons.getChildren().addAll(bShowOptionDialog, bMinimizeApplication, bCloseApplication);
+            
+            final String yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+            hbMenuButtons.setStyle(String.format(
+                STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorConverter.convertToBrighter(yinSelectedColor, 0.8d)));
+        }
     }
     
-    public void onActionChangeLanguage() {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionChangeLanguage()"); // NOI18N
-        
-        Options.getDefault().onActionChangeLanguage();
+    public void configure(final Window owner) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.configure(Window)"); // NOI18N
+    
+        this.owner = owner;
     }
     
     public void onActionCloseApplication() {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionCloseApplication()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionCloseApplication()"); // NOI18N
     
         ActionHandlerFacade.getDefault().handle(ON_ACTION__CLOSE_APPLICATION);
     }
     
     public void onActionMinimizeApplication() {
-        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.onActionMinimizeApplication()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionMinimizeApplication()"); // NOI18N
     
         // Minimize the application
         ActionHandlerFacade.getDefault().handle(ON_ACTION__MINIMIZE_APPLICATION);
@@ -125,6 +157,68 @@ public class ApplicationPresenter implements
         });
         
         pt.playFromStart();
+    }
+    
+    public void onActionShowOptionDialog() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionShowOptionDialog()"); // NOI18N
+        
+        final Dialog<String> dialog = new Dialog<>();
+        dialog.initModality(Modality.APPLICATION_MODAL);
+        dialog.initOwner(owner);
+        dialog.setTitle(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TITLE)));
+        dialog.setWidth(800.0d);
+        dialog.setHeight(600.0d);
+        dialog.setResizable(Boolean.FALSE);
+        
+        final OptionsView view = new OptionsView();
+        dialog.getDialogPane().setContent(view.getView());
+        
+        final ButtonType buttonTypeOk = new ButtonType(
+                I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__BUTTON)),
+                ButtonData.OK_DONE);
+        dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
+        
+        dialog.showAndWait();
+    }
+    
+    private void onActionShowOptionMenu(final boolean showOptionMenu) {
+        LoggerFacade.getDefault().info(this.getClass(), String.format(
+                "ApplicationPresenter.onActionShowOptionMenu(showOptionMenu=%b)", showOptionMenu)); // NOI18N
+        
+        hbMenuButtons.setManaged(showOptionMenu);
+        hbMenuButtons.setVisible(showOptionMenu);
+        
+        bCloseApplication.setManaged(showOptionMenu);
+        bCloseApplication.setVisible(showOptionMenu);
+        bMinimizeApplication.setManaged(showOptionMenu);
+        bMinimizeApplication.setVisible(showOptionMenu);
+        bShowOptionDialog.setManaged(showOptionMenu);
+        bShowOptionDialog.setVisible(showOptionMenu);
+    }
+    
+    @Override
+    public void register() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
+        
+        this.registerOnActionShowOptionMenu();
+    }
+    
+    private void registerOnActionShowOptionMenu() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionShowOptionMenu()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__SHOW_OPTIONS,
+                (ActionEvent event) -> {
+                    final Object source = event.getSource();
+                    if (source instanceof TransferData) {
+                        final TransferData      transferData = (TransferData) source;
+                        final Optional<Boolean> optional     = transferData.getBoolean();
+                        if(optional.isPresent()) {
+                            final boolean showOptionMenu = optional.get();
+                            this.onActionShowOptionMenu(showOptionMenu);
+                        }
+                    }
+                });
     }
     
 }

@@ -29,8 +29,8 @@ public interface I18nConfiguration {
     public static final String I18N__RESOURCE_BUNDLE__OPTIONS_DE = "/com/github/naoghuman/yin/yang/options/i18n_options_de.properties"; // NOI18N
     public static final String I18N__RESOURCE_BUNDLE__OPTIONS_EN = "/com/github/naoghuman/yin/yang/options/i18n_options_en.properties"; // NOI18N
     
-    public static final String I18N__RESOURCE_BUNDLE__YINYANG_DE = "/com/github/naoghuman/yin/yang/yinyang/i18n_yinyang_de.properties"; // NOI18N
-    public static final String I18N__RESOURCE_BUNDLE__YINYANG_EN = "/com/github/naoghuman/yin/yang/yinyang/i18n_yinyang_en.properties"; // NOI18N
+    public static final String I18N__RESOURCE_BUNDLE__TAICHI_DE = "/com/github/naoghuman/yin/yang/taichi/i18n_taichi_de.properties"; // NOI18N
+    public static final String I18N__RESOURCE_BUNDLE__TAICHI_EN = "/com/github/naoghuman/yin/yang/taichi/i18n_taichi_en.properties"; // NOI18N
     
     // Keys
     public static final String I18N_KEY__APPLICATION__BORDER_SIGN    = "i18n.key.application.border.sign"; // NOI18N
@@ -58,7 +58,7 @@ public interface I18nConfiguration {
     public static final String I18N_KEY__OPTION_DIALOG__TAB_SPEED    = "i18n.key.option.dialog.tab.speed"; // NOI18N
     public static final String I18N_KEY__OPTION_DIALOG__TITLE        = "i18n.key.option.dialog.title"; // NOI18N
     
-    public static final String I18N_KEY__YINYANG__TERM_NR       = "i18n.key.yinyang.term.nr%d"; // NOI18N
-    public static final String I18N_KEY__YINYANG__TERM_QUANTITY = "i18n.key.yinyang.term.quantity"; // NOI18N
+    public static final String I18N_KEY__TAICHI__TERM_NR       = "i18n.key.taichi.term.nr%d"; // NOI18N
+    public static final String I18N_KEY__TAICHI__TERM_QUANTITY = "i18n.key.taichi.term.quantity"; // NOI18N
     
 }

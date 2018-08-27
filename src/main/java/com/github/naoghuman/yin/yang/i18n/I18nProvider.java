@@ -55,8 +55,8 @@ public final class I18nProvider implements
         return I18nOptions.getDefault();
     }
     
-    public I18nYinYang getI18nYinYang() {
-        return I18nYinYang.getDefault();
+    public I18nTaiChi getI18nYinYang() {
+        return I18nTaiChi.getDefault();
     }
     
     private void onActionLoadLanguageFromProperties() {
@@ -72,11 +72,11 @@ public final class I18nProvider implements
         
         // Set locale
         I18nOptions.getDefault().setLanguage(locale);
-        I18nYinYang.getDefault().setLanguage(locale);
+        I18nTaiChi.getDefault().setLanguage(locale);
         
         // Update gui
         ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG);
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE_IN_YINYANG_TERMS);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS);
     }
     
     @Override
@@ -85,7 +85,7 @@ public final class I18nProvider implements
         
         I18nApplication.getDefault().register();
         I18nOptions.getDefault().register();
-        I18nYinYang.getDefault().register();
+        I18nTaiChi.getDefault().register();
         
         this.registerOnActionLoadLanguageFromProperties();
     }

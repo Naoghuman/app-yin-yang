@@ -21,8 +21,8 @@ package com.github.naoghuman.yin.yang.configuration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface YinYangConfiguration {
+public interface TaiChiConfiguration {
     
-    public static final double YINYANG_SYMBOLE__OUTER_BORDER = 5.0d;
+    public static final double TAICHI_SYMBOL__OUTER_BORDER = 5.0d;
     
 }

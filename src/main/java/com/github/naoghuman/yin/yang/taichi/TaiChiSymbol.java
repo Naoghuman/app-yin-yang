@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.yin.yang.yinyang;
+package com.github.naoghuman.yin.yang.taichi;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
@@ -24,7 +24,6 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
-import com.github.naoghuman.yin.yang.configuration.YinYangConfiguration;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
@@ -48,32 +47,31 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
+import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 
 /**
  * 
  * @author Naoghuman
  * @since  0.1.0
  */
-public final class YinYangSymbol implements 
-        EventConfiguration,
-        PreferencesConfiguration,
-        RegisterActions,
-        YinYangConfiguration
+public final class TaiChiSymbol implements 
+        EventConfiguration, PreferencesConfiguration, RegisterActions,
+        TaiChiConfiguration
 {
     private static final double STROKE_WIDTH = 4.0d;
     
     private static final String                       PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
     private static final ObservableMap<Month, Double> MONTH_ROTATIONS    = FXCollections.observableHashMap();
-    private static final Optional<YinYangSymbol>      INSTANCE           = Optional.of(new YinYangSymbol());
+    private static final Optional<TaiChiSymbol>      INSTANCE           = Optional.of(new TaiChiSymbol());
     
-    public static final YinYangSymbol getDefault() {
+    public static final TaiChiSymbol getDefault() {
         return INSTANCE.get();
     }
     
-    private double centerXtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
-    private double centerYtheOne       = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
-    private double diameterTheOne      = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE;
-    private double radiusLittleYinYang = PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
+    private double centerXtheOne       = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
+    private double centerYtheOne       = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
+    private double diameterTheOne      = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE;
+    private double radiusLittleYinYang = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
     
     private Arc       halfYangSymbol;
     private Circle    littleYangSymbol;
@@ -85,12 +83,12 @@ public final class YinYangSymbol implements
     private Shape     yangSymbol;
     private Timeline  tlRotation;
     
-    private YinYangSymbol() {
+    private TaiChiSymbol() {
         this.initialize();
     }
     
     private void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initialize()"); // NOI18N
         
         /*
          * Rework math for the TaiChi-Symbol
@@ -100,27 +98,24 @@ public final class YinYangSymbol implements
          *  - l.Yin, l.Yang == 8 == d/8 == Size of the little yin, yang 
          *
          */
-        diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__YINYANG__SYMBOL_DIAMETER, PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE);
+        diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
         centerXtheOne       = diameterTheOne / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
         centerYtheOne       = 50; //diameterTheOne / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
         radiusLittleYinYang = diameterTheOne / 8.0d / 2.0d;
-        
-        System.out.println("cx: " + centerXtheOne);
-        System.out.println("cy: " + centerYtheOne);
         
         this.initializeLittleYinSymbol();
         this.initializeYinSymbol();
         this.initializeYinSymbolMouseListeners();
         this.initializeLittleYangSymbol();
         this.initializeYangSymbol();
-        this.initializeYinYangRotation();
-        this.initializeYinYangTimeline();
+        this.initializeTaiChiRotation();
+        this.initializeTaiChiTimeline();
         
         this.register();
     }
     
     private void initializeLittleYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeLittleYangSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeLittleYangSymbol()"); // NOI18N
        
         // Little YangSymbol
         littleYangSymbol = new Circle();
@@ -130,7 +125,7 @@ public final class YinYangSymbol implements
     }
     
     private void initializeLittleYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeLittleYinSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeLittleYinSymbol()"); // NOI18N
        
         // Little YinSymbol
         littleYinSymbol = new Circle();
@@ -139,8 +134,8 @@ public final class YinYangSymbol implements
         littleYinSymbol.setCenterY(centerYtheOne);
     }
 
-    private void initializeYinYangRotation() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinYangRotation()"); // NOI18N
+    private void initializeTaiChiRotation() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeTaiChiRotation()"); // NOI18N
         
         // Rotation
         rotation = new Rotate();//0, diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER, diameterTheOne / 2.0d + YINYANG_SYMBOLE__OUTER_BORDER);
@@ -164,8 +159,8 @@ public final class YinYangSymbol implements
         MONTH_ROTATIONS.put(Month.DECEMBER,  17.066d);
     }
 
-    private void initializeYinYangTimeline() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinYangTimeline()"); // NOI18N
+    private void initializeTaiChiTimeline() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeTaiChiTimeline()"); // NOI18N
         
         /*
           Yang -> odd  nummers -> right spinning
@@ -181,7 +176,7 @@ public final class YinYangSymbol implements
     }
 
     private void initializeYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYangSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeYangSymbol()"); // NOI18N
         
         // YangSymbol
         halfYangSymbol = new Arc();
@@ -192,13 +187,6 @@ public final class YinYangSymbol implements
         halfYangSymbol.setStartAngle(0.0f);
         halfYangSymbol.setLength(180.0f);
         halfYangSymbol.setType(ArcType.CHORD);
-        
-//        Circle dummy = new Circle();
-//        dummy.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
-//        dummy.setCenterX(centerXtheOne);
-//        dummy.setCenterY(centerYtheOne + diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
-//        dummy.setFill(Color.BLUE);
-//        yangSymbol = Shape.union(halfYangSymbol, dummy);
         
         Circle littleAddCirle = new Circle();
         littleAddCirle.setRadius(diameterTheOne / 4.0d - STROKE_WIDTH / 2.0d);
@@ -219,19 +207,16 @@ public final class YinYangSymbol implements
         yangSymbol = Shape.union(yangSymbol, littleYangSymbol);
         
         // Tweak the ready YangSymbol
-//        yangSymbol.setFill(Color.LIGHTGREEN);
         yangSymbol.setMouseTransparent(Boolean.TRUE);
         yangSymbol.setTranslateY(yangSymbol.getTranslateY() + -littleAddCirle.getRadius() / 2);
     }
 
     private void initializeYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeYinSymbol()"); // NOI18N
         
         yinSymbol = new Circle();
         yinSymbol.setCursor(Cursor.DEFAULT);
         yinSymbol.setRadius(diameterTheOne / 2.0d);
-//        yinSymbol.setCenterX(centerXtheOne);
-//        yinSymbol.setCenterY(centerYtheOne);
         
         final DropShadow glow = new DropShadow();
         glow.setOffsetY(0f);
@@ -244,7 +229,7 @@ public final class YinYangSymbol implements
     }
     
     private void initializeYinSymbolMouseListeners() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.initializeYinSymbolMouseListeners()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeYinSymbolMouseListeners()"); // NOI18N
         
         yinSymbol.setOnMouseDragged((event) -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -304,12 +289,12 @@ public final class YinYangSymbol implements
     }
     
     public void configure(final AnchorPane apApplication) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiSymbol.configure(AnchorPane)"); // NOI18N
         
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR, PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR, PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         apApplication.getChildren().add(0, yinSymbol);
@@ -319,22 +304,14 @@ public final class YinYangSymbol implements
     public void configure(final StackPane spApplication) {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
         
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YANG_COLOR, PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
         
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__YINYANG__YIN_COLOR, PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE);
+        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR, PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         spApplication.getChildren().add(0, yinSymbol);
         spApplication.getChildren().add(1, yangSymbol);
-    }
-    
-    public Shape getYinSymbol() {
-        return yinSymbol;
-    }
-    
-    public Shape getYangSymbol() {
-        return yangSymbol;
     }
     
     private boolean isNewDayInYear(LocalDate newDayInYear) {
@@ -345,8 +322,8 @@ public final class YinYangSymbol implements
         }
         
         if (
-                newDayInYear.getYear() == oldDayInYear.getYear()
-                && newDayInYear.getDayOfYear() > oldDayInYear.getDayOfYear()
+                newDayInYear.getYear()         == oldDayInYear.getYear()
+                && newDayInYear.getDayOfYear() >  oldDayInYear.getDayOfYear()
         ) {
             isNewDayInYear = Boolean.TRUE;
             oldDayInYear   = newDayInYear;
@@ -363,8 +340,8 @@ public final class YinYangSymbol implements
         }
         
         if (
-                newMonthInYear.getYear() == oldMonthInYear.getYear()
-                && newMonthInYear.getMonthValue() > oldMonthInYear.getMonthValue()
+                newMonthInYear.getYear()          == oldMonthInYear.getYear()
+                && newMonthInYear.getMonthValue() >  oldMonthInYear.getMonthValue()
         ) {
             isNewMonthInYear = Boolean.TRUE;
             oldMonthInYear   = newMonthInYear;
@@ -374,32 +351,32 @@ public final class YinYangSymbol implements
     }
     
     private void onActionChangeColorYangSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.onActionChangeColorYangSymbol(String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionChangeColorYangSymbol(String)"); // NOI18N
     
         yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(PREF__YINYANG__YANG_COLOR, color);
+        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
     }
     
     private void onActionChangeColorYinSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.onActionChangeColorYinSymbol(String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionChangeColorYinSymbol(String)"); // NOI18N
     
         yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
         
-        PreferencesFacade.getDefault().put(PREF__YINYANG__YIN_COLOR, color);
+        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
     }
     
-    public void onActionStartYinYangRotation() {
+    public void onActionStartTaiChiRotation() {
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(500.0d));
         pt.setOnFinished((event) -> {
-            LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.onActionStartYinYangRotation()"); // NOI18N
+            LoggerFacade.getDefault().debug(this.getClass(), "TaiChiSymbol.onActionStartTaiChiRotation()"); // NOI18N
         
             if (
                     this.isNewDayInYear(LocalDate.now())
                     || this.isNewMonthInYear(LocalDate.now())
             ) {
-                this.initializeYinYangTimeline();
+                this.initializeTaiChiTimeline();
             }
             
             tlRotation.playFromStart();
@@ -410,14 +387,14 @@ public final class YinYangSymbol implements
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.register()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiSymbol.register()"); // NOI18N
         
         this.registerOnActionChangeColorYangSymbol();
         this.registerOnActionChangeColorYinSymbol();
     }
     
     private void registerOnActionChangeColorYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.registerOnActionChangeColorYangSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionChangeColorYangSymbol()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__CHANGE__COLOR_YANG_SYMBOL,
@@ -435,7 +412,7 @@ public final class YinYangSymbol implements
     }
 
     private void registerOnActionChangeColorYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.registerOnActionChangeColorYinSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionChangeColorYinSymbol()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__CHANGE__COLOR_YIN_SYMBOL,

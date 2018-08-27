@@ -20,8 +20,9 @@ import com.airhacks.afterburner.views.FXMLView;
 
 /**
  *
- * @author Naoghuman
- * @since  0.1.0
+ * @author  Naoghuman
+ * @since   0.1.0
+ * @version 0.2.0
  */
 public class ApplicationView extends FXMLView {
     

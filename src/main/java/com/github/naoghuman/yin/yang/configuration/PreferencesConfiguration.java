@@ -39,12 +39,12 @@ public interface PreferencesConfiguration {
     public static final String  PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP               = "PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP"; // NOI18N
     public static final boolean PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP_DEFAULT_VALUE = Boolean.TRUE;
     
-    // YinYang
-    public static final String PREF__YINYANG__SYMBOL_DIAMETER               = "PREF__YINYANG__SYMBOL_DIAMETER"; // NOI18N
-    public static final double PREF__YINYANG__SYMBOL_DIAMETER_DEFAULT_VALUE = 320.0d;
-    public static final String PREF__YINYANG__YANG_COLOR                    = "PREF__YINYANG__YANG_COLOR"; // NOI18N
-    public static final String PREF__YINYANG__YANG_COLOR_DEFAULT_VALUE      = "255, 255, 255"; // NOI18N
-    public static final String PREF__YINYANG__YIN_COLOR                     = "PREF__YINYANG__YIN_COLOR"; // NOI18N
-    public static final String PREF__YINYANG__YIN_COLOR_DEFAULT_VALUE       = "0, 0, 0"; // NOI18N
+    // TaiChi
+    public static final String PREF__TAICHI_SYMBOL__DIAMETER                 = "PREF__TAICHI_SYMBOL__DIAMETER"; // NOI18N
+    public static final double PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE   = 320.0d;
+    public static final String PREF__TAICHI_SYMBOL__YANG_COLOR               = "PREF__TAICHI_SYMBOL__YANG_COLOR"; // NOI18N
+    public static final String PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE = "255, 255, 255"; // NOI18N
+    public static final String PREF__TAICHI_SYMBOL__YIN_COLOR                = "PREF__TAICHI_SYMBOL__YIN_COLOR"; // NOI18N
+    public static final String PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE  = "0, 0, 0"; // NOI18N
     
 }
