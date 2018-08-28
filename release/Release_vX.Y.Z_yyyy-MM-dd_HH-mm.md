@@ -7,8 +7,7 @@ aso..
 
 
 #### Summary
-* ...
-* ...
+* Move the options to a new OptionsDialog.
 
 
 
