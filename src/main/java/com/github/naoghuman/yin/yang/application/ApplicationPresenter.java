@@ -27,6 +27,7 @@ import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.options.OptionsView;
 import com.github.naoghuman.yin.yang.taichi.TaiChiTerms;
@@ -48,7 +49,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 
 /**
  *
@@ -91,6 +91,8 @@ public class ApplicationPresenter implements
         TaiChiTerms.getDefault().onActionShowTaiChiTerms();
         
         this.register();
+        
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
     }
     
     private void initializeMenu() {
