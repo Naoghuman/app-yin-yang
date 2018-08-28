@@ -7,11 +7,7 @@ aso..
 
 
 #### Summary
-* Mouseover the TaiChi-Symbol shows now the 'OptionsMenu', which 
-  allowed the user to show the options via dialog, mimize and close 
-  the application.
-* OptionsDialog have the options for coloring, language and extras like 
-  'always on top'.
+* Move the options to a new OptionsDialog.
 
 
 
