@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane id="StackPane" fx:id="spApplication" prefHeight="330.0" prefWidth="330.0" style="-fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.application.ApplicationPresenter">
+<StackPane id="StackPane" fx:id="spApplication" prefHeight="330.0" prefWidth="330.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.application.ApplicationPresenter">
     <children>
         <HBox fx:id="hbMenuButtons" alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" spacing="7.0" style="-fx-background-color: LIGHTBLUE;">
             <children>
