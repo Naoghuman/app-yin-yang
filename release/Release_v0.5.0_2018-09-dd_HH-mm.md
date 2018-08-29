@@ -7,7 +7,7 @@ aso..
 
 
 #### Summary
-* ...
+* With v0.5.0 now 50 Yin-Yang terms are available.
 * ...
 
 
