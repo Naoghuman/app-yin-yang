@@ -60,16 +60,15 @@ public final class TaiChiSymbol implements
 {
     private static final double STROKE_WIDTH = 4.0d;
     
-    private static final String                       PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
-    private static final ObservableMap<Month, Double> MONTH_ROTATIONS    = FXCollections.observableHashMap();
-    private static final Optional<TaiChiSymbol>      INSTANCE           = Optional.of(new TaiChiSymbol());
+    private static final ObservableMap<Month, Double> MONTH_ROTATIONS = FXCollections.observableHashMap();
+    private static final Optional<TaiChiSymbol>      INSTANCE         = Optional.of(new TaiChiSymbol());
     
     public static final TaiChiSymbol getDefault() {
         return INSTANCE.get();
     }
     
-    private double centerXtheOne       = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
-    private double centerYtheOne       = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
+    private double centerXtheOne       = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH;
+    private double centerYtheOne       = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 2.0d + STROKE_WIDTH;
     private double diameterTheOne      = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE;
     private double radiusLittleYinYang = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d;
     
@@ -95,8 +94,7 @@ public final class TaiChiSymbol implements
          *  - The One       == 1 == d   == Circle
          *  - Yin, Yang     == 2 == d/2 == 2 Half
          *  - Yin, Yang     == 4 == d/4 ==   Half +- half/2
-         *  - l.Yin, l.Yang == 8 == d/8 == Size of the little yin, yang 
-         *
+         *  - l.Yin, l.Yang == 8 == d/8 == Size of the little yin, yang
          */
         diameterTheOne      = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
         centerXtheOne       = diameterTheOne / 2.0d + STROKE_WIDTH; //YINYANG_SYMBOLE__OUTER_BORDER;
@@ -350,22 +348,6 @@ public final class TaiChiSymbol implements
         return isNewMonthInYear;
     }
     
-    private void onActionChangeColorYangSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionChangeColorYangSymbol(String)"); // NOI18N
-    
-        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
-        
-        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
-    }
-    
-    private void onActionChangeColorYinSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionChangeColorYinSymbol(String)"); // NOI18N
-    
-        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
-        
-        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
-    }
-    
     public void onActionStartTaiChiRotation() {
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(500.0d));
@@ -384,20 +366,34 @@ public final class TaiChiSymbol implements
         
         pt.playFromStart();
     }
+    
+    private void onActionUpdateColorInYangSymbol(final String color) {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionUpdateColorInYangSymbol(String)"); // NOI18N
+    
+        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
+        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
+    }
+    
+    private void onActionUpdateColorInYinSymbol(final String color) {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionUpdateColorInYinSymbol(String)"); // NOI18N
+    
+        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
+        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
+    }
 
     @Override
     public void register() {
         LoggerFacade.getDefault().debug(this.getClass(), "TaiChiSymbol.register()"); // NOI18N
         
-        this.registerOnActionChangeColorYangSymbol();
-        this.registerOnActionChangeColorYinSymbol();
+        this.registerOnActionUpdateColorInYangSymbol();
+        this.registerOnActionUpdateColorInYinSymbol();
     }
     
-    private void registerOnActionChangeColorYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionChangeColorYangSymbol()"); // NOI18N
+    private void registerOnActionUpdateColorInYangSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionUpdateColorInYangSymbol()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHANGE__COLOR_YANG_SYMBOL,
+                ON_ACTION__UPDATE__COLOR_IN_YANG_SYMBOL,
                 (ActionEvent event) -> {
                     final Object source = event.getSource();
                     if (source instanceof TransferData) {
@@ -405,17 +401,17 @@ public final class TaiChiSymbol implements
                         final Optional<String> optional     = transferData.getString();
                         if(optional.isPresent()) {
                             final String color = optional.get();
-                            this.onActionChangeColorYangSymbol(color);
+                            this.onActionUpdateColorInYangSymbol(color);
                         }
                     }
                 });
     }
 
-    private void registerOnActionChangeColorYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionChangeColorYinSymbol()"); // NOI18N
+    private void registerOnActionUpdateColorInYinSymbol() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionUpdateColorInYinSymbol()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHANGE__COLOR_YIN_SYMBOL,
+                ON_ACTION__UPDATE__COLOR_IN_YIN_SYMBOL,
                 (ActionEvent event) -> {
                     final Object source = event.getSource();
                     if (source instanceof TransferData) {
@@ -423,7 +419,7 @@ public final class TaiChiSymbol implements
                         final Optional<String> optional     = transferData.getString();
                         if(optional.isPresent()) {
                             final String color = optional.get();
-                            this.onActionChangeColorYinSymbol(color);
+                            this.onActionUpdateColorInYinSymbol(color);
                         }
                     }
                 });

@@ -215,19 +215,19 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabLanguage()"); // NOI18N
         
         // Single Language
-        rbSingleLanguage.setText(       I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_SINGLE)));
-        rbSingleLanguageEnglish.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_ENGLISH)));
-        rbSingleLanguageGerman.setText( I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_GERMAN)));
+        rbSingleLanguage.setText(       I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__SINGLE)));
+        rbSingleLanguageEnglish.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__ENGLISH)));
+        rbSingleLanguageGerman.setText( I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__GERMAN)));
         
         // Multi Language
-        rbMultiLanguages.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__LANGUAGE_MULTI)));
+        rbMultiLanguages.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__MULTI)));
     }
 
     private void onActionUpdateLanguageInTabExtras() {
         LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabExtras()"); // NOI18N
         
         // Always on top TODO
-        cbAlwaysOnTop.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__EXTRAS__ALWAYS_ON_TOP)));
+        cbAlwaysOnTop.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_EXTRAS__ALWAYS_ON_TOP)));
     }
 
     private void onActionUpdateLanguageInTabAbout() {

@@ -32,7 +32,7 @@ public interface I18nConfiguration {
     public static final String I18N__RESOURCE_BUNDLE__TAICHI_DE = "/com/github/naoghuman/yin/yang/taichi/i18n_taichi_de.properties"; // NOI18N
     public static final String I18N__RESOURCE_BUNDLE__TAICHI_EN = "/com/github/naoghuman/yin/yang/taichi/i18n_taichi_en.properties"; // NOI18N
     
-    // Keys
+    // Application
     public static final String I18N_KEY__APPLICATION__BORDER_SIGN    = "i18n.key.application.border.sign"; // NOI18N
     public static final String I18N_KEY__APPLICATION__BUILD_DATETIME = "i18n.key.application.build.datetime"; // NOI18N
     public static final String I18N_KEY__APPLICATION__MESSAGE_START  = "i18n.key.application.message.start"; // NOI18N
@@ -40,24 +40,40 @@ public interface I18nConfiguration {
     public static final String I18N_KEY__APPLICATION__TITLE          = "i18n.key.application.title"; // NOI18N
     public static final String I18N_KEY__APPLICATION__VERSION        = "i18n.key.application.version"; // NOI18N
     
-    public static final String I18N_KEY__OPTION__EXTRAS__ALWAYS_ON_TOP = "i18n.key.option.extras.alwaysontop"; // NOI18N
-    public static final String I18N_KEY__OPTION__LANGUAGES        = "i18n.key.option.languages"; // NOI18N
-    public static final String I18N_KEY__OPTION__LANGUAGE_ENGLISH = "i18n.key.option.language.english"; // NOI18N
-    public static final String I18N_KEY__OPTION__LANGUAGE_GERMAN  = "i18n.key.option.language.german"; // NOI18N
-    public static final String I18N_KEY__OPTION__LANGUAGE_MULTI   = "i18n.key.option.language.multi"; // NOI18N
-    public static final String I18N_KEY__OPTION__LANGUAGE_SINGLE  = "i18n.key.option.language.single"; // NOI18N
+    // TODO
     public static final String I18N_KEY__OPTION__SINGLE_COLORS    = "i18n.key.option.singlecolors"; // NOI18N
     public static final String I18N_KEY__OPTION__YANG_COLOR       = "i18n.key.option.yangcolor"; // NOI18N
     public static final String I18N_KEY__OPTION__YIN_COLOR        = "i18n.key.option.yincolor"; // NOI18N
     
-    public static final String I18N_KEY__OPTION_DIALOG__BUTTON       = "i18n.key.option.dialog.button"; // NOI18N
-    public static final String I18N_KEY__OPTION_DIALOG__TAB_ABOUT    = "i18n.key.option.dialog.tab.about"; // NOI18N
-    public static final String I18N_KEY__OPTION_DIALOG__TAB_COLOR    = "i18n.key.option.dialog.tab.color"; // NOI18N
-    public static final String I18N_KEY__OPTION_DIALOG__TAB_EXTRAS   = "i18n.key.option.dialog.tab.extras"; // NOI18N
-    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE = "i18n.key.option.dialog.tab.language"; // NOI18N
-    public static final String I18N_KEY__OPTION_DIALOG__TAB_SPEED    = "i18n.key.option.dialog.tab.speed"; // NOI18N
-    public static final String I18N_KEY__OPTION_DIALOG__TITLE        = "i18n.key.option.dialog.title"; // NOI18N
+    // Option dialog
+    public static final String I18N_KEY__OPTION_DIALOG__BUTTON = "i18n.key.option.dialog.button"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TITLE  = "i18n.key.option.dialog.title"; // NOI18N
     
+    // Option dialog about
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_ABOUT          = "i18n.key.option.dialog.tab.about"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_ABOUT__BYNAME  = "i18n.key.option.dialog.tab.about.byname"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE   = "i18n.key.option.dialog.tab.about.title"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_ABOUT__VERSION = "i18n.key.option.dialog.tab.about.version"; // NOI18N
+    
+    // Option dialog color
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_COLOR = "i18n.key.option.dialog.tab.color"; // NOI18N
+    
+    // Option dialog extras
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_EXTRAS                = "i18n.key.option.dialog.tab.extras"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_EXTRAS__ALWAYS_ON_TOP = "i18n.key.option.dialog.tab.extras.alwaysontop"; // NOI18N
+    
+    // Option dialog language
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE            = "i18n.key.option.dialog.tab.language"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__ENGLISH   = "i18n.key.option.dialog.tab.language.english"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__GERMAN    = "i18n.key.option.dialog.tab.language.german"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__LANGUAGES = "i18n.key.option.dialog.tab.language.languages"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__MULTI     = "i18n.key.option.dialog.tab.language.multi"; // NOI18N
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE__SINGLE    = "i18n.key.option.dialog.tab.language.single"; // NOI18N
+    
+    // Option dialog speed
+    public static final String I18N_KEY__OPTION_DIALOG__TAB_SPEED = "i18n.key.option.dialog.tab.speed"; // NOI18N
+    
+    // Tai-Chi term
     public static final String I18N_KEY__TAICHI__TERM_NR       = "i18n.key.taichi.term.nr%d"; // NOI18N
     public static final String I18N_KEY__TAICHI__TERM_QUANTITY = "i18n.key.taichi.term.quantity"; // NOI18N
     

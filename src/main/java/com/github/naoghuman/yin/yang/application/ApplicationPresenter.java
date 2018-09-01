@@ -47,6 +47,8 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Window;
 
@@ -67,9 +69,13 @@ public class ApplicationPresenter implements
     @FXML private Button    bShowOptionDialog;
     @FXML private HBox      hbMenuButtons;
     @FXML private HBox      hbTaiChiTerms;
+    @FXML private Label     lInfoByName;
+    @FXML private Label     lInfoTitle;
+    @FXML private Label     lInfoVersion;
     @FXML private Label     lYangTerm;
     @FXML private Label     lYinTerm;
     @FXML private StackPane spApplication;
+    @FXML private VBox      vbInfos;
     
     private double diameterTheOne  = PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE;
     
@@ -79,6 +85,8 @@ public class ApplicationPresenter implements
     public void initialize(URL location, ResourceBundle resources) {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initialize(URL, ResourceBundle)"); // NOI18N
         
+        this.initializeDiameterTheOne();
+        this.initializeInfos();
         this.initializeMenu();
         
         final boolean showOptionMenu = Boolean.FALSE;
@@ -95,36 +103,75 @@ public class ApplicationPresenter implements
         ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
     }
     
+    private void initializeDiameterTheOne() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeDiameterTheOne()"); // NOI18N
+    
+        diameterTheOne = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
+    }
+    
+    private void initializeInfos() {
+        LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeInfos()"); // NOI18N
+    
+        // VBox
+        vbInfos.setPrefWidth(diameterTheOne / 2.0d);
+
+        // Infos have oposite color from menu
+        final LocalDate now    = LocalDate.now();
+        final boolean   oddDay = now.getDayOfMonth() % 2 != 0;
+        final String    yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String    yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+
+        vbInfos.setStyle(String.format(
+                STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorConverter.convertToBrighter(
+                        (!oddDay ? yangSelectedColor : yinSelectedColor),
+                        0.8d)));
+        
+        lInfoTitle.setText(String.format(
+                I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE),
+                I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
+        lInfoTitle.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
+        
+        lInfoVersion.setText(String.format(
+                I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__VERSION),
+                I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
+        lInfoVersion.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
+        
+        lInfoByName.setText(I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__BYNAME));
+        lInfoByName.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
+    }
+    
     private void initializeMenu() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeMenu()"); // NOI18N
     
-        // HBoxes
-        diameterTheOne = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
+        // Menu background
         hbMenuButtons.setPrefWidth(diameterTheOne / 2.0d);
         
-        // Menubuttons
+        // Buttons
         final LocalDate now    = LocalDate.now();
         final boolean   oddDay = now.getDayOfMonth() % 2 != 0;
+        
+        String selectedColor = oddDay 
+                ? PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE 
+                : PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE;
         if (oddDay) {
-            // odd == yang == left side
+            // odd == yang == top
             hbMenuButtons.getChildren().clear();
             hbMenuButtons.getChildren().addAll(bCloseApplication, bMinimizeApplication, bShowOptionDialog);
             
-            final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-            hbMenuButtons.setStyle(String.format(
-                STYLE__BACKGROUND_COLOR_RADIUS,
-                ColorConverter.convertToBrighter(yangSelectedColor, 0.8d)));
+            selectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         }
         else {
-            // even == yin == right side
+            // even == yin == bottom
             hbMenuButtons.getChildren().clear();
             hbMenuButtons.getChildren().addAll(bShowOptionDialog, bMinimizeApplication, bCloseApplication);
             
-            final String yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-            hbMenuButtons.setStyle(String.format(
-                STYLE__BACKGROUND_COLOR_RADIUS,
-                ColorConverter.convertToBrighter(yinSelectedColor, 0.8d)));
+            selectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
         }
+        
+        hbMenuButtons.setStyle(String.format(
+                STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorConverter.convertToBrighter(selectedColor, 0.8d)));
     }
     
     public void configure(final Window owner) {
@@ -187,6 +234,7 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), String.format(
                 "ApplicationPresenter.onActionShowOptionMenu(showOptionMenu=%b)", showOptionMenu)); // NOI18N
         
+        // Menu buttons
         hbMenuButtons.setManaged(showOptionMenu);
         hbMenuButtons.setVisible(showOptionMenu);
         
@@ -196,6 +244,42 @@ public class ApplicationPresenter implements
         bMinimizeApplication.setVisible(showOptionMenu);
         bShowOptionDialog.setManaged(showOptionMenu);
         bShowOptionDialog.setVisible(showOptionMenu);
+        
+        // Infos
+        vbInfos.setManaged(showOptionMenu);
+        vbInfos.setVisible(showOptionMenu);
+        
+        lInfoByName.setManaged(showOptionMenu);
+        lInfoByName.setVisible(showOptionMenu);
+        lInfoTitle.setManaged(showOptionMenu);
+        lInfoTitle.setVisible(showOptionMenu);
+    }
+
+    private void onActionUpdateColorInApplicationOptions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.onActionUpdateColorInApplicationOptions()"); // NOI18N
+        
+        // Option buttons
+        final LocalDate now    = LocalDate.now();
+        final boolean   oddDay = now.getDayOfMonth() % 2 != 0;
+        final String yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
+        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
+        
+        hbMenuButtons.setStyle(String.format(
+                STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorConverter.convertToBrighter(
+                        oddDay ? yangSelectedColor : yinSelectedColor,
+                        0.8d)));
+        
+        // Option info
+        vbInfos.setStyle(String.format(
+                STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorConverter.convertToBrighter(
+                        (!oddDay ? yangSelectedColor : yinSelectedColor),
+                        0.8d)));
+        
+        lInfoTitle.setTextFill(  Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
+        lInfoVersion.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
+        lInfoByName.setTextFill( Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
     }
     
     @Override
@@ -203,6 +287,7 @@ public class ApplicationPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.register()"); // NOI18N
         
         this.registerOnActionShowOptionMenu();
+        this.registerOnActionUpdateColorInApplicationOptions();
     }
     
     private void registerOnActionShowOptionMenu() {
@@ -220,6 +305,16 @@ public class ApplicationPresenter implements
                             this.onActionShowOptionMenu(showOptionMenu);
                         }
                     }
+                });
+    }
+
+    private void registerOnActionUpdateColorInApplicationOptions() {
+        LoggerFacade.getDefault().debug(this.getClass(), "ApplicationPresenter.registerOnActionUpdateColorInApplicationOptions()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS,
+                (ActionEvent event) -> {
+                    this.onActionUpdateColorInApplicationOptions();
                 });
     }
     

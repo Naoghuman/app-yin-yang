@@ -55,7 +55,7 @@ public final class I18nProvider implements
         return I18nOptions.getDefault();
     }
     
-    public I18nTaiChi getI18nYinYang() {
+    public I18nTaiChi getI18nTaiChi() {
         return I18nTaiChi.getDefault();
     }
     

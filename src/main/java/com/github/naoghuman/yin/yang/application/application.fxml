@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <StackPane id="StackPane" fx:id="spApplication" prefHeight="330.0" prefWidth="330.0" style="-fx-background-color: TRANSPARENT;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.application.ApplicationPresenter">
@@ -36,5 +37,34 @@
                 </Label>
             </children>
         </HBox>
+      <VBox fx:id="vbInfos" alignment="CENTER" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" mouseTransparent="true" prefHeight="39.0" style="-fx-background-color: LIGHTBLUE;">
+         <StackPane.margin>
+            <Insets top="150.0" />
+         </StackPane.margin>
+         <children>
+            <HBox alignment="BOTTOM_CENTER">
+               <children>
+                  <Label fx:id="lInfoTitle" text="&lt;title&gt;">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lInfoVersion" text="&lt;version&gt;">
+                     <font>
+                        <Font name="System Italic" size="8.0" />
+                     </font>
+                  </Label>
+               </children>
+            </HBox>
+            <Label fx:id="lInfoByName" text="&lt;by-name&gt;">
+               <font>
+                  <Font size="8.0" />
+               </font>
+            </Label>
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </VBox>
     </children>
 </StackPane>

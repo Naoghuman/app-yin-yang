@@ -25,4 +25,6 @@ public interface TaiChiConfiguration {
     
     public static final double TAICHI_SYMBOL__OUTER_BORDER = 5.0d;
     
+    public static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
+    
 }

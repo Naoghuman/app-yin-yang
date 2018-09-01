@@ -20,6 +20,7 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import static com.github.naoghuman.yin.yang.configuration.EventConfiguration.ON_ACTION__UPDATE__COLOR_IN_TERMS;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -251,11 +252,11 @@ public final class ColorComboBox implements EventConfiguration {
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
             @Override
             public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                // Update Yin-, YangSymbol color
+                // Update yin, yang color
                 String actionId = ON_ACTION__UNKNOWN_ACTION;
                 switch(type) {
-                    case YANG_SYMBOL: { actionId = ON_ACTION__CHANGE__COLOR_YANG_SYMBOL; break; }
-                    case YIN_SYMBOL:  { actionId = ON_ACTION__CHANGE__COLOR_YIN_SYMBOL;  break;}
+                    case YANG_SYMBOL: { actionId = ON_ACTION__UPDATE__COLOR_IN_YANG_SYMBOL; break; }
+                    case YIN_SYMBOL:  { actionId = ON_ACTION__UPDATE__COLOR_IN_YIN_SYMBOL;  break;}
                 }
                 
                 ActionHandlerFacade.getDefault()
@@ -264,8 +265,9 @@ public final class ColorComboBox implements EventConfiguration {
                                 .stringValue(newValue)
                                 .build());
                 
-                // Update term colors
-                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE_TERM_COLORS);      
+                // Update colors
+                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS);
+                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_TERMS);
             }
         });
     }

@@ -8,7 +8,7 @@ aso..
 
 #### Summary
 * With v0.5.0 now 50 Yin-Yang terms are available.
-* ...
+* ApplicationMenu color is now the opposite from the ApplicationInfo color.
 
 
 
