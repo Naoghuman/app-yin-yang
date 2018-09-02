@@ -10,7 +10,7 @@ Yin-Yang is a little [JavaFX] &amp; [Maven] desktop application which demonstrat
 some nice JavaFX features like borderless application, multilingualism, animations 
 aso..
 
-TODO Current `version` is `0.1.0` (08.06.2018 / MM.dd.yyyy). 
+TODO Current `version` is `0.5.0` (09.02.2018 / MM.dd.yyyy). 
 
 
 Content
