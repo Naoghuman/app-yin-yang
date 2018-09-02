@@ -7,7 +7,7 @@ aso..
 
 
 #### Summary
-* ...
+* The rotation from the TaiChi symbol will now managed with the class TaiChiRotation.
 * ...
 
 

@@ -31,6 +31,7 @@ import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.options.OptionsView;
 import com.github.naoghuman.yin.yang.taichi.TaiChiColors;
+import com.github.naoghuman.yin.yang.taichi.TaiChiRotation;
 import com.github.naoghuman.yin.yang.taichi.TaiChiTerms;
 import com.github.naoghuman.yin.yang.taichi.TaiChiSymbol;
 import java.net.URL;
@@ -94,7 +95,6 @@ public class ApplicationPresenter implements
         this.onActionShowOptionMenu(showOptionMenu);
         
         TaiChiSymbol.getDefault().configure(spApplication);
-        TaiChiSymbol.getDefault().onActionStartTaiChiRotation();
         
         TaiChiColors.getDefault().register(lYangTerm, TaiChiColors.Type.STYLE,    ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         TaiChiColors.getDefault().register(lYangTerm, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
@@ -102,10 +102,11 @@ public class ApplicationPresenter implements
         TaiChiColors.getDefault().register(lYinTerm,  TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         
         TaiChiTerms.getDefault().configure(hbTaiChiTerms, lYinTerm, lYangTerm);
-        TaiChiTerms.getDefault().onActionShowTaiChiTerms();
         
         this.register();
         
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_ROTATION);
+        TaiChiTerms.getDefault().onActionShowTaiChiTerms();
         ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
     }
     
@@ -121,33 +122,19 @@ public class ApplicationPresenter implements
         // VBox
         vbInfos.setPrefWidth(diameterTheOne / 2.0d);
 
-        // Infos have oposite color from menu
-//        final LocalDate now    = LocalDate.now();
-//        final boolean   oddDay = now.getDayOfMonth() % 2 != 0;
-//        final String    yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-//        final String    yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-
-//        vbInfos.setStyle(String.format(// TODO
-//                STYLE__BACKGROUND_COLOR_RADIUS,
-//                ColorConverter.convertToBrighter(
-//                        (!oddDay ? yangSelectedColor : yinSelectedColor),
-//                        0.8d)));
         TaiChiColors.getDefault().register(vbInfos, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
         
         lInfoTitle.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE),
                 I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
-//        lInfoTitle.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
         TaiChiColors.getDefault().register(lInfoTitle, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        // TODO
+        
         lInfoVersion.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__VERSION),
                 I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
-//        lInfoVersion.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
         TaiChiColors.getDefault().register(lInfoVersion, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        // TODO
+        
         lInfoByName.setText(I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__BYNAME));
-//        lInfoByName.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, (oddDay ? yangSelectedColor : yinSelectedColor))));
         TaiChiColors.getDefault().register(lInfoByName, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
     }
     
