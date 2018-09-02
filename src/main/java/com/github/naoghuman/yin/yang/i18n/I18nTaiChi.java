@@ -38,11 +38,6 @@ public final class I18nTaiChi implements I18nConfiguration, I18nLanguage, I18nPr
     private Locale language = Locale.ENGLISH;
     
     private I18nTaiChi() {
-        this.initialize();
-    }
-    
-    private void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nTaiChi.initialize()"); // NOI18N
         
     }
 
@@ -57,7 +52,7 @@ public final class I18nTaiChi implements I18nConfiguration, I18nLanguage, I18nPr
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nTaiChi.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "I18nTaiChi.register()"); // NOI18N
         
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_DE);
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_EN);

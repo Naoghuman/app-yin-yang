@@ -22,6 +22,9 @@ package com.github.naoghuman.yin.yang.configuration;
  * @since  0.1.0
  */
 public interface EventConfiguration {
+    
+    public static final String ON_ACTION__CHOOSE__SINGLE_YANG_COLOR = "ON_ACTION__CHOOSE__SINGLE_YANG_COLOR"; // NOI18N
+    public static final String ON_ACTION__CHOOSE__SINGLE_YIN_COLOR  = "ON_ACTION__CHOOSE__SINGLE_YIN_COLOR"; // NOI18N
 
     public static final String ON_ACTION__CHANGE__ALWAYS_ON_TOP          = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
     public static final String ON_ACTION__CLOSE_APPLICATION              = "ON_ACTION__CLOSE_APPLICATION"; // NOI18N
@@ -30,8 +33,6 @@ public interface EventConfiguration {
     public static final String ON_ACTION__SHOW_OPTIONS                   = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
     public static final String ON_ACTION__UNKNOWN_ACTION                 = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
     public static final String ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS = "ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS"; // NOI18N
-    public static final String ON_ACTION__UPDATE__COLOR_IN_YANG_SYMBOL = "ON_ACTION__UPDATE__COLOR_IN_YANG_SYMBOL"; // NOI18N
-    public static final String ON_ACTION__UPDATE__COLOR_IN_YIN_SYMBOL  = "ON_ACTION__UPDATE__COLOR_IN_YIN_SYMBOL"; // NOI18N
     public static final String ON_ACTION__UPDATE__COLOR_IN_TERMS       = "ON_ACTION__UPDATE__COLOR_IN_TERMS"; // NOI18N
     public static final String ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG = "ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG"; // NOI18N
     public static final String ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS = "ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS"; // NOI18N

@@ -20,7 +20,6 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import static com.github.naoghuman.yin.yang.configuration.EventConfiguration.ON_ACTION__UPDATE__COLOR_IN_TERMS;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -177,12 +176,7 @@ public final class ColorComboBox implements EventConfiguration {
     );
     
     public ColorComboBox() {
-        this.initialize();
-    }
-    
-    private void initialize() {
-       LoggerFacade.getDefault().info(this.getClass(), "ColorComboBox.initialize()"); // NOI18N
-       
+        
     }
     
     public void configure(final ComboBox<String> comboBox, final Type type, final String selectedColor) {
@@ -255,8 +249,9 @@ public final class ColorComboBox implements EventConfiguration {
                 // Update yin, yang color
                 String actionId = ON_ACTION__UNKNOWN_ACTION;
                 switch(type) {
-                    case YANG_SYMBOL: { actionId = ON_ACTION__UPDATE__COLOR_IN_YANG_SYMBOL; break; }
-                    case YIN_SYMBOL:  { actionId = ON_ACTION__UPDATE__COLOR_IN_YIN_SYMBOL;  break;}
+                    // TODO better is not enum.type, instead use actionId from configure(...) here
+                    case YANG_SYMBOL: { actionId = ON_ACTION__CHOOSE__SINGLE_YANG_COLOR; break; }
+                    case YIN_SYMBOL:  { actionId = ON_ACTION__CHOOSE__SINGLE_YIN_COLOR;  break; }
                 }
                 
                 ActionHandlerFacade.getDefault()
@@ -266,8 +261,8 @@ public final class ColorComboBox implements EventConfiguration {
                                 .build());
                 
                 // Update colors
-                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS);
-                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_TERMS);
+//                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS);
+//                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_TERMS);
             }
         });
     }

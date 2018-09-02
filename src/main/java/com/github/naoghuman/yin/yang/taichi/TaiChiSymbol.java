@@ -17,13 +17,12 @@
 package com.github.naoghuman.yin.yang.taichi;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
-import com.github.naoghuman.lib.action.core.RegisterActions;
-import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.Optional;
@@ -34,11 +33,9 @@ import javafx.animation.PauseTransition;
 import javafx.animation.Timeline;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
-import javafx.event.ActionEvent;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
@@ -47,7 +44,6 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Shape;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 
 /**
  * 
@@ -55,8 +51,7 @@ import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
  * @since  0.1.0
  */
 public final class TaiChiSymbol implements 
-        EventConfiguration, PreferencesConfiguration, RegisterActions,
-        TaiChiConfiguration
+        EventConfiguration, PreferencesConfiguration, TaiChiConfiguration
 {
     private static final double STROKE_WIDTH = 4.0d;
     
@@ -108,8 +103,6 @@ public final class TaiChiSymbol implements
         this.initializeYangSymbol();
         this.initializeTaiChiRotation();
         this.initializeTaiChiTimeline();
-        
-        this.register();
     }
     
     private void initializeLittleYangSymbol() {
@@ -207,6 +200,9 @@ public final class TaiChiSymbol implements
         // Tweak the ready YangSymbol
         yangSymbol.setMouseTransparent(Boolean.TRUE);
         yangSymbol.setTranslateY(yangSymbol.getTranslateY() + -littleAddCirle.getRadius() / 2);
+        
+        // Register the yang-symbol for color changes
+        TaiChiColors.getDefault().register(yangSymbol, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
     }
 
     private void initializeYinSymbol() {
@@ -224,6 +220,9 @@ public final class TaiChiSymbol implements
         glow.setHeight(12.0d);
         yinSymbol.setEffect(glow);
         yinSymbol.setFill(Color.BLACK);
+        
+        // Register the yin-symbol for color changes
+        TaiChiColors.getDefault().register(yinSymbol, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
     }
     
     private void initializeYinSymbolMouseListeners() {
@@ -286,27 +285,8 @@ public final class TaiChiSymbol implements
         });
     }
     
-    public void configure(final AnchorPane apApplication) {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiSymbol.configure(AnchorPane)"); // NOI18N
-        
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
-        
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR, PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
-        
-        apApplication.getChildren().add(0, yinSymbol);
-        apApplication.getChildren().add(1, yangSymbol);
-    }
-    
     public void configure(final StackPane spApplication) {
         LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
-        
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
-        
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR, PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
         
         spApplication.getChildren().add(0, yinSymbol);
         spApplication.getChildren().add(1, yangSymbol);
@@ -365,64 +345,6 @@ public final class TaiChiSymbol implements
         });
         
         pt.playFromStart();
-    }
-    
-    private void onActionUpdateColorInYangSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionUpdateColorInYangSymbol(String)"); // NOI18N
-    
-        yangSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
-        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
-    }
-    
-    private void onActionUpdateColorInYinSymbol(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.onActionUpdateColorInYinSymbol(String)"); // NOI18N
-    
-        yinSymbol.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
-        PreferencesFacade.getDefault().put(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
-    }
-
-    @Override
-    public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiSymbol.register()"); // NOI18N
-        
-        this.registerOnActionUpdateColorInYangSymbol();
-        this.registerOnActionUpdateColorInYinSymbol();
-    }
-    
-    private void registerOnActionUpdateColorInYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionUpdateColorInYangSymbol()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE__COLOR_IN_YANG_SYMBOL,
-                (ActionEvent event) -> {
-                    final Object source = event.getSource();
-                    if (source instanceof TransferData) {
-                        final TransferData     transferData = (TransferData) source;
-                        final Optional<String> optional     = transferData.getString();
-                        if(optional.isPresent()) {
-                            final String color = optional.get();
-                            this.onActionUpdateColorInYangSymbol(color);
-                        }
-                    }
-                });
-    }
-
-    private void registerOnActionUpdateColorInYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.registerOnActionUpdateColorInYinSymbol()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE__COLOR_IN_YIN_SYMBOL,
-                (ActionEvent event) -> {
-                    final Object source = event.getSource();
-                    if (source instanceof TransferData) {
-                        final TransferData     transferData = (TransferData) source;
-                        final Optional<String> optional     = transferData.getString();
-                        if(optional.isPresent()) {
-                            final String color = optional.get();
-                            this.onActionUpdateColorInYinSymbol(color);
-                        }
-                    }
-                });
     }
     
 }

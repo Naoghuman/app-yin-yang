@@ -40,11 +40,7 @@ public final class I18nProvider implements
     }
     
     private I18nProvider() {
-        this.initialize();
-    }
-    
-    private void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.initialize()"); // NOI18N
+        
     }
     
     public I18nApplication getI18nApplication() {
@@ -81,7 +77,7 @@ public final class I18nProvider implements
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nProvider.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.register()"); // NOI18N
         
         I18nApplication.getDefault().register();
         I18nOptions.getDefault().register();

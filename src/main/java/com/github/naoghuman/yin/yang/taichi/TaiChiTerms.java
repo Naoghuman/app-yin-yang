@@ -20,10 +20,10 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.color.ColorConverter;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Optional;
 import java.util.Random;
@@ -36,9 +36,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 
 /**
  *
@@ -53,9 +51,7 @@ public class TaiChiTerms implements
     private static final double OPACITY__TERM  = 1.0d;
     private static final double OPACITY__ZERO  = 0.0d;
     
-    private static final Random RANDOM = new Random();
-    private static final String STYLE_TERM__BACKGROUND_COLOR_RADIUS = "-fx-background-color:%s;-fx-background-radius:5.0;"; // NOI18N
-    
+    private static final Random                RANDOM   = new Random();
     private static final Optional<TaiChiTerms> INSTANCE = Optional.of(new TaiChiTerms());
 
     public static final TaiChiTerms getDefault() {
@@ -96,9 +92,7 @@ public class TaiChiTerms implements
 //        this.hbYinYangTerms.setPrefHeight(PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER * 2.0d);
         this.hbTaiChiTerms.setPrefWidth(diameterTheOne - diameterTheOne / 4.0d);
         this.hbTaiChiTerms.setLayoutX(diameterTheOne / 8.0d + TAICHI_SYMBOL__OUTER_BORDER);
-//        this.hbYinYangTerms.setLayoutY((diameterTheOne / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER));
-//        this.hbYinYangTerms.setStyle("-fx-background-color:red");
-        
+
         this.lYinTerm.setAlignment(Pos.CENTER);
         this.lYinTerm.setOpacity(OPACITY__ZERO);
         this.lYinTerm.setPrefWidth(diameterTheOne / 2.0d);
@@ -106,8 +100,6 @@ public class TaiChiTerms implements
         this.lYangTerm.setAlignment(Pos.CENTER);
         this.lYangTerm.setOpacity(OPACITY__ZERO);
         this.lYangTerm.setPrefWidth(diameterTheOne / 2.0d);
-        
-        this.onActionUpdateColorInTerms();
     }
     
     /**
@@ -224,34 +216,16 @@ public class TaiChiTerms implements
         final String termYang = this.extractYangTerm(termYinYang);
         lYangTerm.setText(termYang);
     }
-    
-    private void onActionUpdateColorInTerms() {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiTerms.onActionUpdateColorInTerms()"); // NOI18N
-        
-        final String yinSelectedColor  = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        
-        lYinTerm.setStyle(String.format(
-                STYLE_TERM__BACKGROUND_COLOR_RADIUS,
-                ColorConverter.convertToBrighter(yinSelectedColor, 0.8d)));
-        lYinTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yangSelectedColor)));
-        
-        lYangTerm.setStyle(String.format(
-                STYLE_TERM__BACKGROUND_COLOR_RADIUS,
-                ColorConverter.convertToBrighter(yangSelectedColor, 0.8d)));
-        lYangTerm.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, yinSelectedColor)));
-    }
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiTerms.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.register()"); // NOI18N
         
         this.registerOnActionUpdateLanguageTaiChiTerms();
-        this.registerOnActionUpdateColorInTerms();
     }
     
     private void registerOnActionUpdateLanguageTaiChiTerms() {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiTerms.registerOnActionUpdateLanguageTaiChiTerms()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerOnActionUpdateLanguageTaiChiTerms()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS,
@@ -259,16 +233,5 @@ public class TaiChiTerms implements
                     this.onActionUpdateLanguageTaiChiTerms();
                 });
     }
-    
-    private void registerOnActionUpdateColorInTerms() {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiTerms.registerOnActionUpdateColorInTerms()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE__COLOR_IN_TERMS,
-                (ActionEvent event) -> {
-                    this.onActionUpdateColorInTerms();
-                });
-    }
-    
     
 }

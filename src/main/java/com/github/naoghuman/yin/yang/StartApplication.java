@@ -30,6 +30,7 @@ import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProperty;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
+import com.github.naoghuman.yin.yang.taichi.TaiChiColors;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
@@ -111,9 +112,11 @@ public class StartApplication extends Application implements
                 + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION));
         stage.setScene(scene);
         
-        this.onActionSetApplicationPosition();
+        this.onActionUpdateApplicationPosition();
         
         stage.show();
+        
+        TaiChiColors.getDefault().initialize();
     }
     
     private void onActionChangeAlwaysOnTop(final boolean alwaysOnTop) {
@@ -168,8 +171,8 @@ public class StartApplication extends Application implements
         ptSavePositionToPreferences.playFromStart();
     }
     
-    private void onActionSetApplicationPosition() {
-        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionSetApplicationPosition()"); // NOI18N
+    private void onActionUpdateApplicationPosition() {
+        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionUpdateApplicationPosition()"); // NOI18N
         
         // X
         final double x = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_X, PREF__APPLICATION__POSITION_X_DEFAULT_VALUE);
@@ -210,6 +213,8 @@ public class StartApplication extends Application implements
         this.registerOnActionMinimizeApplication();
         this.registerOnMouseDragged();
         this.registerOnMousePressed();
+        
+        TaiChiColors.getDefault().register();
     }
     
     private void registerOnActionChangeAlwaysOnTop() {

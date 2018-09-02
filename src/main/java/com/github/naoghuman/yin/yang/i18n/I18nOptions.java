@@ -38,11 +38,6 @@ public final class I18nOptions implements I18nConfiguration, I18nLanguage, I18nP
     private Locale language = Locale.ENGLISH;
     
     private I18nOptions() {
-        this.initialize();
-    }
-    
-    private void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nOptions.initialize()"); // NOI18N
         
     }
 
@@ -57,7 +52,7 @@ public final class I18nOptions implements I18nConfiguration, I18nLanguage, I18nP
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nOptions.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "I18nOptions.register()"); // NOI18N
         
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__OPTIONS_DE);
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__OPTIONS_EN);

@@ -35,11 +35,6 @@ public final class I18nApplication implements I18nConfiguration, I18nProperty, I
     }
     
     private I18nApplication() {
-        this.initialize();
-    }
-    
-    private void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nApplication.initialize()"); // NOI18N
         
     }
 
@@ -50,7 +45,7 @@ public final class I18nApplication implements I18nConfiguration, I18nProperty, I
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nApplication.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "I18nApplication.register()"); // NOI18N
         
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__APPLICATION);
     }

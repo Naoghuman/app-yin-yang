@@ -48,6 +48,8 @@ OptionsDialog
  - Tab 'Language' shows options to choose different languages.
  - Tab 'Extras' shows additional options like 'always on top'.
 
+Color changes and updates will now managed in own class TaiChiColors.
+
 --------------------------------------------------------------------------------
 
 
