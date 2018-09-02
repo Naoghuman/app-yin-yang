@@ -106,7 +106,7 @@ public class ApplicationPresenter implements
         this.register();
         
         ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_ROTATION);
-        TaiChiTerms.getDefault().onActionShowTaiChiTerms();
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_TERMS);
         ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
     }
     

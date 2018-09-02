@@ -194,13 +194,13 @@ public class TaiChiTerms implements
         return termYinYang.substring(0, termYinYang.indexOf(TERM_SEPERATOR));
     }
 
-    public void onActionShowTaiChiTerms() {
+    private void onActionStartTaiChiTerms() {
         // Comment out to avoid spawning messages
-//        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionShowYinAndYangTerm()"); // NOI18N
+//        LoggerFacade.getDefault().debug(this.getClass(), "YinYangTerms.onActionStartTaiChiTerms()"); // NOI18N
         
         final SequentialTransition st = this.createSequentialTransition();
         st.setOnFinished((event) -> {
-            this.onActionShowTaiChiTerms();
+            this.onActionStartTaiChiTerms();
         });
         
         st.playFromStart();
@@ -221,7 +221,18 @@ public class TaiChiTerms implements
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.register()"); // NOI18N
         
+        this.registerOnActionStartTaiChiTerms();
         this.registerOnActionUpdateLanguageTaiChiTerms();
+    }
+
+    private void registerOnActionStartTaiChiTerms() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerOnActionStartTaiChiTerms()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__START_TAICHI_TERMS,
+                (ActionEvent event) -> {
+                    this.onActionStartTaiChiTerms();
+                });
     }
     
     private void registerOnActionUpdateLanguageTaiChiTerms() {

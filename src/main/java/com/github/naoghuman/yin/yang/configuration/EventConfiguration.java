@@ -32,6 +32,7 @@ public interface EventConfiguration {
     public static final String ON_ACTION__MINIMIZE_APPLICATION           = "ON_ACTION__MINIMIZE_APPLICATION"; // NOI18N
     public static final String ON_ACTION__SHOW_OPTIONS                   = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
     public static final String ON_ACTION__START_TAICHI_ROTATION          = "ON_ACTION__START_TAICHI_ROTATION"; // NOI18N
+    public static final String ON_ACTION__START_TAICHI_TERMS             = "ON_ACTION__START_TAICHI_TERMS"; // NOI18N
     public static final String ON_ACTION__UNKNOWN_ACTION                 = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
     public static final String ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS = "ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS"; // NOI18N
     public static final String ON_ACTION__UPDATE__COLOR_IN_TERMS       = "ON_ACTION__UPDATE__COLOR_IN_TERMS"; // NOI18N
