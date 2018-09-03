@@ -86,10 +86,10 @@ public final class TaiChiSymbol implements
         this.initializeLittleYangSymbol();
         this.initializeYangSymbol();
 
-        TaiChiColors.getDefault().register(yangSymbol, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        TaiChiColors.getDefault().register(yinSymbol,  ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(yangSymbol, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(yinSymbol,  ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
         
-        TaiChiRotation.getDefault().configure(yangSymbol, halfYangSymbol);
+        TaiChiProvider.getDefault().getTaiChiRotation().register(yangSymbol, halfYangSymbol);
     }
     
     private void initializeLittleYangSymbol() {
@@ -225,8 +225,8 @@ public final class TaiChiSymbol implements
         });
     }
     
-    public void configure(final StackPane spApplication) {
-        LoggerFacade.getDefault().debug(this.getClass(), "YinYangSymbol.configure(AnchorPane)"); // NOI18N
+    public void register(final StackPane spApplication) {
+        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.register(StackPane)"); // NOI18N
         
         spApplication.getChildren().add(0, yinSymbol);
         spApplication.getChildren().add(1, yangSymbol);

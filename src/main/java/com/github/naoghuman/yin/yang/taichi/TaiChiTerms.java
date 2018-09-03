@@ -79,29 +79,6 @@ public class TaiChiTerms implements
         this.register();
     }
     
-    public void configure(final HBox hbTaiChiTerms, final Label lYinTerm, final Label lYangTerm) {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiTerms.configure(HBox, Label, Label)"); // NOI18N
-        
-        this.hbTaiChiTerms = hbTaiChiTerms;
-        this.lYinTerm      = lYinTerm;
-        this.lYangTerm     = lYangTerm;
-        
-        diameterTheOne = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
-        
-        this.hbTaiChiTerms.getChildren().clear();
-//        this.hbYinYangTerms.setPrefHeight(PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER * 2.0d);
-        this.hbTaiChiTerms.setPrefWidth(diameterTheOne - diameterTheOne / 4.0d);
-        this.hbTaiChiTerms.setLayoutX(diameterTheOne / 8.0d + TAICHI_SYMBOL__OUTER_BORDER);
-
-        this.lYinTerm.setAlignment(Pos.CENTER);
-        this.lYinTerm.setOpacity(OPACITY__ZERO);
-        this.lYinTerm.setPrefWidth(diameterTheOne / 2.0d);
-        
-        this.lYangTerm.setAlignment(Pos.CENTER);
-        this.lYangTerm.setOpacity(OPACITY__ZERO);
-        this.lYangTerm.setPrefWidth(diameterTheOne / 2.0d);
-    }
-    
     /**
      * 1) Start delay
      * 2) Blend in   YinTerm
@@ -223,6 +200,43 @@ public class TaiChiTerms implements
         
         this.registerOnActionStartTaiChiTerms();
         this.registerOnActionUpdateLanguageTaiChiTerms();
+    }
+    
+    public void register(final HBox hbTaiChiTerms, final Label lYinTerm, final Label lYangTerm) {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.register(HBox, Label, Label)"); // NOI18N
+        
+        this.hbTaiChiTerms = hbTaiChiTerms;
+        this.lYinTerm      = lYinTerm;
+        this.lYangTerm     = lYangTerm;
+        
+        this.registerComponentTaiChiTerms();
+        this.registerComponentYangTerm();
+        this.registerComponentYinTerm();
+    }
+    
+    private void registerComponentTaiChiTerms() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerComponentTaiChiTerms()"); // NOI18N
+        
+        hbTaiChiTerms.getChildren().clear();
+//        hbYinYangTerms.setPrefHeight(PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER * 2.0d);
+        hbTaiChiTerms.setPrefWidth(diameterTheOne - diameterTheOne / 4.0d);
+        hbTaiChiTerms.setLayoutX(diameterTheOne / 8.0d + TAICHI_SYMBOL__OUTER_BORDER);
+    }
+    
+    private void registerComponentYangTerm() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerComponentYangTerm()"); // NOI18N
+        
+        lYangTerm.setAlignment(Pos.CENTER);
+        lYangTerm.setOpacity(OPACITY__ZERO);
+        lYangTerm.setPrefWidth(diameterTheOne / 2.0d);
+    }
+    
+    private void registerComponentYinTerm() {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerComponentYinTerm()"); // NOI18N
+        
+        lYinTerm.setAlignment(Pos.CENTER);
+        lYinTerm.setOpacity(OPACITY__ZERO);
+        lYinTerm.setPrefWidth(diameterTheOne / 2.0d);
     }
 
     private void registerOnActionStartTaiChiTerms() {

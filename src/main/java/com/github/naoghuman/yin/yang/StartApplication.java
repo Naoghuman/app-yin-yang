@@ -30,7 +30,7 @@ import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProperty;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
-import com.github.naoghuman.yin.yang.taichi.TaiChiColors;
+import com.github.naoghuman.yin.yang.taichi.TaiChiProvider;
 import java.util.Optional;
 import javafx.animation.Animation;
 import javafx.animation.PauseTransition;
@@ -116,7 +116,7 @@ public class StartApplication extends Application implements
         
         stage.show();
         
-        TaiChiColors.getDefault().initialize();
+        TaiChiProvider.getDefault().initialize();
     }
     
     private void onActionChangeAlwaysOnTop(final boolean alwaysOnTop) {
@@ -214,7 +214,7 @@ public class StartApplication extends Application implements
         this.registerOnMouseDragged();
         this.registerOnMousePressed();
         
-        TaiChiColors.getDefault().register();
+        TaiChiProvider.getDefault().register();
     }
     
     private void registerOnActionChangeAlwaysOnTop() {

@@ -110,15 +110,6 @@ public final class TaiChiRotation implements EventConfiguration, RegisterActions
         tlRotation.setCycleCount(Animation.INDEFINITE);
     }
     
-    public void configure(final Shape yangSymbol, final Arc halfYangSymbol) {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiRotation.configure()"); // NOI18N
-        
-        rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
-        rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
-        
-        yangSymbol.getTransforms().add(rotation);
-    }
-    
     private boolean isNewDayInYear(final LocalDate newDayInYear) {
         boolean isNewDayInYear = Boolean.FALSE;
         if (newDayInYear.getYear() > oldDayInYear.getYear()) {
@@ -173,6 +164,15 @@ public final class TaiChiRotation implements EventConfiguration, RegisterActions
         });
         
         pt.playFromStart();
+    }
+    
+    public void register(final Shape yangSymbol, final Arc halfYangSymbol) {
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.register()"); // NOI18N
+        
+        rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
+        rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
+        
+        yangSymbol.getTransforms().add(rotation);
     }
 
     @Override

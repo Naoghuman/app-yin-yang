@@ -50,6 +50,8 @@ OptionsDialog
 
 Color changes and updates will now managed in own class TaiChiColors.
 The rotation from the TaiChi symbol will now managed with the class TaiChiRotation.
+With the class TaiChiProvider the functionalities around TaiChiColors, -Rotation,
+-Symbol and -Terms are managed.
 
 --------------------------------------------------------------------------------
 

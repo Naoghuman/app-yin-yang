@@ -176,7 +176,7 @@ public final class TaiChiColors implements
     }
     
     public void register(final Labeled labeled, final TaiChiColors.Type type, final String actionId) {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiColor.register(Labeled, TaiChiColors.Type, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register(Labeled, TaiChiColors.Type, String)"); // NOI18N
         
         switch(type) {
             case STYLE: {
@@ -195,7 +195,7 @@ public final class TaiChiColors implements
     }
     
     public void register(final Node node, final String actionId) {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiColor.register(Node, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register(Node, String)"); // NOI18N
         
         if (!CONTAINERS_FOR_STYLE.containsKey(node)) {
             CONTAINERS_FOR_STYLE.put(node, actionId);
@@ -203,7 +203,7 @@ public final class TaiChiColors implements
     }
     
     public void register(final Shape shape, final String actionId) {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiColor.register(Shape, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register(Shape, String)"); // NOI18N
         
         if (!SHAPES_FOR_FILL.containsKey(shape)) {
             SHAPES_FOR_FILL.put(shape, actionId);
