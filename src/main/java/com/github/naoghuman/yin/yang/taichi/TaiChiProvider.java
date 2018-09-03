@@ -33,6 +33,11 @@ public final class TaiChiProvider implements RegisterActions {
         return INSTANCE.get();
     }
     
+    private final TaiChiColors   taiChiColors   = new DefaultTaiChiColors();
+    private final TaiChiRotation taiChiRotation = new DefaultTaiChiRotation();
+    private final TaiChiSymbol   taiChiSymbol   = new DefaultTaiChiSymbol();
+    private final TaiChiTerms    taiChiTerms    = new DefaultTaiChiTerms();
+    
     private TaiChiProvider() {
         
     }
@@ -40,32 +45,31 @@ public final class TaiChiProvider implements RegisterActions {
     public void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiProvider.initialize()"); // NOI18N
         
-        TaiChiColors.getDefault().initialize();
+        taiChiColors.initialize();
     }
     
     public TaiChiColors getTaiChiColors() {
-        return TaiChiColors.getDefault();
+        return taiChiColors;
     }
     
     public TaiChiRotation getTaiChiRotation() {
-        return TaiChiRotation.getDefault();
+        return taiChiRotation;
     }
     
     public TaiChiSymbol getTaiChiSymbol() {
-        return TaiChiSymbol.getDefault();
+        return taiChiSymbol;
     }
     
     public TaiChiTerms getTaiChiTerms() {
-        return TaiChiTerms.getDefault();
+        return taiChiTerms;
     }
 
     @Override
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiProvider.register()"); // NOI18N
         
-        TaiChiColors.getDefault().register();
+        taiChiColors.register();
+        taiChiSymbol.register();
     }
-    
-    
     
 }

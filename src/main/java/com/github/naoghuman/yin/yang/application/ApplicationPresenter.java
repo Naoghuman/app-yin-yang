@@ -30,7 +30,7 @@ import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.options.OptionsView;
-import com.github.naoghuman.yin.yang.taichi.TaiChiColors;
+import com.github.naoghuman.yin.yang.taichi.TaiChiColorType;
 import com.github.naoghuman.yin.yang.taichi.TaiChiProvider;
 import java.net.URL;
 import java.time.LocalDate;
@@ -94,10 +94,10 @@ public class ApplicationPresenter implements
         
         TaiChiProvider.getDefault().getTaiChiSymbol().register(spApplication);
         
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColors.Type.STYLE,    ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColors.Type.STYLE,    ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColorType.STYLE,    ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColorType.STYLE,    ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         
         TaiChiProvider.getDefault().getTaiChiTerms().register(hbTaiChiTerms, lYinTerm, lYangTerm);
         
@@ -125,15 +125,15 @@ public class ApplicationPresenter implements
         lInfoTitle.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE),
                 I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
-        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoTitle, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoTitle, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         
         lInfoVersion.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__VERSION),
                 I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
-        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoVersion, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoVersion, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         
         lInfoByName.setText(I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__BYNAME));
-        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoByName, TaiChiColors.Type.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoByName, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
     }
     
     private void initializeMenu() {

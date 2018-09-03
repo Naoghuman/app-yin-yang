@@ -27,8 +27,10 @@ import java.util.Optional;
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18nOptions implements I18nConfiguration, I18nLanguage, I18nProperty, I18nRegister {
-    
+public final class I18nOptions implements 
+        I18nConfiguration, I18nLanguage, I18nProperty,
+        I18nRegister
+{
     private static final Optional<I18nOptions> INSTANCE = Optional.of(new I18nOptions());
     
     public static final I18nOptions getDefault() {
