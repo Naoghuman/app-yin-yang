@@ -27,7 +27,7 @@ import javafx.scene.shape.Shape;
  * @since  0.6.0
  */
 public interface TaiChiColors extends RegisterActions {
-
+    
     void initialize();
 
     public void register(final Labeled labeled, final TaiChiColorType type, final String actionId);

@@ -25,6 +25,8 @@ import javafx.scene.layout.HBox;
  * @since  0.6.0
  */
 public interface TaiChiTerms {
+    
+    void initialize();
 
     public void register(final HBox hbTaiChiTerms, final Label lYinTerm, final Label lYangTerm);
     

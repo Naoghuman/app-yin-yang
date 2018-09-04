@@ -25,6 +25,8 @@ import javafx.scene.shape.Shape;
  * @since  0.6.0
  */
 public interface TaiChiRotation {
+    
+    void initialize();
 
     public void register(final Shape yangSymbol, final Arc halfYangSymbol);
     

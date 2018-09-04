@@ -56,10 +56,11 @@ final class DefaultTaiChiSymbol implements
     private Shape  yangSymbol;
     
     public DefaultTaiChiSymbol() {
-        this.initialize();
+        
     }
     
-    private void initialize() {
+    @Override
+    public void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initialize()"); // NOI18N
         
         /*

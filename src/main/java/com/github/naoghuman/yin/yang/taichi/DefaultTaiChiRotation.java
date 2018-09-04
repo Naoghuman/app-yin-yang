@@ -52,10 +52,11 @@ final class DefaultTaiChiRotation implements
     private Timeline tlRotation;
     
     public DefaultTaiChiRotation() {
-        this.initialize();
+        
     }
     
-    private void initialize() {
+    @Override
+    public void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.initialize()"); // NOI18N
         
         this.initializeTaiChiRotation();

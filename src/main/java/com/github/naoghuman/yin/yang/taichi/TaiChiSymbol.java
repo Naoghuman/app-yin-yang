@@ -25,6 +25,8 @@ import javafx.scene.layout.StackPane;
  * @since  0.6.0
  */
 public interface TaiChiSymbol extends RegisterActions {
+    
+    void initialize();
 
     public void register(final StackPane spApplication);
     

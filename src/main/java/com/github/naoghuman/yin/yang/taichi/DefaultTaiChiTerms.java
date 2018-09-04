@@ -61,10 +61,11 @@ final class DefaultTaiChiTerms implements
     private Label lYinTerm;
     
     public DefaultTaiChiTerms() {
-        this.initialize();
+        
     }
     
-    private void initialize() {
+    @Override
+    public void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.initialize()"); // NOI18N
         
         diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
