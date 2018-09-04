@@ -91,21 +91,6 @@ public class ApplicationPresenter implements
         
         final boolean showOptionMenu = Boolean.FALSE;
         this.onActionShowOptionMenu(showOptionMenu);
-        
-        TaiChiProvider.getDefault().getTaiChiSymbol().register(spApplication);
-        
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColorType.STYLE,    ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColorType.STYLE,    ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        
-        TaiChiProvider.getDefault().getTaiChiTerms().register(hbTaiChiTerms, lYinTerm, lYangTerm);
-        
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_ROTATION);
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_TERMS);
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
-        
-        this.register();
     }
     
     private void initializeDiameterTheOne() {
@@ -119,29 +104,22 @@ public class ApplicationPresenter implements
     
         // VBox
         vbInfos.setPrefWidth(diameterTheOne / 2.0d);
-
-        TaiChiProvider.getDefault().getTaiChiColors().register(vbInfos, ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
         
         lInfoTitle.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE),
                 I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
-        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoTitle, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         
         lInfoVersion.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__VERSION),
                 I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
-        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoVersion, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         
         lInfoByName.setText(I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__BYNAME));
-        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoByName, TaiChiColorType.TEXTFILL, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
     }
     
     private void initializeMenu() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeMenu()"); // NOI18N
     
         hbMenuButtons.setPrefWidth(diameterTheOne / 2.0d);
-        
-        TaiChiProvider.getDefault().getTaiChiColors().register(hbMenuButtons, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
     }
     
     public void configure(final Window owner) {
@@ -252,6 +230,21 @@ public class ApplicationPresenter implements
         
         this.registerOnActionShowOptionMenu();
         this.registerOnActionUpdateColorInApplicationOptions();
+        
+        TaiChiProvider.getDefault().getTaiChiSymbol().register(spApplication);
+        
+        TaiChiProvider.getDefault().getTaiChiColors().register(hbMenuButtons, ON_ACTION__UPDATE__YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoByName,   TaiChiColorType.TEXTFILL, ON_ACTION__UPDATE__YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoTitle,    TaiChiColorType.TEXTFILL, ON_ACTION__UPDATE__YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lInfoVersion,  TaiChiColorType.TEXTFILL, ON_ACTION__UPDATE__YANG_COLOR);
+        
+        TaiChiProvider.getDefault().getTaiChiColors().register(vbInfos,   ON_ACTION__UPDATE__YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColorType.STYLE,    ON_ACTION__UPDATE__YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYangTerm, TaiChiColorType.TEXTFILL, ON_ACTION__UPDATE__YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColorType.STYLE,    ON_ACTION__UPDATE__YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(lYinTerm,  TaiChiColorType.TEXTFILL, ON_ACTION__UPDATE__YANG_COLOR);
+        
+        TaiChiProvider.getDefault().getTaiChiTerms().register(hbTaiChiTerms, lYinTerm, lYangTerm);
     }
     
     private void registerOnActionShowOptionMenu() {

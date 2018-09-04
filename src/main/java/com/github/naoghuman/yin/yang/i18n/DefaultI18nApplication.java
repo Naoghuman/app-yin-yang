@@ -19,23 +19,16 @@ package com.github.naoghuman.yin.yang.i18n;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
-import java.util.Optional;
+import java.util.Locale;
 
 /**
  *
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18nApplication implements 
-        I18nConfiguration, I18nProperty, I18nRegister
-{
-    private static final Optional<I18nApplication> INSTANCE = Optional.of(new I18nApplication());
+final class DefaultI18nApplication implements I18nLanguage, I18nConfiguration {
     
-    public static final I18nApplication getDefault() {
-        return INSTANCE.get();
-    }
-    
-    private I18nApplication() {
+    DefaultI18nApplication() {
         
     }
 
@@ -46,9 +39,15 @@ public final class I18nApplication implements
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nApplication.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultI18nApplication.register()"); // NOI18N
         
         PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__APPLICATION);
+    }
+
+    @Override
+    public void setLanguage(final Locale language) {
+        LoggerFacade.getDefault().debug(this.getClass(), "DefaultI18nApplication.setLanguage(Locale)"); // NOI18N
+        
     }
     
 }

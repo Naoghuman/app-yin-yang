@@ -70,8 +70,6 @@ final class DefaultTaiChiTerms implements
         
         diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
         termMaxQuantity = Integer.parseInt(I18nProvider.getDefault().getI18nTaiChi().getProperty(I18N_KEY__TAICHI__TERM_QUANTITY));
-        
-        this.register();
     }
     
     /**

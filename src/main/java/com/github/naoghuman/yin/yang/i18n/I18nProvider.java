@@ -17,6 +17,7 @@
 package com.github.naoghuman.yin.yang.i18n;
 
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
@@ -31,7 +32,7 @@ import javafx.event.ActionEvent;
  * @since  0.2.0
  */
 public final class I18nProvider implements 
-        EventConfiguration, I18nRegister, PreferencesConfiguration
+        EventConfiguration, PreferencesConfiguration, RegisterActions
 {
     private static final Optional<I18nProvider> INSTANCE = Optional.of(new I18nProvider());
     
@@ -39,20 +40,24 @@ public final class I18nProvider implements
         return INSTANCE.get();
     }
     
+    private final I18nLanguage i18nApplication = new DefaultI18nApplication();
+    private final I18nLanguage i18nOptions     = new DefaultI18nOptions();
+    private final I18nLanguage i18nTaiChi      = new DefaultI18nTaiChi();
+    
     private I18nProvider() {
         
     }
     
-    public I18nApplication getI18nApplication() {
-        return I18nApplication.getDefault();
+    public I18nLanguage getI18nApplication() {
+        return i18nApplication;
     }
     
-    public I18nOptions getI18nOptions() {
-        return I18nOptions.getDefault();
+    public I18nLanguage getI18nOptions() {
+        return i18nOptions;
     }
     
-    public I18nTaiChi getI18nTaiChi() {
-        return I18nTaiChi.getDefault();
+    public I18nLanguage getI18nTaiChi() {
+        return i18nTaiChi;
     }
     
     private void onActionLoadLanguageFromProperties() {
@@ -67,8 +72,8 @@ public final class I18nProvider implements
         }
         
         // Set locale
-        I18nOptions.getDefault().setLanguage(locale);
-        I18nTaiChi.getDefault().setLanguage(locale);
+        i18nOptions.setLanguage(locale);
+        i18nTaiChi.setLanguage(locale);
         
         // Update gui
         ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG);
@@ -79,18 +84,18 @@ public final class I18nProvider implements
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.register()"); // NOI18N
         
-        I18nApplication.getDefault().register();
-        I18nOptions.getDefault().register();
-        I18nTaiChi.getDefault().register();
+        i18nApplication.register();
+        i18nOptions.register();
+        i18nTaiChi.register();
         
-        this.registerOnActionLoadLanguageFromProperties();
+        this.registerOnActionUpdateLanguage();
     }
 
-    private void registerOnActionLoadLanguageFromProperties() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.registerOnActionLoadLanguageFromProperties()"); // NOI18N
+    private void registerOnActionUpdateLanguage() {
+        LoggerFacade.getDefault().info(this.getClass(), "I18nProvider.registerOnActionUpdateLanguage()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES,
+                ON_ACTION__UPDATE__LANGUAGE,
                 (ActionEvent event) -> {
                     this.onActionLoadLanguageFromProperties();
                 });

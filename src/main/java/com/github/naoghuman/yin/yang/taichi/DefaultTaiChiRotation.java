@@ -62,8 +62,6 @@ final class DefaultTaiChiRotation implements
         this.initializeTaiChiRotation();
         this.initializeTaiChiMonthlyRotationSpeed();
         this.initializeTaiChiTimeline();
-        
-        this.register();
     }
     
     private void initializeTaiChiRotation() {

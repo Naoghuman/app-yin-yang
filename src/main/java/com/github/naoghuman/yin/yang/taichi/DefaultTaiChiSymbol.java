@@ -227,8 +227,8 @@ final class DefaultTaiChiSymbol implements
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.register()"); // NOI18N
         
-        TaiChiProvider.getDefault().getTaiChiColors().register(yangSymbol, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
-        TaiChiProvider.getDefault().getTaiChiColors().register(yinSymbol,  ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(yangSymbol, ON_ACTION__UPDATE__YANG_COLOR);
+        TaiChiProvider.getDefault().getTaiChiColors().register(yinSymbol,  ON_ACTION__UPDATE__YIN_COLOR);
         
         TaiChiProvider.getDefault().getTaiChiRotation().register(yangSymbol, halfYangSymbol);
     }

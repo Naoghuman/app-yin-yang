@@ -20,49 +20,40 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import java.util.Locale;
-import java.util.Optional;
 
 /**
  *
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18nTaiChi implements 
-        I18nConfiguration, I18nLanguage, I18nProperty,
-        I18nRegister
-{
-    private static final Optional<I18nTaiChi> INSTANCE = Optional.of(new I18nTaiChi());
-    
-    public static final I18nTaiChi getDefault() {
-        return INSTANCE.get();
-    }
+final class DefaultI18nOptions implements I18nLanguage, I18nConfiguration {
     
     private Locale language = Locale.ENGLISH;
     
-    private I18nTaiChi() {
+    DefaultI18nOptions() {
         
     }
 
     @Override
-    public String getProperty(String key) {
+    public String getProperty(final String key) {
         return PropertiesFacade.getDefault().getProperty(
                 (language == Locale.ENGLISH)
-                        ? I18N__RESOURCE_BUNDLE__TAICHI_EN 
-                        : I18N__RESOURCE_BUNDLE__TAICHI_DE,
+                        ? I18N__RESOURCE_BUNDLE__OPTIONS_EN 
+                        : I18N__RESOURCE_BUNDLE__OPTIONS_DE,
                 key);
     }
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "I18nTaiChi.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultI18nApplication.register()"); // NOI18N
         
-        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_DE);
-        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_EN);
+        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__OPTIONS_DE);
+        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__OPTIONS_EN);
     }
     
     @Override
     public void setLanguage(final Locale language) {
-        LoggerFacade.getDefault().debug(this.getClass(), "I18nTaiChi.setLanguage(Locale)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "DefaultI18nApplication.setLanguage(Locale)"); // NOI18N
         
         this.language = language;
     }

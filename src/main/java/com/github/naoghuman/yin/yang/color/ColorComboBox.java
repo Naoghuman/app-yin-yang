@@ -250,8 +250,8 @@ public final class ColorComboBox implements EventConfiguration {
                 String actionId = ON_ACTION__UNKNOWN_ACTION;
                 switch(type) {
                     // TODO better is not enum.type, instead use actionId from configure(...) here
-                    case YANG_SYMBOL: { actionId = ON_ACTION__CHOOSE__SINGLE_YANG_COLOR; break; }
-                    case YIN_SYMBOL:  { actionId = ON_ACTION__CHOOSE__SINGLE_YIN_COLOR;  break; }
+                    case YANG_SYMBOL: { actionId = ON_ACTION__UPDATE__YANG_COLOR; break; }
+                    case YIN_SYMBOL:  { actionId = ON_ACTION__UPDATE__YIN_COLOR;  break; }
                 }
                 
                 ActionHandlerFacade.getDefault()

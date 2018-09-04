@@ -72,7 +72,9 @@ public final class TaiChiProvider implements RegisterActions {
         LoggerFacade.getDefault().info(this.getClass(), "TaiChiProvider.register()"); // NOI18N
         
         taiChiColors.register();
+        taiChiRotation.register();
         taiChiSymbol.register();
+        taiChiTerms.register();
     }
     
 }

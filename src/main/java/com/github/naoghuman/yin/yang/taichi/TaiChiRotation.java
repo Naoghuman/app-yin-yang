@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.yin.yang.taichi;
 
+import com.github.naoghuman.lib.action.core.RegisterActions;
 import javafx.scene.shape.Arc;
 import javafx.scene.shape.Shape;
 
@@ -24,7 +25,7 @@ import javafx.scene.shape.Shape;
  * @author Naoghuman
  * @since  0.6.0
  */
-public interface TaiChiRotation {
+public interface TaiChiRotation extends RegisterActions {
     
     void initialize();
 

@@ -25,6 +25,7 @@ import com.github.naoghuman.yin.yang.color.ColorComboBox;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.i18n.I18nLanguage;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -80,7 +81,7 @@ public class OptionsPresenter implements
         
         this.register();
         
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE);
     }
     
     private void initializeOptionTabPane() {
@@ -165,7 +166,7 @@ public class OptionsPresenter implements
         PreferencesFacade.getDefault().put(PREF__I18N__LANGUAGE, language);
         
         // Reload the gui
-        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD_LANGUAGE_FROM_PREFERENCES);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE);
     }
     
     public void onActionSwitchLanguageMode() {
@@ -190,20 +191,22 @@ public class OptionsPresenter implements
     private void onActionUpdateLanguageInTabPane() {
         LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabPane()"); // NOI18N
         
-        tOptionAbout.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_ABOUT)));
-        tOptionColor.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_COLOR)));
-        tOptionExtras.setText(  I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_EXTRAS)));
-        tOptionLanguage.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE)));
-        tOptionSpeed.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_SPEED)));
+        final I18nLanguage i18n = I18nProvider.getDefault().getI18nOptions();
+        tOptionAbout.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_ABOUT)));
+        tOptionColor.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_COLOR)));
+        tOptionExtras.setText(  i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_EXTRAS)));
+        tOptionLanguage.setText(i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE)));
+        tOptionSpeed.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_SPEED)));
     }
 
     private void onActionUpdateLanguageInTabColor() {
         LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabColor()"); // NOI18N
         
         // Single Colors
-        rbSingleColors.setText(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__SINGLE_COLORS)));
-        lYinColors.setText(    I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YIN_COLOR)));
-        lYangColors.setText(   I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION__YANG_COLOR)));
+        final I18nLanguage i18n = I18nProvider.getDefault().getI18nOptions();
+        rbSingleColors.setText(i18n.getProperty(String.format(I18N_KEY__OPTION__SINGLE_COLORS)));
+        lYinColors.setText(    i18n.getProperty(String.format(I18N_KEY__OPTION__YIN_COLOR)));
+        lYangColors.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION__YANG_COLOR)));
     }
 
     private void onActionUpdateLanguageInTabSpeed() {

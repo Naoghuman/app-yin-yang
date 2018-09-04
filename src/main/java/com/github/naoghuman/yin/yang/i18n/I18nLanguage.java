@@ -21,9 +21,13 @@ import java.util.Locale;
 /**
  *
  * @author Naoghuman
- * @since  0.2.0
+ * @since  0.6.0
  */
 public interface I18nLanguage {
+    
+    public String getProperty(final String key);
+    
+    void register();
     
     public void setLanguage(final Locale language);
     

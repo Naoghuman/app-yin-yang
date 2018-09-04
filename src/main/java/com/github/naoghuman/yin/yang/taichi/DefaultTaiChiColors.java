@@ -57,43 +57,26 @@ final class DefaultTaiChiColors implements
     public void initialize() {
         LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.initialize()"); // NOI18N
         
+    }
+    
+    public void onActionLoadTaiChiColors() {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionLoadTaiChiColors()"); // NOI18N
+        
         final String yangColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        this.onActionUpdateApplicationInfoColor(ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, yangColor);
-        this.onActionUpdateApplicationMenuColor(ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, yangColor);
-        this.onActionUpdateTaiChiSymbolColor(   ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, yangColor);
-        this.onActionUpdateTaiChiTermsColor(    ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, yangColor);
+        this.onActionUpdateApplicationInfoColor(ON_ACTION__UPDATE__YANG_COLOR, yangColor);
+        this.onActionUpdateApplicationMenuColor(ON_ACTION__UPDATE__YANG_COLOR, yangColor);
+        this.onActionUpdateTaiChiSymbolColor(ON_ACTION__UPDATE__YANG_COLOR, yangColor);
+        this.onActionUpdateTaiChiTermsColor(ON_ACTION__UPDATE__YANG_COLOR, yangColor);
 
         final String yinColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,  PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        this.onActionUpdateApplicationInfoColor(ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, yinColor);
-        this.onActionUpdateApplicationMenuColor(ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, yinColor);
-        this.onActionUpdateTaiChiSymbolColor(   ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, yinColor);
-        this.onActionUpdateTaiChiTermsColor(    ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, yinColor);
+        this.onActionUpdateApplicationInfoColor(ON_ACTION__UPDATE__YIN_COLOR, yinColor);
+        this.onActionUpdateApplicationMenuColor(ON_ACTION__UPDATE__YIN_COLOR, yinColor);
+        this.onActionUpdateTaiChiSymbolColor(ON_ACTION__UPDATE__YIN_COLOR, yinColor);
+        this.onActionUpdateTaiChiTermsColor(ON_ACTION__UPDATE__YIN_COLOR, yinColor);
     }
     
-    private void onActionChooseSingleYangColor(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionChooseSingleYangColor(String)"); // NOI18N
-
-        this.onActionSaveSingleColor(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
-        
-        this.onActionUpdateApplicationInfoColor(ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, color);
-        this.onActionUpdateApplicationMenuColor(ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, color);
-        this.onActionUpdateTaiChiSymbolColor(   ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, color);
-        this.onActionUpdateTaiChiTermsColor(    ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, color);
-    }
-    
-    private void onActionChooseSingleYinColor(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionChooseSingleYinColor(String)"); // NOI18N
-
-        this.onActionSaveSingleColor(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
-        
-        this.onActionUpdateApplicationInfoColor(ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, color);
-        this.onActionUpdateApplicationMenuColor(ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, color);
-        this.onActionUpdateTaiChiSymbolColor(   ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, color);
-        this.onActionUpdateTaiChiTermsColor(    ON_ACTION__CHOOSE__SINGLE_YIN_COLOR, color);
-    }
-    
-    private void onActionSaveSingleColor(final String key, final String value) {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionSaveSingleYangColor(String, String)"); // NOI18N
+    private void onActionSaveColor(final String key, final String value) {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionSaveColor(String, String)"); // NOI18N
         
         PreferencesFacade.getDefault().put(key, value);
     }
@@ -118,7 +101,28 @@ final class DefaultTaiChiColors implements
                 .forEachOrdered((labeled) -> {
                     labeled.setTextFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
                 });
+    }
+    
+    private void onActionUpdateYangColor(final String color) {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionUpdateYangColor(String)"); // NOI18N
+
+        this.onActionSaveColor(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
         
+        this.onActionUpdateApplicationInfoColor(ON_ACTION__UPDATE__YANG_COLOR, color);
+        this.onActionUpdateApplicationMenuColor(ON_ACTION__UPDATE__YANG_COLOR, color);
+        this.onActionUpdateTaiChiSymbolColor(ON_ACTION__UPDATE__YANG_COLOR, color);
+        this.onActionUpdateTaiChiTermsColor(ON_ACTION__UPDATE__YANG_COLOR, color);
+    }
+    
+    private void onActionUpdateYinColor(final String color) {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionUpdateYinColor(String)"); // NOI18N
+
+        this.onActionSaveColor(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
+        
+        this.onActionUpdateApplicationInfoColor(ON_ACTION__UPDATE__YIN_COLOR, color);
+        this.onActionUpdateApplicationMenuColor(ON_ACTION__UPDATE__YIN_COLOR, color);
+        this.onActionUpdateTaiChiSymbolColor(ON_ACTION__UPDATE__YIN_COLOR, color);
+        this.onActionUpdateTaiChiTermsColor(ON_ACTION__UPDATE__YIN_COLOR, color);
     }
     
     private void onActionUpdateApplicationMenuColor(final String actionId, final String color) {
@@ -212,15 +216,26 @@ final class DefaultTaiChiColors implements
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.register()"); // NOI18N
         
-        this.registerOnActionChooseSingleYangColor();
-        this.registerOnActionChooseSingleYinColor();
+        this.registerOnActionLoadTaiChiColors();
+        this.registerOnActionUpdateYangColor();
+        this.registerOnActionUpdateYinColor();
     }
-
-    private void registerOnActionChooseSingleYangColor() {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionChooseSingleYangColor()"); // NOI18N
+    
+    private void registerOnActionLoadTaiChiColors() {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionLoadTaiChiColors()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHOOSE__SINGLE_YANG_COLOR,
+                ON_ACTION__LOAD__TAI_CHI_COLORS,
+                (ActionEvent event) -> {
+                    this.onActionLoadTaiChiColors();
+                });
+    }
+
+    private void registerOnActionUpdateYangColor() {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionUpdateYangColor()"); // NOI18N
+        
+        ActionHandlerFacade.getDefault().register(
+                ON_ACTION__UPDATE__YANG_COLOR,
                 (ActionEvent event) -> {
                     final Object source = event.getSource();
                     if (source instanceof TransferData) {
@@ -228,17 +243,17 @@ final class DefaultTaiChiColors implements
                         final Optional<String> optional     = transferData.getString();
                         if(optional.isPresent()) {
                             final String color = optional.get();
-                            this.onActionChooseSingleYangColor(color);
+                            this.onActionUpdateYangColor(color);
                         }
                     }
                 });
     }
 
-    private void registerOnActionChooseSingleYinColor() {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionChooseSingleYinColor()"); // NOI18N
+    private void registerOnActionUpdateYinColor() {
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionUpdateYinColor()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
-                ON_ACTION__CHOOSE__SINGLE_YIN_COLOR,
+                ON_ACTION__UPDATE__YIN_COLOR,
                 (ActionEvent event) -> {
                     final Object source = event.getSource();
                     if (source instanceof TransferData) {
@@ -246,7 +261,7 @@ final class DefaultTaiChiColors implements
                         final Optional<String> optional     = transferData.getString();
                         if(optional.isPresent()) {
                             final String color = optional.get();
-                            this.onActionChooseSingleYinColor(color);
+                            this.onActionUpdateYinColor(color);
                         }
                     }
                 });

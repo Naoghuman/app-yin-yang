@@ -16,6 +16,7 @@
  */
 package com.github.naoghuman.yin.yang.taichi;
 
+import com.github.naoghuman.lib.action.core.RegisterActions;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -24,7 +25,7 @@ import javafx.scene.layout.HBox;
  * @author Naoghuman
  * @since  0.6.0
  */
-public interface TaiChiTerms {
+public interface TaiChiTerms extends RegisterActions {
     
     void initialize();
 

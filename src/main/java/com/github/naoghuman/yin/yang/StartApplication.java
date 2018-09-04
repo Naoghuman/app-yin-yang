@@ -28,7 +28,6 @@ import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
-import com.github.naoghuman.yin.yang.i18n.I18nProperty;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.taichi.TaiChiProvider;
 import java.util.Optional;
@@ -43,6 +42,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import com.github.naoghuman.yin.yang.i18n.I18nLanguage;
 
 /**
  *
@@ -60,8 +60,9 @@ public class StartApplication extends Application implements
     private double xOffset = 0;
     private double yOffset = 0;
     
-    private PauseTransition ptSavePositionToPreferences = null;
-    private Stage           stage = null;
+    private ApplicationPresenter applicationPresenter;
+    private PauseTransition ptSavePositionToPreferences;
+    private Stage           stage;
 
     @Override
     public void init() throws Exception {
@@ -71,18 +72,18 @@ public class StartApplication extends Application implements
         
         I18nProvider.getDefault().register();
         
-        final I18nProperty i18nProperty = I18nProvider.getDefault().getI18nApplication();
-        final char         borderSign   = i18nProperty.getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String       message      = i18nProperty.getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
-        final String       title        = i18nProperty.getProperty(I18N_KEY__APPLICATION__TITLE);
-        final String       version      = i18nProperty.getProperty(I18N_KEY__APPLICATION__VERSION);
+        final I18nLanguage i18n         = I18nProvider.getDefault().getI18nApplication();
+        final char         borderSign   = i18n.getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String       message      = i18n.getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
+        final String       title        = i18n.getProperty(I18N_KEY__APPLICATION__TITLE);
+        final String       version      = i18n.getProperty(I18N_KEY__APPLICATION__VERSION);
         final String       titleVersion = title + version;
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, titleVersion));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
         PreferencesFacade.getDefault().init(dropPreferencesFileAtStart);
         
-        this.register();
+        TaiChiProvider.getDefault().initialize();
     }
     
     @Override
@@ -98,11 +99,11 @@ public class StartApplication extends Application implements
             PreferencesFacade.getDefault().putDouble(PREF__APPLICATION__POSITION_Y, stage.getY());
         });
         
-        final ApplicationView      view      = new ApplicationView();
-        final ApplicationPresenter presenter = view.getRealPresenter();
-        presenter.configure(stage);
+        final ApplicationView view = new ApplicationView();
+        applicationPresenter = view.getRealPresenter();
+        applicationPresenter.configure(stage);
         
-        final Scene            scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
+        final Scene scene = new Scene(view.getView(), 330.0d, 330.0d); // TODO Pref
         scene.setFill(Color.TRANSPARENT);
         
         final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP, PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP_DEFAULT_VALUE);
@@ -112,11 +113,24 @@ public class StartApplication extends Application implements
                 + I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION));
         stage.setScene(scene);
         
-        this.onActionUpdateApplicationPosition();
+        final double x = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_X, PREF__APPLICATION__POSITION_X_DEFAULT_VALUE);
+        if (x != PREF__APPLICATION__POSITION_X_DEFAULT_VALUE) {
+            stage.setX(x);
+        }
+        
+        final double y = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_Y, PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE);
+        if (y != PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE) {
+            stage.setY(y);
+        }
         
         stage.show();
         
-        TaiChiProvider.getDefault().initialize();
+        this.register();
+        
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__LOAD__TAI_CHI_COLORS);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_ROTATION);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__START_TAICHI_TERMS);
+        ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__LANGUAGE);
     }
     
     private void onActionChangeAlwaysOnTop(final boolean alwaysOnTop) {
@@ -158,10 +172,13 @@ public class StartApplication extends Application implements
         });
     }
     
-    private void onActionSavePositionToPreferences() {
+    private void onMouseDragged(final MouseEvent mouseEvent) {
         // Commant out to avoid spawning messages
-        // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onActionSavePositionToPreferences()"); // NOI18N
+        // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMouseDragged(MouseEvent)"); // NOI18N
         
+        stage.setX(mouseEvent.getScreenX() - xOffset);
+        stage.setY(mouseEvent.getScreenY() - yOffset);
+
         // Check if the PauseTransition is running
         if (ptSavePositionToPreferences.getStatus().equals(Animation.Status.RUNNING)) {
             ptSavePositionToPreferences.stop();
@@ -169,32 +186,6 @@ public class StartApplication extends Application implements
         
         // Start the PauseTransition
         ptSavePositionToPreferences.playFromStart();
-    }
-    
-    private void onActionUpdateApplicationPosition() {
-        LoggerFacade.getDefault().debug(this.getClass(), "StartApplication.onActionUpdateApplicationPosition()"); // NOI18N
-        
-        // X
-        final double x = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_X, PREF__APPLICATION__POSITION_X_DEFAULT_VALUE);
-        if (x != PREF__APPLICATION__POSITION_X_DEFAULT_VALUE) {
-            stage.setX(x);
-        }
-        
-        // Y
-        final double y = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_Y, PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE);
-        if (y != PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE) {
-            stage.setY(y);
-        }
-    }
-    
-    private void onMouseDragged(final MouseEvent mouseEvent) {
-        // Commant out to avoid spawning messages
-        // LoggerFacade.getDefault().info(this.getClass(), "StartApplication.onMouseDragged(MouseEvent)"); // NOI18N
-        
-        stage.setX(mouseEvent.getScreenX() - xOffset);
-        stage.setY(mouseEvent.getScreenY() - yOffset);
-        
-        this.onActionSavePositionToPreferences();
     }
     
     private void onMousePressed(final MouseEvent mouseEvent) {
@@ -214,6 +205,7 @@ public class StartApplication extends Application implements
         this.registerOnMouseDragged();
         this.registerOnMousePressed();
         
+        applicationPresenter.register();
         TaiChiProvider.getDefault().register();
     }
     

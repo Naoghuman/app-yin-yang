@@ -33,8 +33,5 @@ public interface TaiChiColors extends RegisterActions {
     public void register(final Labeled labeled, final TaiChiColorType type, final String actionId);
     public void register(final Node node, final String actionId);
     public void register(final Shape shape, final String actionId);
-
-    @Override
-    void register();
     
 }

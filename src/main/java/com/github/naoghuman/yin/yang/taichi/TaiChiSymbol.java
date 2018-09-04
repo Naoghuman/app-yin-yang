@@ -30,7 +30,4 @@ public interface TaiChiSymbol extends RegisterActions {
 
     public void register(final StackPane spApplication);
     
-    @Override
-    void register();
-    
 }
