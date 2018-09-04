@@ -57,7 +57,7 @@ final class DefaultTaiChiRotation implements
     
     @Override
     public void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.initialize()"); // NOI18N
         
         this.initializeTaiChiRotation();
         this.initializeTaiChiMonthlyRotationSpeed();
@@ -67,13 +67,13 @@ final class DefaultTaiChiRotation implements
     }
     
     private void initializeTaiChiRotation() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.initializeTaiChiRotation()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.initializeTaiChiRotation()"); // NOI18N
         
         rotation = new Rotate();
     }
 
     private void initializeTaiChiMonthlyRotationSpeed() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.initializeTaiChiMonthlyRotationSpeed()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.initializeTaiChiMonthlyRotationSpeed()"); // NOI18N
         
         MONTHLY_ROTATION_SPEED.put(Month.JANUARY,   19.200d); // Slowest month in year
         MONTHLY_ROTATION_SPEED.put(Month.FEBRUARY,  17.066d);
@@ -90,7 +90,7 @@ final class DefaultTaiChiRotation implements
     }
 
     private void initializeTaiChiTimeline() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.initializeTaiChiTimeline()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.initializeTaiChiTimeline()"); // NOI18N
         
         /*
           Yang -> odd  nummers -> right spinning
@@ -146,7 +146,7 @@ final class DefaultTaiChiRotation implements
         final PauseTransition pt = new PauseTransition();
         pt.setDuration(Duration.millis(500.0d));
         pt.setOnFinished((event) -> {
-            LoggerFacade.getDefault().debug(this.getClass(), "TaiChiRotation.onActionStartTaiChiRotation()"); // NOI18N
+            LoggerFacade.getDefault().debug(this.getClass(), "DefaultTaiChiRotation.onActionStartTaiChiRotation()"); // NOI18N
         
             if (
                     this.isNewDayInYear(LocalDate.now())
@@ -163,7 +163,7 @@ final class DefaultTaiChiRotation implements
     
     @Override
     public void register(final Shape yangSymbol, final Arc halfYangSymbol) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.register()"); // NOI18N
         
         rotation.pivotXProperty().bind(halfYangSymbol.centerXProperty());
         rotation.pivotYProperty().bind(halfYangSymbol.centerYProperty());
@@ -173,13 +173,13 @@ final class DefaultTaiChiRotation implements
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.register()"); // NOI18N
         
         this.registerOnActionStartTaiChiRotation();
     }
 
     private void registerOnActionStartTaiChiRotation() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiRotation.registerOnActionStartTaiChiRotation()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiRotation.registerOnActionStartTaiChiRotation()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__START_TAICHI_ROTATION,

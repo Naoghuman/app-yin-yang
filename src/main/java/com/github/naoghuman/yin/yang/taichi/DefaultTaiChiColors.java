@@ -55,7 +55,7 @@ final class DefaultTaiChiColors implements
     
     @Override
     public void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.initialize()"); // NOI18N
         
         final String yangColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
         this.onActionUpdateApplicationInfoColor(ON_ACTION__CHOOSE__SINGLE_YANG_COLOR, yangColor);
@@ -71,7 +71,7 @@ final class DefaultTaiChiColors implements
     }
     
     private void onActionChooseSingleYangColor(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionChooseSingleYangColor(String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionChooseSingleYangColor(String)"); // NOI18N
 
         this.onActionSaveSingleColor(PREF__TAICHI_SYMBOL__YANG_COLOR, color);
         
@@ -82,7 +82,7 @@ final class DefaultTaiChiColors implements
     }
     
     private void onActionChooseSingleYinColor(final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionChooseSingleYinColor(String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionChooseSingleYinColor(String)"); // NOI18N
 
         this.onActionSaveSingleColor(PREF__TAICHI_SYMBOL__YIN_COLOR, color);
         
@@ -93,13 +93,13 @@ final class DefaultTaiChiColors implements
     }
     
     private void onActionSaveSingleColor(final String key, final String value) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionSaveSingleYangColor(String, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionSaveSingleYangColor(String, String)"); // NOI18N
         
         PreferencesFacade.getDefault().put(key, value);
     }
     
     private void onActionUpdateApplicationInfoColor(final String actionId, final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionUpdateApplicationInfoColor(String, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionUpdateApplicationInfoColor(String, String)"); // NOI18N
 
         CONTAINERS_FOR_STYLE.keySet().stream()
                 .filter((node) -> 
@@ -122,7 +122,7 @@ final class DefaultTaiChiColors implements
     }
     
     private void onActionUpdateApplicationMenuColor(final String actionId, final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionUpdateApplicationMenuColor(String, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionUpdateApplicationMenuColor(String, String)"); // NOI18N
         
         CONTAINERS_FOR_STYLE.keySet().stream()
                 .filter((node) -> 
@@ -136,7 +136,7 @@ final class DefaultTaiChiColors implements
     }
     
     private void onActionUpdateTaiChiSymbolColor(final String actionId, final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionUpdateTaiChiSymbolColor(String, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionUpdateTaiChiSymbolColor(String, String)"); // NOI18N
         
         SHAPES_FOR_FILL.keySet().stream()
                 .filter((shape) ->
@@ -148,7 +148,7 @@ final class DefaultTaiChiColors implements
     }
     
     private void onActionUpdateTaiChiTermsColor(final String actionId, final String color) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.onActionUpdateTaiChiTermsColor(String, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.onActionUpdateTaiChiTermsColor(String, String)"); // NOI18N
 
         LABELED_FOR_STYLE.keySet().stream()
                 .filter((labeled) -> 
@@ -172,7 +172,7 @@ final class DefaultTaiChiColors implements
     
     @Override
     public void register(final Labeled labeled, final TaiChiColorType type, final String actionId) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register(Labeled, TaiChiColorType, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.register(Labeled, TaiChiColorType, String)"); // NOI18N
         
         switch(type) {
             case STYLE: {
@@ -192,7 +192,7 @@ final class DefaultTaiChiColors implements
     
     @Override
     public void register(final Node node, final String actionId) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register(Node, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.register(Node, String)"); // NOI18N
         
         if (!CONTAINERS_FOR_STYLE.containsKey(node)) {
             CONTAINERS_FOR_STYLE.put(node, actionId);
@@ -201,7 +201,7 @@ final class DefaultTaiChiColors implements
     
     @Override
     public void register(final Shape shape, final String actionId) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register(Shape, String)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.register(Shape, String)"); // NOI18N
         
         if (!SHAPES_FOR_FILL.containsKey(shape)) {
             SHAPES_FOR_FILL.put(shape, actionId);
@@ -210,14 +210,14 @@ final class DefaultTaiChiColors implements
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.register()"); // NOI18N
         
         this.registerOnActionChooseSingleYangColor();
         this.registerOnActionChooseSingleYinColor();
     }
 
     private void registerOnActionChooseSingleYangColor() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.registerOnActionChooseSingleYangColor()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionChooseSingleYangColor()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__CHOOSE__SINGLE_YANG_COLOR,
@@ -235,7 +235,7 @@ final class DefaultTaiChiColors implements
     }
 
     private void registerOnActionChooseSingleYinColor() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiColor.registerOnActionChooseSingleYinColor()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiColors.registerOnActionChooseSingleYinColor()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__CHOOSE__SINGLE_YIN_COLOR,

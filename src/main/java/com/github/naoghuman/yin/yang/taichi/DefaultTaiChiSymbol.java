@@ -61,7 +61,7 @@ final class DefaultTaiChiSymbol implements
     
     @Override
     public void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.initialize()"); // NOI18N
         
         /*
          * Rework math for the TaiChi-Symbol
@@ -83,7 +83,7 @@ final class DefaultTaiChiSymbol implements
     }
     
     private void initializeLittleYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeLittleYangSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.initializeLittleYangSymbol()"); // NOI18N
        
         // Little YangSymbol
         littleYangSymbol = new Circle();
@@ -93,7 +93,7 @@ final class DefaultTaiChiSymbol implements
     }
     
     private void initializeLittleYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeLittleYinSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.initializeLittleYinSymbol()"); // NOI18N
        
         // Little YinSymbol
         littleYinSymbol = new Circle();
@@ -103,7 +103,7 @@ final class DefaultTaiChiSymbol implements
     }
 
     private void initializeYangSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeYangSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.initializeYangSymbol()"); // NOI18N
         
         // YangSymbol
         halfYangSymbol = new Arc();
@@ -139,7 +139,7 @@ final class DefaultTaiChiSymbol implements
     }
 
     private void initializeYinSymbol() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeYinSymbol()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.initializeYinSymbol()"); // NOI18N
         
         yinSymbol = new Circle();
         yinSymbol.setCursor(Cursor.DEFAULT);
@@ -156,7 +156,7 @@ final class DefaultTaiChiSymbol implements
     }
     
     private void initializeYinSymbolMouseListeners() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiSymbol.initializeYinSymbolMouseListeners()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.initializeYinSymbolMouseListeners()"); // NOI18N
         
         yinSymbol.setOnMouseDragged((event) -> {
             if (event.getButton() == MouseButton.PRIMARY) {
@@ -217,7 +217,7 @@ final class DefaultTaiChiSymbol implements
     
     @Override
     public void register(final StackPane spApplication) {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.register(StackPane)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.register(StackPane)"); // NOI18N
         
         spApplication.getChildren().add(0, yinSymbol);
         spApplication.getChildren().add(1, yangSymbol);
@@ -225,7 +225,7 @@ final class DefaultTaiChiSymbol implements
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "YinYangSymbol.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiSymbol.register()"); // NOI18N
         
         TaiChiProvider.getDefault().getTaiChiColors().register(yangSymbol, ON_ACTION__CHOOSE__SINGLE_YANG_COLOR);
         TaiChiProvider.getDefault().getTaiChiColors().register(yinSymbol,  ON_ACTION__CHOOSE__SINGLE_YIN_COLOR);

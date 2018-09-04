@@ -66,7 +66,7 @@ final class DefaultTaiChiTerms implements
     
     @Override
     public void initialize() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.initialize()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.initialize()"); // NOI18N
         
         diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
         termMaxQuantity = Integer.parseInt(I18nProvider.getDefault().getI18nTaiChi().getProperty(I18N_KEY__TAICHI__TERM_QUANTITY));
@@ -179,7 +179,7 @@ final class DefaultTaiChiTerms implements
     }
     
     private void onActionUpdateLanguageTaiChiTerms() {
-        LoggerFacade.getDefault().debug(this.getClass(), "TaiChiTerms.onActionUpdateLanguageTaiChiTerms()"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "DefaultTaiChiTerms.onActionUpdateLanguageTaiChiTerms()"); // NOI18N
         
         final String termYinYang = I18nProvider.getDefault().getI18nTaiChi().getProperty(String.format(I18N_KEY__TAICHI__TERM_NR, termIndex));
         final String termYin     = this.extractYinTerm(termYinYang);
@@ -191,7 +191,7 @@ final class DefaultTaiChiTerms implements
 
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.register()"); // NOI18N
         
         this.registerOnActionStartTaiChiTerms();
         this.registerOnActionUpdateLanguageTaiChiTerms();
@@ -199,7 +199,7 @@ final class DefaultTaiChiTerms implements
     
     @Override
     public void register(final HBox hbTaiChiTerms, final Label lYinTerm, final Label lYangTerm) {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.register(HBox, Label, Label)"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.register(HBox, Label, Label)"); // NOI18N
         
         this.hbTaiChiTerms = hbTaiChiTerms;
         this.lYinTerm      = lYinTerm;
@@ -211,7 +211,7 @@ final class DefaultTaiChiTerms implements
     }
     
     private void registerComponentTaiChiTerms() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerComponentTaiChiTerms()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.registerComponentTaiChiTerms()"); // NOI18N
         
         hbTaiChiTerms.getChildren().clear();
 //        hbYinYangTerms.setPrefHeight(PREF__YIN_YANG__SYMBOL_DIAMETER_DEFAULT_VALUE / 8.0d / 2.0d + YIN_YANG_SYMBOLE__OUTER_BORDER * 2.0d);
@@ -220,7 +220,7 @@ final class DefaultTaiChiTerms implements
     }
     
     private void registerComponentYangTerm() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerComponentYangTerm()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.registerComponentYangTerm()"); // NOI18N
         
         lYangTerm.setAlignment(Pos.CENTER);
         lYangTerm.setOpacity(OPACITY__ZERO);
@@ -228,7 +228,7 @@ final class DefaultTaiChiTerms implements
     }
     
     private void registerComponentYinTerm() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerComponentYinTerm()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.registerComponentYinTerm()"); // NOI18N
         
         lYinTerm.setAlignment(Pos.CENTER);
         lYinTerm.setOpacity(OPACITY__ZERO);
@@ -236,7 +236,7 @@ final class DefaultTaiChiTerms implements
     }
 
     private void registerOnActionStartTaiChiTerms() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerOnActionStartTaiChiTerms()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.registerOnActionStartTaiChiTerms()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__START_TAICHI_TERMS,
@@ -246,7 +246,7 @@ final class DefaultTaiChiTerms implements
     }
     
     private void registerOnActionUpdateLanguageTaiChiTerms() {
-        LoggerFacade.getDefault().info(this.getClass(), "TaiChiTerms.registerOnActionUpdateLanguageTaiChiTerms()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.registerOnActionUpdateLanguageTaiChiTerms()"); // NOI18N
         
         ActionHandlerFacade.getDefault().register(
                 ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS,
