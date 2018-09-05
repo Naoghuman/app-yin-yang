@@ -22,8 +22,6 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -38,142 +36,6 @@ public final class ColorComboBox implements EventConfiguration {
     
     private static final int INDEX_TO_REMOVE__YANG_SYMBOL = 11;
     private static final int INDEX_TO_REMOVE__YIN_SYMBOL  = 0;
-    
-    // From ColorPicker (new ordered)
-    private final ObservableList<String> COLORS = FXCollections.observableArrayList(
-            "255, 255, 255", // White / Yang // NOI18N
-            "242, 242, 242", // NOI18N
-            "230, 230, 230", // NOI18N
-            "204, 204, 204", // NOI18N
-            "179, 179, 179", // NOI18N
-            "153, 153, 153", // NOI18N
-            "128, 128, 128", // NOI18N
-            "102, 102, 102", // NOI18N
-            "77, 77, 77", // NOI18N
-            "51, 51, 51", // NOI18N
-            "26, 26, 26", // NOI18N
-            "0, 0, 0", // Black / Yin // NOI18N
-            
-            "0, 51, 51", // NOI18N
-            "26, 77, 77", // NOI18N
-            "51, 102, 102", // NOI18N
-            "77, 128, 128", // NOI18N
-            "102, 153, 153", // NOI18N
-            "128, 179, 179", // NOI18N
-            "153, 204, 204", // NOI18N
-            "179, 230, 230", // NOI18N
-            "204, 255, 255", // NOI18N
-            
-            "0, 26, 128", // NOI18N
-            "26, 51, 153", // NOI18N
-            "51, 77, 179", // NOI18N
-            "77, 102, 204", // NOI18N
-            "102, 128, 230", // NOI18N
-            "128, 153, 255", // NOI18N
-            "153, 179, 255", // NOI18N
-            "179, 204, 255", // NOI18N
-            "204, 230, 255", // NOI18N
-            
-            "26, 0, 104", // NOI18N
-            "51, 26, 128", // NOI18N
-            "77, 51, 153", // NOI18N
-            "102, 77, 179", // NOI18N
-            "128, 102, 204", // NOI18N
-            "153, 128, 230", // NOI18N
-            "179, 153, 255", // NOI18N
-            "204, 179, 255", // NOI18N
-            "230, 204, 255", // NOI18N
-            
-            "51, 0, 51", // NOI18N
-            "77, 26, 77", // NOI18N
-            "102, 51, 102", // NOI18N
-            "128, 77, 128", // NOI18N
-            "153, 102, 153", // NOI18N
-            "179, 128, 179", // NOI18N
-            "204, 153, 204", // NOI18N
-            "230, 179, 230", // NOI18N
-            "255, 204, 255", // NOI18N
-            
-            "77, 0, 26", // NOI18N
-            "102, 26, 51", // NOI18N
-            "128, 51, 77", // NOI18N
-            "153, 77, 102", // NOI18N
-            "179, 102, 128", // NOI18N
-            "204, 128, 153", // NOI18N
-            "230, 153, 179", // NOI18N
-            "230, 179, 204", // NOI18N
-            "255, 204, 230", // NOI18N
-            
-            "153, 0, 0", // NOI18N
-            "179, 26, 26", // NOI18N
-            "204, 51, 51", // NOI18N
-            "230, 77, 77", // NOI18N
-            "255, 102, 102", // NOI18N
-            "255, 128, 128", // NOI18N
-            "255, 153, 153", // NOI18N
-            "255, 179, 179", // NOI18N
-            "255, 204, 204", // NOI18N
-            
-            "153, 51, 0", // NOI18N
-            "179, 77, 26", // NOI18N
-            "204, 102, 51", // NOI18N
-            "230, 128, 77", // NOI18N
-            "255, 153, 102", // NOI18N
-            "255, 153, 128", // NOI18N
-            "255, 179, 128", // NOI18N
-            "255, 179, 153", // NOI18N
-            "255, 204, 179", // NOI18N
-            
-            "153, 77, 0", // NOI18N
-            "179, 102, 26", // NOI18N
-            "204, 128, 51", // NOI18N
-            "230, 153, 77", // NOI18N
-            "255, 179, 102", // NOI18N
-            "255, 204, 128", // NOI18N
-            "255, 204, 153", // NOI18N
-            "255, 230, 179", // NOI18N
-            "255, 230, 204", // NOI18N
-            
-            "153, 102, 0", // NOI18N
-            "179, 128, 26", // NOI18N
-            "204, 153, 51", // NOI18N
-            "230, 179, 77", // NOI18N
-            "255, 204, 102", // NOI18N
-            "255, 230, 102", // NOI18N
-            "255, 230, 128", // NOI18N
-            "255, 230, 153", // NOI18N
-            "255, 255, 179", // NOI18N
-            
-            "153, 153, 0", // NOI18N
-            "179, 179, 26", // NOI18N
-            "204, 204, 51", // NOI18N
-            "230, 230, 77", // NOI18N
-            "255, 255, 77", // NOI18N
-            "255, 255, 102", // NOI18N
-            "255, 255, 128", // NOI18N
-            "255, 255, 153", // NOI18N
-            "255, 255, 204", // NOI18N
-            
-            "102, 102, 0", // NOI18N
-            "128, 128, 26", // NOI18N
-            "153, 153, 51", // NOI18N
-            "179, 179, 77", // NOI18N
-            "204, 204, 102", // NOI18N
-            "230, 230, 128", // NOI18N
-            "230, 230, 153", // NOI18N
-            "230, 230, 179", // NOI18N
-            "230, 230, 204", // NOI18N
-            
-            "0, 51, 0", // NOI18N
-            "26, 77, 26", // NOI18N
-            "51, 102, 51", // NOI18N
-            "77, 128, 77", // NOI18N
-            "102, 153, 102", // NOI18N
-            "128, 179, 128", // NOI18N
-            "153, 204, 153", // NOI18N
-            "179, 230, 179", // NOI18N
-            "204, 255, 204" // NOI18N
-    );
     
     public ColorComboBox() {
         
@@ -193,12 +55,13 @@ public final class ColorComboBox implements EventConfiguration {
     private void configureComboBoxColors(final ComboBox<String> comboBox, final ColorType type) {
         LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxColors(ComboBox<String>, ColorType)"); // NOI18N
         
+        // TODO removes the color in COLORS, so both are removed.
         switch(type) {
-            case YANG_SYMBOL: { COLORS.remove(INDEX_TO_REMOVE__YANG_SYMBOL); break; }
-            case YIN_SYMBOL:  { COLORS.remove(INDEX_TO_REMOVE__YIN_SYMBOL);  break; }
+            case YANG_SYMBOL: { Colors.getColors().remove(INDEX_TO_REMOVE__YANG_SYMBOL); break; }
+            case YIN_SYMBOL:  { Colors.getColors().remove(INDEX_TO_REMOVE__YIN_SYMBOL);  break; }
         }
         
-        comboBox.setItems(COLORS);
+        comboBox.setItems(Colors.getColors());
     }
     
     private void configureComboBoxButtonCell(final ComboBox<String> comboBox) {
