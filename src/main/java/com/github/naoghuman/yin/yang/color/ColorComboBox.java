@@ -179,8 +179,8 @@ public final class ColorComboBox implements EventConfiguration {
         
     }
     
-    public void configure(final ComboBox<String> comboBox, final Type type, final String selectedColor) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configure(ComboBox<String>, Type, String)"); // NOI18N
+    public void configure(final ComboBox<String> comboBox, final ColorType type, final String selectedColor) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configure(ComboBox<String>, ColorType, String)"); // NOI18N
         
         this.configureComboBoxColors(comboBox, type);
         this.configureComboBoxButtonCell(comboBox);
@@ -190,8 +190,8 @@ public final class ColorComboBox implements EventConfiguration {
         comboBox.getSelectionModel().select(selectedColor);
     }
     
-    private void configureComboBoxColors(final ComboBox<String> comboBox, final Type type) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxColors(ComboBox<String>, Type)"); // NOI18N
+    private void configureComboBoxColors(final ComboBox<String> comboBox, final ColorType type) {
+        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxColors(ComboBox<String>, ColorType)"); // NOI18N
         
         switch(type) {
             case YANG_SYMBOL: { COLORS.remove(INDEX_TO_REMOVE__YANG_SYMBOL); break; }
@@ -240,7 +240,7 @@ public final class ColorComboBox implements EventConfiguration {
         });
     }
     
-    private void configureComboBoxValueProperty(final ComboBox<String> comboBox, final Type type) {
+    private void configureComboBoxValueProperty(final ComboBox<String> comboBox, final ColorType type) {
         LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxValueProperty(ComboBox<String>, ColorType)"); // NOI18N
         
         comboBox.valueProperty().addListener(new ChangeListener<String>() {
@@ -259,19 +259,8 @@ public final class ColorComboBox implements EventConfiguration {
                                 .actionId(actionId)
                                 .stringValue(newValue)
                                 .build());
-                
-                // Update colors
-//                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS);
-//                ActionHandlerFacade.getDefault().handle(ON_ACTION__UPDATE__COLOR_IN_TERMS);
             }
         });
-    }
-    
-    public enum Type {
-        
-        YANG_SYMBOL,
-        YIN_SYMBOL;
-        
     }
     
 }

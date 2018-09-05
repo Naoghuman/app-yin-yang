@@ -22,6 +22,7 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
+import com.github.naoghuman.yin.yang.color.ColorType;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
@@ -100,12 +101,12 @@ public class OptionsPresenter implements
         final ColorComboBox yangColorComboBox = new ColorComboBox();
         final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR,
                 PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        yangColorComboBox.configure(cbYangColors, ColorComboBox.Type.YANG_SYMBOL, yangSelectedColor);
+        yangColorComboBox.configure(cbYangColors, ColorType.YANG_SYMBOL, yangSelectedColor);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
         final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,
                 PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        yinColorComboBox.configure(cbYinColors, ColorComboBox.Type.YIN_SYMBOL, yinSelectedColor);
+        yinColorComboBox.configure(cbYinColors, ColorType.YIN_SYMBOL, yinSelectedColor);
     }
     
     private void initializeOptionTabExtras() {
