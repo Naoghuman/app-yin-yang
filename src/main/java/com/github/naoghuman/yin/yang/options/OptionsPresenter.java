@@ -21,13 +21,15 @@ import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import com.github.naoghuman.yin.yang.color.ColorMaterialDesign;
 import com.github.naoghuman.yin.yang.color.ColorComboBox;
-import com.github.naoghuman.yin.yang.color.ColorType;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nLanguage;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
+import com.github.naoghuman.yin.yang.taichi.TaiChiYangColors;
+import com.github.naoghuman.yin.yang.taichi.TaiChiYinColors;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -51,8 +53,8 @@ public class OptionsPresenter implements
         PreferencesConfiguration, RegisterActions
 {
     @FXML private CheckBox    cbAlwaysOnTop;
-    @FXML private ComboBox<String> cbYangColors;
-    @FXML private ComboBox<String> cbYinColors;
+    @FXML private ComboBox<ColorMaterialDesign> cbYangColors;
+    @FXML private ComboBox<ColorMaterialDesign> cbYinColors;
     @FXML private Label       lYangColors;
     @FXML private Label       lYinColors;
     @FXML private RadioButton rbSingleColors;
@@ -99,14 +101,23 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabColor()"); // NOI18N
         
         final ColorComboBox yangColorComboBox = new ColorComboBox();
-        final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR,
+        /*
+        TODO returns momentary r,g,b instead ColorMaterialDesign.XY.name()
+        */
+        final String yangColor = PreferencesFacade.getDefault().get(
+                PREF__TAICHI_SYMBOL__YANG_COLOR,
                 PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        yangColorComboBox.configure(cbYangColors, ColorType.YANG_SYMBOL, yangSelectedColor);
+        yangColorComboBox.configure(cbYangColors, TaiChiYangColors.getColors(),
+                ColorMaterialDesign.get(yangColor, ColorMaterialDesign.GREY_050),
+                ON_ACTION__UPDATE__YANG_COLOR);
         
         final ColorComboBox yinColorComboBox = new ColorComboBox();
-        final String yinSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YIN_COLOR,
+        final String yinColor = PreferencesFacade.getDefault().get(
+                PREF__TAICHI_SYMBOL__YIN_COLOR,
                 PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        yinColorComboBox.configure(cbYinColors, ColorType.YIN_SYMBOL, yinSelectedColor);
+        yinColorComboBox.configure(cbYinColors, TaiChiYinColors.getColors(),
+                ColorMaterialDesign.get(yinColor, ColorMaterialDesign.GREY_900),
+                ON_ACTION__UPDATE__YIN_COLOR);
     }
     
     private void initializeOptionTabExtras() {

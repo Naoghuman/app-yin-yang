@@ -16,14 +16,28 @@
  */
 package com.github.naoghuman.yin.yang.color;
 
+import com.github.naoghuman.yin.yang.taichi.TaiChiYangColors;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
 /**
  *
  * @author Naoghuman
  * @since  0.6.0
  */
-public enum ColorType {
-        
-    YANG_SYMBOL,
-    YIN_SYMBOL;
+public class TaiChiYangColorsDemo extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        System.out.println("##############################################");
+        TaiChiYangColors.getColors()
+                .forEach((materialDesign) -> {
+                    System.out.println(materialDesign.name());
+                });
+        System.out.println("##############################################");
+    }
     
+    public static void main(final String[] arguments) {
+       Application.launch(arguments);
+    }
 }
