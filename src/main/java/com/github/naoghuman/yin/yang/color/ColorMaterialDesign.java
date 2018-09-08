@@ -23,7 +23,10 @@ import javafx.collections.FXCollections;
 import javafx.scene.paint.Color;
 
 /**
- *
+ * TODO separate the enum values/names/javafx-color.
+ *  - outside from the package only name/javafx-color is available.
+ *  - inside package all.
+ * 
  * @author Naoghuman
  * @since  0.6.0
  */

@@ -20,8 +20,8 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.color.ColorConverter;
 import com.github.naoghuman.yin.yang.color.ColorMaterialDesign;
+import com.github.naoghuman.yin.yang.color.ColorProvider;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
@@ -93,9 +93,8 @@ final class DefaultTaiChiColors implements
                         CONTAINERS_FOR_STYLE.get(node).equals(actionId)
                 )
                 .forEachOrdered((node) -> {
-                    node.setStyle(String.format(
-                        STYLE__BACKGROUND_COLOR_RADIUS,
-                        ColorConverter.convertToBrighter(color, 0.8d)));
+                    node.setStyle(String.format(STYLE__BACKGROUND_COLOR_RADIUS,
+                        ColorProvider.getDefault().getColorConverter().convertToBrighter(color, 0.8d)));
                 });
         
         LABELED_FOR_TEXTFILL.keySet().stream()
@@ -115,9 +114,8 @@ final class DefaultTaiChiColors implements
                         CONTAINERS_FOR_STYLE.get(node).equals(actionId)
                 )
                 .forEachOrdered((node) -> {
-                    node.setStyle(String.format(
-                        STYLE__BACKGROUND_COLOR_RADIUS,
-                        ColorConverter.convertToBrighter(color, 0.8d)));
+                    node.setStyle(String.format(STYLE__BACKGROUND_COLOR_RADIUS,
+                        ColorProvider.getDefault().getColorConverter().convertToBrighter(color, 0.8d)));
                 });
     }
     
@@ -141,9 +139,8 @@ final class DefaultTaiChiColors implements
                         LABELED_FOR_STYLE.get(labeled).equals(actionId)
                 )
                 .forEachOrdered((labeled) -> {
-                    labeled.setStyle(String.format(
-                        STYLE__BACKGROUND_COLOR_RADIUS,
-                        ColorConverter.convertToBrighter(color, 0.8d)));
+                    labeled.setStyle(String.format(STYLE__BACKGROUND_COLOR_RADIUS,
+                        ColorProvider.getDefault().getColorConverter().convertToBrighter(color, 0.8d)));
                 });
         
         LABELED_FOR_TEXTFILL.keySet().stream()

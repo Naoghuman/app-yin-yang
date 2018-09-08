@@ -61,7 +61,7 @@ public class ColorConverterTest {
         sb.append(")"); // NOI18N
         
         String color = "0, 0, 0";
-        String result = ColorConverter.convertToBrighter(color, opacity);
+        String result = ColorProvider.getDefault().getColorConverter().convertToBrighter(color, opacity);
         
         String expResult = sb.toString();
         assertEquals(expResult, result);
@@ -88,7 +88,7 @@ public class ColorConverterTest {
         sb.append(")"); // NOI18N
         
         String color = "255, 255, 255";
-        String result = ColorConverter.convertToBrighter(color, opacity);
+        String result = ColorProvider.getDefault().getColorConverter().convertToBrighter(color, opacity);
         
         String expResult = sb.toString();
         assertEquals(expResult, result);
@@ -115,7 +115,7 @@ public class ColorConverterTest {
         sb.append(")"); // NOI18N
         
         String color = "255, 200, 155";
-        String result = ColorConverter.convertToBrighter(color, opacity);
+        String result = ColorProvider.getDefault().getColorConverter().convertToBrighter(color, opacity);
         
         String expResult = sb.toString();
         assertEquals(expResult, result);

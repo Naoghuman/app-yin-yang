@@ -16,105 +16,18 @@
  */
 package com.github.naoghuman.yin.yang.color;
 
-import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
-import com.github.naoghuman.lib.action.core.TransferDataBuilder;
-import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
-import javafx.util.Callback;
 
 /**
  *
  * @author Naoghuman
  * @since  0.6.0
  */
-public final class ColorComboBox {
-    
-    private static final String STYLE_BACKGROUND = "-fx-background-color:rgb(%s); -fx-background-insets:2.0;"; // NOI18N
-    
-    public ColorComboBox() {
-        
-    }
-    
-    public void configure(
-            final ComboBox<ColorMaterialDesign> comboBox, final ObservableList<ColorMaterialDesign> colors,
-            final ColorMaterialDesign selected, final String actionId
-    ) {
-        LoggerFacade.getDefault().debug(this.getClass(), "MaterialDesignComboBox.configure(ComboBox<MaterialDesign>, ObservableList<MaterialDesign>, MaterialDesign, String)"); // NOI18N
-        
-        this.configureComboBoxColors(comboBox, colors, selected);
-        this.configureComboBoxButtonCell(comboBox);
-        this.configureComboBoxCellFactory(comboBox);
-        this.configureComboBoxValueProperty(comboBox, actionId);
-        
-//        comboBox.getSelectionModel().select(selected);
-    }
-    
-    private void configureComboBoxColors(final ComboBox<ColorMaterialDesign> comboBox, final ObservableList<ColorMaterialDesign> colors, final ColorMaterialDesign selected) {
-        LoggerFacade.getDefault().debug(this.getClass(), "MaterialDesignComboBox.configureComboBoxColors(ComboBox<MaterialDesign>, ObservableList<MaterialDesign>, MaterialDesign)"); // NOI18N
-        
-        comboBox.setItems(colors);
-        comboBox.getSelectionModel().select(selected);
-    }
-    
-    private void configureComboBoxButtonCell(final ComboBox<ColorMaterialDesign> comboBox) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxButtonCell(ComboBox<MaterialDesign>)"); // NOI18N
-        
-        comboBox.setButtonCell(new ListCell<ColorMaterialDesign>() {
-            @Override
-            protected void updateItem(ColorMaterialDesign item, boolean empty) {
-                super.updateItem(item, empty);
-                super.setText(null);
-                
-                if (item != null) {
-                    super.setStyle(String.format(STYLE_BACKGROUND, item.rgb()));
-                }
-            }
-        });
-    }
-    
-    private void configureComboBoxCellFactory(final ComboBox<ColorMaterialDesign> comboBox) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxCellFactory(ComboBox<MaterialDesign>)"); // NOI18N
-        
-        comboBox.setCellFactory(new Callback<ListView<ColorMaterialDesign>, ListCell<ColorMaterialDesign>>() {
-            @Override
-            public ListCell<ColorMaterialDesign> call(ListView<ColorMaterialDesign> param) {
-                final ListCell<ColorMaterialDesign> cell = new ListCell<ColorMaterialDesign>() { 
-                    @Override
-                    public void updateItem(ColorMaterialDesign item, boolean empty) {
-                        super.updateItem(item, empty);
-                        super.setText(null);
+public interface ColorComboBox {
 
-                        if (item != null) {
-                            // TODO style will be getted from styleconverter
-                            super.setStyle(String.format(STYLE_BACKGROUND, item.rgb()));
-                        }
-                    }
-                };
-                    
-                return cell;
-            }
-        });
-    }
-    
-    private void configureComboBoxValueProperty(final ComboBox<ColorMaterialDesign> comboBox, final String actionId) {
-        LoggerFacade.getDefault().debug(this.getClass(), "ColorComboBox.configureComboBoxValueProperty(ComboBox<MaterialDesign>, String)"); // NOI18N
-        
-        comboBox.valueProperty().addListener(new ChangeListener<ColorMaterialDesign>() {
-            @Override
-            public void changed(ObservableValue<? extends ColorMaterialDesign> observable, ColorMaterialDesign oldValue, ColorMaterialDesign newValue) {
-                ActionHandlerFacade.getDefault()
-                        .handle(TransferDataBuilder.create()
-                                .actionId(actionId)
-//                                .objectValue(newValue) // TODO
-                                .stringValue(newValue.rgb())
-                                .build());
-            }
-        });
-    }
+    public void configure(
+            final ComboBox<ColorMaterialDesign> comboBox, final ObservableList<ColorMaterialDesign> colors, 
+            final ColorMaterialDesign selected, final String actionId);
     
 }

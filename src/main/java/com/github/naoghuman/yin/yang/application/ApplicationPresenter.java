@@ -22,7 +22,7 @@ import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.color.ColorConverter;
+import com.github.naoghuman.yin.yang.color.ColorProvider;
 import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
@@ -213,9 +213,8 @@ public class ApplicationPresenter implements
         final String yangSelectedColor = PreferencesFacade.getDefault().get(PREF__TAICHI_SYMBOL__YANG_COLOR, PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
 
         // Option info
-        vbInfos.setStyle(String.format(
-                STYLE__BACKGROUND_COLOR_RADIUS,
-                ColorConverter.convertToBrighter(
+        vbInfos.setStyle(String.format(STYLE__BACKGROUND_COLOR_RADIUS,
+                ColorProvider.getDefault().getColorConverter().convertToBrighter(
                         (!oddDay ? yangSelectedColor : yinSelectedColor),
                         0.8d)));
         

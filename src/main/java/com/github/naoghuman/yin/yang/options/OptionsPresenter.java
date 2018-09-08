@@ -22,7 +22,7 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorMaterialDesign;
-import com.github.naoghuman.yin.yang.color.ColorComboBox;
+import com.github.naoghuman.yin.yang.color.ColorProvider;
 import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
 import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
 import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
@@ -100,22 +100,20 @@ public class OptionsPresenter implements
     private void initializeOptionTabColor() {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabColor()"); // NOI18N
         
-        final ColorComboBox yangColorComboBox = new ColorComboBox();
-        /*
-        TODO returns momentary r,g,b instead ColorMaterialDesign.XY.name()
-        */
+        // TODO returns momentary r,g,b instead ColorMaterialDesign.XY.name()
         final String yangColor = PreferencesFacade.getDefault().get(
                 PREF__TAICHI_SYMBOL__YANG_COLOR,
                 PREF__TAICHI_SYMBOL__YANG_COLOR_DEFAULT_VALUE);
-        yangColorComboBox.configure(cbYangColors, TaiChiYangColors.getColors(),
+        ColorProvider.getDefault().getColorComboBox().configure(
+                cbYangColors, TaiChiYangColors.getColors(),
                 ColorMaterialDesign.get(yangColor, ColorMaterialDesign.GREY_050),
                 ON_ACTION__UPDATE__YANG_COLOR);
         
-        final ColorComboBox yinColorComboBox = new ColorComboBox();
         final String yinColor = PreferencesFacade.getDefault().get(
                 PREF__TAICHI_SYMBOL__YIN_COLOR,
                 PREF__TAICHI_SYMBOL__YIN_COLOR_DEFAULT_VALUE);
-        yinColorComboBox.configure(cbYinColors, TaiChiYinColors.getColors(),
+        ColorProvider.getDefault().getColorComboBox().configure(
+                cbYinColors, TaiChiYinColors.getColors(),
                 ColorMaterialDesign.get(yinColor, ColorMaterialDesign.GREY_900),
                 ON_ACTION__UPDATE__YIN_COLOR);
     }
