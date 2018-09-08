@@ -60,7 +60,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>8.8.3</version>
                 <configuration>
-                    <mainClass>com.github.naoghuman.yin.yang.StartApplication</mainClass>
+                    <mainClass>com.github.naoghuman.yin.yang.application.ApplicationStart</mainClass>
                     <jfxMainAppJarName>${project.artifactId}-${project.version}.jar</jfxMainAppJarName>
                     <allPermissions>true</allPermissions>
                     <verbose>true</verbose>

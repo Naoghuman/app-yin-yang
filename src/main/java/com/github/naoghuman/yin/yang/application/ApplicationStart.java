@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.github.naoghuman.yin.yang;
+package com.github.naoghuman.yin.yang.application;
 
 import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
@@ -49,7 +49,7 @@ import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
  * @author Naoghuman
  * @since  0.1.0
  */
-public class StartApplication extends Application implements 
+public class ApplicationStart extends Application implements 
         ConfigurationApplication, ConfigurationEvent, ConfigurationI18n,
         ConfigurationPreferences, RegisterActions
 {
