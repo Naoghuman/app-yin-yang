@@ -23,9 +23,9 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorMaterialDesign;
 import com.github.naoghuman.yin.yang.color.ColorProvider;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationI18n;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
 import com.github.naoghuman.yin.yang.i18n.I18nLanguage;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.taichi.TaiChiYangColors;
@@ -49,8 +49,8 @@ import javafx.scene.control.ToggleGroup;
  * @since  0.3.0
  */
 public class OptionsPresenter implements 
-        EventConfiguration, I18nConfiguration, Initializable,
-        PreferencesConfiguration, RegisterActions
+        ConfigurationEvent, ConfigurationI18n, ConfigurationPreferences,
+        Initializable, RegisterActions
 {
     @FXML private CheckBox    cbAlwaysOnTop;
     @FXML private ComboBox<ColorMaterialDesign> cbYangColors;

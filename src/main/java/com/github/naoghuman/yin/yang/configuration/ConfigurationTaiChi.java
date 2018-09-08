@@ -16,15 +16,15 @@
  */
 package com.github.naoghuman.yin.yang.configuration;
 
-import javafx.util.Duration;
-
 /**
  *
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface ApplicationConfiguration {
+public interface ConfigurationTaiChi {
     
-    public static final Duration DURATION__125 = Duration.millis(125.0d);
+    public static final double TAICHI_SYMBOL__OUTER_BORDER = 5.0d;
+    
+    public static final String PATTERN__RGB_COLOR = "rgb(%s)"; // NOI18N
     
 }

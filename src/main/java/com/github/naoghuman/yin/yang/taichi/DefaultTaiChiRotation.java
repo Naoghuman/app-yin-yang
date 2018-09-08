@@ -19,7 +19,7 @@ package com.github.naoghuman.yin.yang.taichi;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
 import java.time.LocalDate;
 import java.time.Month;
 import javafx.animation.Animation;
@@ -41,7 +41,7 @@ import javafx.util.Duration;
  * @since  0.6.0
  */
 final class DefaultTaiChiRotation implements 
-        EventConfiguration, RegisterActions, TaiChiRotation
+        ConfigurationEvent, RegisterActions, TaiChiRotation
 {
     private static final ObservableMap<Month, Double> MONTHLY_ROTATION_SPEED = FXCollections.observableHashMap();
     

@@ -23,7 +23,7 @@ import com.github.naoghuman.yin.yang.color.ColorMaterialDesign;
  * @author Naoghuman
  * @since  0.2.0
  */
-public interface PreferencesConfiguration {
+public interface ConfigurationPreferences {
     
     // Application
     public static final String  PREF__APPLICATION__POSITION_X                  = "PREF__APPLICATION__POSITION_X"; // NOI18N

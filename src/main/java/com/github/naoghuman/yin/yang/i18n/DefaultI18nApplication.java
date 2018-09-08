@@ -18,7 +18,7 @@ package com.github.naoghuman.yin.yang.i18n;
 
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
-import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationI18n;
 import java.util.Locale;
 
 /**
@@ -26,8 +26,9 @@ import java.util.Locale;
  * @author Naoghuman
  * @since  0.2.0
  */
-final class DefaultI18nApplication implements I18nLanguage, I18nConfiguration {
-    
+final class DefaultI18nApplication implements 
+        ConfigurationI18n, I18nLanguage
+{
     DefaultI18nApplication() {
         
     }

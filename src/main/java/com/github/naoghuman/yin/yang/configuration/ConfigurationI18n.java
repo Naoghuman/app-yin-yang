@@ -21,7 +21,7 @@ package com.github.naoghuman.yin.yang.configuration;
  * @author Naoghuman
  * @since  0.2.0
  */
-public interface I18nConfiguration {
+public interface ConfigurationI18n {
     
     // Resourcebundles
     public static final String I18N__RESOURCE_BUNDLE__APPLICATION = "/com/github/naoghuman/yin/yang/application/i18n_application.properties"; // NOI18N

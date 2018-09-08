@@ -20,9 +20,9 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationTaiChi;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;
@@ -39,7 +39,7 @@ import javafx.scene.shape.Shape;
  * @since  0.1.0
  */
 final class DefaultTaiChiSymbol implements 
-        EventConfiguration, PreferencesConfiguration, TaiChiConfiguration,
+        ConfigurationEvent, ConfigurationPreferences, ConfigurationTaiChi,
         TaiChiSymbol
 {
     private static final double STROKE_WIDTH = 4.0d;

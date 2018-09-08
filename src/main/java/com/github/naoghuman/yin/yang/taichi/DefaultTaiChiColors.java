@@ -22,9 +22,9 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorMaterialDesign;
 import com.github.naoghuman.yin.yang.color.ColorProvider;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationTaiChi;
 import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableMap;
@@ -40,8 +40,8 @@ import javafx.scene.shape.Shape;
  * @since  0.5.0
  */
 final class DefaultTaiChiColors implements 
-        EventConfiguration, PreferencesConfiguration, TaiChiColors,
-        TaiChiConfiguration
+        ConfigurationEvent, ConfigurationPreferences, ConfigurationTaiChi,
+        TaiChiColors
 {
     private static final ObservableMap<Node,    String> CONTAINERS_FOR_STYLE = FXCollections.observableHashMap();
     private static final ObservableMap<Labeled, String> LABELED_FOR_STYLE    = FXCollections.observableHashMap();

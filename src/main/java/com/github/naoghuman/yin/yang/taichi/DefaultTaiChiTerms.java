@@ -20,10 +20,10 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationI18n;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationTaiChi;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import java.util.Random;
 import javafx.animation.KeyFrame;
@@ -43,8 +43,8 @@ import javafx.util.Duration;
  * @since  0.4.0
  */
 final class DefaultTaiChiTerms implements 
-        EventConfiguration, I18nConfiguration, PreferencesConfiguration,
-        RegisterActions, TaiChiConfiguration, TaiChiTerms
+        ConfigurationEvent, ConfigurationI18n, ConfigurationPreferences,
+        ConfigurationTaiChi, RegisterActions, TaiChiTerms
 {
     private static final char   TERM_SEPERATOR = ';'; // NOI18N
     private static final double OPACITY__TERM  = 1.0d;

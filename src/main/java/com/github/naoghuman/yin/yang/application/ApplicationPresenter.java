@@ -23,11 +23,6 @@ import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.color.ColorProvider;
-import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
-import com.github.naoghuman.yin.yang.configuration.TaiChiConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.options.OptionsView;
 import com.github.naoghuman.yin.yang.taichi.TaiChiColorType;
@@ -51,6 +46,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Window;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationApplication;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationI18n;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationTaiChi;
 
 /**
  *
@@ -58,9 +58,9 @@ import javafx.stage.Window;
  * @since  0.4.0
  */
 public class ApplicationPresenter implements 
-        ApplicationConfiguration, EventConfiguration, Initializable,
-        I18nConfiguration, PreferencesConfiguration, RegisterActions,
-        TaiChiConfiguration
+        ConfigurationApplication, ConfigurationEvent, ConfigurationI18n,
+        ConfigurationPreferences, ConfigurationTaiChi, Initializable,
+        RegisterActions
 {
     private static final String STYLE__BACKGROUND_COLOR_RADIUS = "-fx-background-color:%s;-fx-background-radius:5.0;"; // NOI18N
     

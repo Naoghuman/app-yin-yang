@@ -20,8 +20,8 @@ import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
 import java.util.Locale;
 import java.util.Optional;
 import javafx.event.ActionEvent;
@@ -32,7 +32,7 @@ import javafx.event.ActionEvent;
  * @since  0.2.0
  */
 public final class I18nProvider implements 
-        EventConfiguration, PreferencesConfiguration, RegisterActions
+        ConfigurationEvent, ConfigurationPreferences, RegisterActions
 {
     private static final Optional<I18nProvider> INSTANCE = Optional.of(new I18nProvider());
     

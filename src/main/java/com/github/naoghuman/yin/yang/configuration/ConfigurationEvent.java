@@ -21,7 +21,7 @@ package com.github.naoghuman.yin.yang.configuration;
  * @author Naoghuman
  * @since  0.1.0
  */
-public interface EventConfiguration {
+public interface ConfigurationEvent {
     
     
     public static final String ON_ACTION__CHANGE__ALWAYS_ON_TOP          = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N

@@ -24,10 +24,6 @@ import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.yin.yang.application.ApplicationPresenter;
 import com.github.naoghuman.yin.yang.application.ApplicationView;
-import com.github.naoghuman.yin.yang.configuration.ApplicationConfiguration;
-import com.github.naoghuman.yin.yang.configuration.EventConfiguration;
-import com.github.naoghuman.yin.yang.configuration.I18nConfiguration;
-import com.github.naoghuman.yin.yang.configuration.PreferencesConfiguration;
 import com.github.naoghuman.yin.yang.i18n.I18nProvider;
 import com.github.naoghuman.yin.yang.taichi.TaiChiProvider;
 import java.util.Optional;
@@ -43,6 +39,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import com.github.naoghuman.yin.yang.i18n.I18nLanguage;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationApplication;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationEvent;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationI18n;
+import com.github.naoghuman.yin.yang.configuration.ConfigurationPreferences;
 
 /**
  *
@@ -50,8 +50,8 @@ import com.github.naoghuman.yin.yang.i18n.I18nLanguage;
  * @since  0.1.0
  */
 public class StartApplication extends Application implements 
-        ApplicationConfiguration, EventConfiguration, I18nConfiguration,
-        PreferencesConfiguration, RegisterActions
+        ConfigurationApplication, ConfigurationEvent, ConfigurationI18n,
+        ConfigurationPreferences, RegisterActions
 {
     public static void main(String[] args) {
         launch(args);
