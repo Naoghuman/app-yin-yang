@@ -7,10 +7,10 @@ aso..
 
 
 #### Summary
-* With the new class TaiChiProvider the functionalities around TaiChiColors, 
-  -Rotation, -Symbol and -Terms are managed.
-* The rotation from the TaiChi symbol will now managed with the class TaiChiRotation.
-* ...
+* This version is in the sign of refactoring.
+* Move functionalities in new classes.
+* Integrate a new naming convention in package scope.
+
 
 
 
