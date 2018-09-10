@@ -19,9 +19,6 @@
             <padding>
                 <Insets bottom="7.0" left="14.0" right="14.0" top="7.0" />
             </padding>
-            <StackPane.margin>
-                <Insets bottom="150.0" />
-            </StackPane.margin>
         </HBox>
         <HBox fx:id="hbTaiChiTerms" alignment="CENTER" fillHeight="false" maxHeight="-Infinity" maxWidth="-Infinity" mouseTransparent="true" prefWidth="300.0" StackPane.alignment="CENTER">
             <children>
