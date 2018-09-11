@@ -1,6 +1,7 @@
 Yin-Yang
 ===
 
+image:http://img.shields.io/travis/Naoghuman/yin-yang/master.svg["Build Status (travis)", link="https://travis-ci.org/Naoghuman/yin-yang"]
 
 
 Intention
