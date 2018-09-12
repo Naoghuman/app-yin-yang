@@ -7,8 +7,8 @@ aso..
 
 
 #### Summary
-* ...
-* ...
+* Include .travis.yml to bind the application with travis.com.
+* Include different badges from img.shield.io in the ReadMe.md.
 
 
 
