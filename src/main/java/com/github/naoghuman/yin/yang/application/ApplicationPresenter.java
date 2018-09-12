@@ -103,12 +103,13 @@ public class ApplicationPresenter implements
     private void initializeInfos() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeInfos()"); // NOI18N
     
-        // VBox
-        vbInfos.setPrefWidth(diameterTheOne / 2.0d);
+        final double width  = diameterTheOne / 2.0d;
+        final double height = diameterTheOne / 8.0d;
+        vbInfos.setPrefSize(width, height);
         
         final double diameter = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
-        final double top      = diameter / 2.0d + hbMenuButtons.getPrefHeight() * 2.0d;// - 4.0d;// STROKE_WIDTH
-        StackPane.setMargin(vbInfos, new Insets(top, 0.0d, 0.0d, 0.0d));
+        final double radius   = diameter / 2.0d;
+        StackPane.setMargin(vbInfos, new Insets(radius, 0.0d, 0.0d, 0.0d));
         
         lInfoTitle.setText(String.format(
                 I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE),
@@ -124,11 +125,13 @@ public class ApplicationPresenter implements
     private void initializeMenu() {
         LoggerFacade.getDefault().info(this.getClass(), "ApplicationPresenter.initializeMenu()"); // NOI18N
 
-        hbMenuButtons.setPrefWidth(diameterTheOne / 2.0d);
+        final double width  = diameterTheOne / 2.0d;
+        final double height = diameterTheOne / 8.0d;
+        hbMenuButtons.setPrefSize(width, height);
         
         final double diameter = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
-        final double bottom   = diameter / 2.0d + hbMenuButtons.getPrefHeight() * 2.0d + 4.0d;// STROKE_WIDTH
-        StackPane.setMargin(hbMenuButtons, new Insets(0.0d, 0.0d, bottom, 0.0d));
+        final double radius   = diameter / 2.0d + 1.0d;
+        StackPane.setMargin(hbMenuButtons, new Insets(0.0d, 0.0d, radius, 0.0d));
     }
     
     public void configure(final Window owner) {
