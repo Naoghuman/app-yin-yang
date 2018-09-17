@@ -2,6 +2,15 @@
 Concept for a new Trigram view (v0.7.0)
 --------------------------------------------------------------------------------
 DESCRIPTION
+In dependency with the date the single lines from the Trigram, Hexagram
+will generated.
+
+Examples (Lines are from left to right == top to bottom):
+ - yang = odd  numbers = +.
+ - yin  = even numbers = -.
+ - 28.07.1967 -> -,+,+ -> yin,yang,yang
+ - 17.09.2018 -> +,+,- -> yang,yang,yin
+ - 20:08:35 17.09.2018 -> -,-,+,+,+,- -> yin,yin,yang,yang,yang,yin
 
 --------------------------------------------------------------------------------
 
