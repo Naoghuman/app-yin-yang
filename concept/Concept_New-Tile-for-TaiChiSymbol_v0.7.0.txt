@@ -1,0 +1,20 @@
+-------------------------------------------------------------------------------
+Concept for a new Tile for TaiChiSymbol (v0.7.0)
+--------------------------------------------------------------------------------
+DESCRIPTION
+With this feature the user have the options to choose a Tile image for the yin 
+and / or yang part from the TaiChiSymbol.
+
+A Tile is per definition a little transparent Image which overlay a 
+background-color or -image with the help of repetitions from the image in a layer.
+
+--------------------------------------------------------------------------------
+Lib-Tile-Core
+ - Use custimize images.
+ - Check if the release is okay or need next version?
+
+--------------------------------------------------------------------------------
+https://jojorabbitjavafxblog.wordpress.com/tag/fx-background-repeat/
+ - how to use css to style the background image.
+
+--------------------------------------------------------------------------------
