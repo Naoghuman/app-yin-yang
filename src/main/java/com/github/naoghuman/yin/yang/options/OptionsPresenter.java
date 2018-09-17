@@ -55,6 +55,11 @@ public class OptionsPresenter implements
     @FXML private CheckBox    cbAlwaysOnTop;
     @FXML private ComboBox<ColorMaterialDesign> cbYangColors;
     @FXML private ComboBox<ColorMaterialDesign> cbYinColors;
+    @FXML private Label       lOptionAbout;
+    @FXML private Label       lOptionColor;
+    @FXML private Label       lOptionExtras;
+    @FXML private Label       lOptionLanguage;
+    @FXML private Label       lOptionSpeed;
     @FXML private Label       lYangColors;
     @FXML private Label       lYinColors;
     @FXML private RadioButton rbSingleColors;
@@ -62,11 +67,6 @@ public class OptionsPresenter implements
     @FXML private RadioButton rbSingleLanguage;
     @FXML private RadioButton rbSingleLanguageEnglish;
     @FXML private RadioButton rbSingleLanguageGerman;
-    @FXML private Tab         tOptionAbout;
-    @FXML private Tab         tOptionColor;
-    @FXML private Tab         tOptionExtras;
-    @FXML private Tab         tOptionLanguage;
-    @FXML private Tab         tOptionSpeed;
     @FXML private TabPane     tpOptions;
     @FXML private ToggleGroup tgLanguages;
     @FXML private ToggleGroup tgSingleLanguages;
@@ -202,11 +202,11 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionUpdateLanguageInTabPane()"); // NOI18N
         
         final I18nLanguage i18n = I18nProvider.getDefault().getI18nOptions();
-        tOptionAbout.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_ABOUT)));
-        tOptionColor.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_COLOR)));
-        tOptionExtras.setText(  i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_EXTRAS)));
-        tOptionLanguage.setText(i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE)));
-        tOptionSpeed.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_SPEED)));
+        lOptionAbout.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_ABOUT)));
+        lOptionColor.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_COLOR)));
+        lOptionExtras.setText(  i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_EXTRAS)));
+        lOptionLanguage.setText(i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_LANGUAGE)));
+        lOptionSpeed.setText(   i18n.getProperty(String.format(I18N_KEY__OPTION_DIALOG__TAB_SPEED)));
     }
 
     private void onActionUpdateLanguageInTabColor() {

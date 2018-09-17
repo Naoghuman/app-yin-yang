@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
@@ -8,12 +9,13 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
 <AnchorPane id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: lightgreen;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.github.naoghuman.yin.yang.options.OptionsPresenter">
     <children>
-        <TabPane fx:id="tpOptions" prefHeight="200.0" prefWidth="200.0" side="LEFT" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
+        <TabPane fx:id="tpOptions" rotateGraphic="true" side="LEFT" tabClosingPolicy="UNAVAILABLE" tabMaxHeight="128.0" tabMaxWidth="18.0" tabMinHeight="128.0" tabMinWidth="18.0" AnchorPane.bottomAnchor="7.0" AnchorPane.leftAnchor="7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="7.0">
             <tabs>
-                <Tab fx:id="tOptionColor" closable="false" text="Color">
+                <Tab closable="false">
                     <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: lightblue;">
                             <children>
@@ -25,10 +27,29 @@
                             </children>
                         </AnchorPane>
                     </content>
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                     <children>
+                        <Label fx:id="lOptionColor" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Color" />
+                     </children>
+                     <padding>
+                        <Insets top="14.0" />
+                     </padding>
+                  </StackPane>
+               </graphic>
                 </Tab>
-                <Tab fx:id="tOptionSpeed" closable="false" disable="true" text="Speed">
-                </Tab>
-                <Tab fx:id="tOptionLanguage" closable="false" text="Language">
+                <Tab closable="false" disable="true">
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                     <children>
+                        <Label fx:id="lOptionSpeed" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Speed" />
+                     </children>
+                     <padding>
+                        <Insets top="14.0" />
+                     </padding>
+                  </StackPane>
+               </graphic></Tab>
+                <Tab closable="false">
                     <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SLATEBLUE;">
                             <children>
@@ -47,8 +68,18 @@
                             </children>
                         </AnchorPane>
                     </content>
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                     <children>
+                        <Label fx:id="lOptionLanguage" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Language" />
+                     </children>
+                     <padding>
+                        <Insets top="14.0" />
+                     </padding>
+                  </StackPane>
+               </graphic>
                 </Tab>
-                <Tab fx:id="tOptionExtras" closable="false" text="Extras">
+                <Tab closable="false">
                     <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SIENNA;">
                             <children>
@@ -56,8 +87,28 @@
                             </children>
                         </AnchorPane>
                     </content>
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                     <children>
+                        <Label fx:id="lOptionExtras" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Extras" />
+                     </children>
+                     <padding>
+                        <Insets top="14.0" />
+                     </padding>
+                  </StackPane>
+               </graphic>
                 </Tab>
-                <Tab fx:id="tOptionAbout" closable="false" disable="true" text="About" />
+                <Tab closable="false" disable="true">
+               <graphic>
+                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                     <children>
+                        <Label fx:id="lOptionAbout" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="About" />
+                     </children>
+                     <padding>
+                        <Insets top="14.0" />
+                     </padding>
+                  </StackPane>
+               </graphic></Tab>
             </tabs>
         </TabPane>
     </children>
