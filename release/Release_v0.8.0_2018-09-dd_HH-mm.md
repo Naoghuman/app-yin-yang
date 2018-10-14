@@ -22,6 +22,7 @@ animations aso..
 
 
 #### Enhancement
+#3 [log] Shows during the startup (init) more infos from system.properties in log.
 
 
 

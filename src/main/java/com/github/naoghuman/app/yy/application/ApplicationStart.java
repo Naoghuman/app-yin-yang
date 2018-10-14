@@ -22,8 +22,6 @@ import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.app.yy.application.ApplicationPresenter;
-import com.github.naoghuman.app.yy.application.ApplicationView;
 import com.github.naoghuman.app.yy.i18n.I18nProvider;
 import com.github.naoghuman.app.yy.taichi.TaiChiProvider;
 import java.util.Optional;
@@ -43,6 +41,8 @@ import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.app.yy.configuration.ConfigurationI18n;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
+import java.util.Enumeration;
+import java.util.Properties;
 
 /**
  *
@@ -72,12 +72,23 @@ public class ApplicationStart extends Application implements
         
         I18nProvider.getDefault().register();
         
-        final I18nLanguage i18n         = I18nProvider.getDefault().getI18nApplication();
-        final char         borderSign   = i18n.getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String       message      = i18n.getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
-        final String       title        = i18n.getProperty(I18N_KEY__APPLICATION__TITLE);
-        final String       version      = i18n.getProperty(I18N_KEY__APPLICATION__VERSION);
-        final String       titleVersion = title + version;
+        final I18nLanguage i18n       = I18nProvider.getDefault().getI18nApplication();
+        final char         borderSign = i18n.getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        
+        LoggerFacade.getDefault().message(borderSign, 80, "System.getProperties()"); // NOI18N
+        // TODO will be replaced with LoggerFacade.getDefault().printSystemProperties();
+        Properties  p    = System.getProperties();
+        Enumeration keys = p.keys();
+        while (keys.hasMoreElements()) {
+            final String key   = (String)keys.nextElement();
+            final String value = (String)p.get(key);
+            LoggerFacade.getDefault().debug(this.getClass(), String.format("%-32s: %s", key, value)); // NOI18N
+        }
+        
+        final String message      = i18n.getProperty(I18N_KEY__APPLICATION__MESSAGE_START);
+        final String title        = i18n.getProperty(I18N_KEY__APPLICATION__TITLE);
+        final String version      = i18n.getProperty(I18N_KEY__APPLICATION__VERSION);
+        final String titleVersion = title + version;
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, titleVersion));
         
         final Boolean dropPreferencesFileAtStart = Boolean.FALSE;
