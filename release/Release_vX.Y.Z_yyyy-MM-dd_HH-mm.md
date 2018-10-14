@@ -1,8 +1,8 @@
 Welcome to `Yin-Yang` with the new release `vX.Y.Z`.
 
-Yin-Yang is a little [JavaFX] &amp; [Maven] desktop application which demonstrate 
-some nice JavaFX features like borderless application, multilingualism, animations 
-aso..
+The app Yin-Yang is a little [JavaFX] &amp; [Maven] desktop application which 
+demonstrate some nice JavaFX features like borderless application, multilingualism, 
+animations aso..
 
 
 
