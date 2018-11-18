@@ -31,6 +31,7 @@ import javafx.collections.ObservableMap;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 
@@ -128,6 +129,13 @@ final class DefaultTaiChiColors implements
                 )
                 .forEachOrdered((shape) -> {
                     shape.setFill(Color.web(String.format(PATTERN__RGB_COLOR, color)));
+                    if (
+                            actionId.equals(ON_ACTION__UPDATE__YIN_COLOR)
+                            && (shape.getEffect() instanceof DropShadow)
+                    ) {
+                        final DropShadow ds = (DropShadow) shape.getEffect();
+                        ds.setColor(Color.web(String.format(PATTERN__RGB_COLOR, color)));
+                    }
                 });
     }
     

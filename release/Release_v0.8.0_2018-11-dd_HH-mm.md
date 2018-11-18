@@ -17,6 +17,7 @@ animations aso..
 
 
 #### Feature
+#5 [color] Border glow color should be like the 'yin' color.
 #2 [convention] Add prefix `app` to the application.
 
 
