@@ -1,9 +1,9 @@
 Yin-Yang
 ===
 
-[![Build Status](https://travis-ci.org/Naoghuman/yin-yang.svg?branch=master)](https://travis-ci.org/Naoghuman/yin-yang)
+[![Build Status](https://travis-ci.org/Naoghuman/app-yin-yang.svg?branch=master)](https://travis-ci.org/Naoghuman/app-yin-yang)
 [![license: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![GitHub release](https://img.shields.io/github/release/Naoghuman/yin-yang.svg)](https://GitHub.com/Naoghuman/yin-yang/releases/)
+[![GitHub release](https://img.shields.io/github/release/Naoghuman/app-yin-yang.svg)](https://GitHub.com/Naoghuman/app-yin-yang/releases/)
 
 
 
@@ -125,4 +125,4 @@ You can reach me under <peter.rogge@yahoo.de>.
 [JRE 8]:http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 [Maven]:http://maven.apache.org/
 [Pull Request]:https://help.github.com/articles/using-pull-requests
-[yin-yang-0.1.0.zip]:https://github.com/Naoghuman/yin-yang/releases/tag/v0.1.0
+[yin-yang-0.1.0.zip]:https://github.com/Naoghuman/app-yin-yang/releases/tag/v0.1.0

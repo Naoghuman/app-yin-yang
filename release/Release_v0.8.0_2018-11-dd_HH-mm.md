@@ -27,6 +27,7 @@ animations aso..
 
 
 #### Bug
+#6 [doc] Fix project name in bagde for `Build Status`.
 
 
 
