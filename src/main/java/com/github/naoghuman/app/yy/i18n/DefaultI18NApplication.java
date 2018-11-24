@@ -19,17 +19,17 @@ package com.github.naoghuman.app.yy.i18n;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
 import java.util.Locale;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
  * @author Naoghuman
  * @since  0.2.0
  */
-final class DefaultI18NApplication1 implements 
-        ConfigurationI18N1, I18NLanguage1
+final class DefaultI18NApplication implements 
+        ConfigurationI18N, I18NLanguage
 {
-    DefaultI18NApplication1() {
+    DefaultI18NApplication() {
         
     }
 

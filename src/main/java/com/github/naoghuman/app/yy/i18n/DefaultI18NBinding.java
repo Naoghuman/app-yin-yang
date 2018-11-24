@@ -16,14 +16,26 @@
  */
 package com.github.naoghuman.app.yy.i18n;
 
+import com.github.naoghuman.lib.i18n.core.I18NBindingBuilder;
+import java.util.Optional;
+import javafx.beans.binding.StringBinding;
 import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author Naoghuman
  */
-public interface I18NBinding1 {
-    
-    public void bindTo(final StringProperty stringProperty, final String key);
+public final class DefaultI18NBinding implements I18NBinding {
+
+    @Override
+    public void bindTo(final StringProperty stringProperty, final String key) {
+        final Optional<StringBinding> stringBinding = I18NBindingBuilder.bind()
+                .key(key)
+                .build();
+                
+        if (stringBinding.isPresent()) {
+            stringProperty.bind(stringBinding.get());
+        }
+    }
     
 }

@@ -16,22 +16,14 @@
  */
 package com.github.naoghuman.app.yy.i18n;
 
-import java.util.Locale;
+import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author Naoghuman
  */
-public class DefaultI18NConverter1 implements I18NConverter1 {
-
-    @Override
-    public String convertTo(final Locale locale) {
-        return locale.toLanguageTag();
-    }
-
-    @Override
-    public Locale convertTo(final String locale) {
-        return Locale.forLanguageTag(locale);
-    }
+public interface I18NBinding {
+    
+    public void bindTo(final StringProperty stringProperty, final String key);
     
 }

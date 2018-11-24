@@ -22,7 +22,7 @@ import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
-import com.github.naoghuman.app.yy.i18n.I18NProvider1;
+import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.app.yy.taichi.TaiChiProvider;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
@@ -42,8 +42,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
-import com.github.naoghuman.app.yy.i18n.I18NLanguage1;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
+import com.github.naoghuman.app.yy.i18n.I18NLanguage;
 
 /**
  *
@@ -51,7 +51,7 @@ import com.github.naoghuman.app.yy.i18n.I18NLanguage1;
  * @since  0.1.0
  */
 public class ApplicationStart extends Application implements 
-        ConfigurationApplication, ConfigurationEvent, ConfigurationI18N1,
+        ConfigurationApplication, ConfigurationEvent, ConfigurationI18N,
         ConfigurationPreferences, RegisterActions
 {
     public static void main(String[] args) {
@@ -71,9 +71,9 @@ public class ApplicationStart extends Application implements
         
         LoggerFacade.getDefault().info(this.getClass(), "StartApplication.init()"); // NOI18N
         
-        I18NProvider1.getDefault().register();
+        I18NProvider.getDefault().register();
         
-        final I18NLanguage1 i18NLanguage = I18NProvider1.getDefault().getI18NApplication();
+        final I18NLanguage i18NLanguage = I18NProvider.getDefault().getI18NApplication();
         final char         borderSign   = i18NLanguage.getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
         
         LoggerFacade.getDefault().message(borderSign, 80, "System.getProperties()"); // NOI18N
@@ -120,8 +120,8 @@ public class ApplicationStart extends Application implements
         final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP, PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP_DEFAULT_VALUE);
         stage.setAlwaysOnTop(alwaysOnTop);
         stage.initStyle(StageStyle.TRANSPARENT);
-        stage.setTitle(I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
-                     + I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION));
+        stage.setTitle(I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
+                     + I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION));
         stage.setScene(scene);
         
         final double x = PreferencesFacade.getDefault().getDouble(PREF__APPLICATION__POSITION_X, PREF__APPLICATION__POSITION_X_DEFAULT_VALUE);
@@ -159,10 +159,10 @@ public class ApplicationStart extends Application implements
         Injector.forgetAll();
         
         // Message
-        final char   borderSign = I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
-        final String message    = I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__MESSAGE_STOP);
-        final String title      = I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
-                                + I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION);
+        final char   borderSign = I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__BORDER_SIGN).charAt(0);
+        final String message    = I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__MESSAGE_STOP);
+        final String title      = I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)
+                                + I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION);
         LoggerFacade.getDefault().message(borderSign, 80, String.format(message, title));
         
         // Timer

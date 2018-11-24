@@ -16,26 +16,22 @@
  */
 package com.github.naoghuman.app.yy.i18n;
 
-import com.github.naoghuman.lib.i18n.core.I18NBindingBuilder;
-import java.util.Optional;
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.StringProperty;
+import java.util.Locale;
 
 /**
  *
  * @author Naoghuman
  */
-public final class DefaultI18NBinding1 implements I18NBinding1 {
+public class DefaultI18NConverter implements I18NConverter {
 
     @Override
-    public void bindTo(final StringProperty stringProperty, final String key) {
-        final Optional<StringBinding> stringBinding = I18NBindingBuilder.bind()
-                .key(key)
-                .build();
-                
-        if (stringBinding.isPresent()) {
-            stringProperty.bind(stringBinding.get());
-        }
+    public String convertTo(final Locale locale) {
+        return locale.toLanguageTag();
+    }
+
+    @Override
+    public Locale convertTo(final String locale) {
+        return Locale.forLanguageTag(locale);
     }
     
 }

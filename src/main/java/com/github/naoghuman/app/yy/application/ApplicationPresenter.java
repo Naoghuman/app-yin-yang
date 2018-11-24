@@ -21,7 +21,7 @@ import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
 import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
-import com.github.naoghuman.app.yy.i18n.I18NProvider1;
+import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.app.yy.options.OptionsView;
 import com.github.naoghuman.app.yy.taichi.TaiChiColorType;
 import com.github.naoghuman.app.yy.taichi.TaiChiProvider;
@@ -52,7 +52,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
@@ -60,7 +60,7 @@ import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
  * @since  0.4.0
  */
 public class ApplicationPresenter implements 
-        ConfigurationApplication, ConfigurationEvent, ConfigurationI18N1,
+        ConfigurationApplication, ConfigurationEvent, ConfigurationI18N,
         ConfigurationPreferences, ConfigurationTaiChi, Initializable,
         RegisterActions
 {
@@ -112,13 +112,13 @@ public class ApplicationPresenter implements
         final double radius   = diameter / 2.0d;
         StackPane.setMargin(vbInfos, new Insets(radius, 0.0d, 0.0d, 0.0d));
         
-        lInfoTitle.setText(String.format(I18NProvider1.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__TITLE),
-                I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
+        lInfoTitle.setText(String.format(I18NProvider.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__TITLE),
+                I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
         
-        lInfoVersion.setText(String.format(I18NProvider1.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__VERSION),
-                I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
+        lInfoVersion.setText(String.format(I18NProvider.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__VERSION),
+                I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
         
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lInfoByName.textProperty(), I18N__OPTION_DIALOG__TAB_ABOUT__BYNAME);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lInfoByName.textProperty(), I18N__OPTION_DIALOG__TAB_ABOUT__BYNAME);
     }
     
     private void initializeMenu() {
@@ -177,7 +177,7 @@ public class ApplicationPresenter implements
         dialog.setHeight(600.0d);
         dialog.setResizable(Boolean.FALSE);
         
-        I18NProvider1.getDefault().getI18NBinding().bindTo(dialog.titleProperty(), I18N__OPTION_DIALOG__TITLE);
+        I18NProvider.getDefault().getI18NBinding().bindTo(dialog.titleProperty(), I18N__OPTION_DIALOG__TITLE);
         
         final OptionsView view = new OptionsView();
         dialog.getDialogPane().setContent(view.getView());

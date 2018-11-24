@@ -16,7 +16,7 @@
  */
 package com.github.naoghuman.app.yy.i18n;
 
-import static com.github.naoghuman.app.yy.configuration.ConfigurationI18N1.I18N__RESOURCE_BUNDLE__MESSAGES;
+import static com.github.naoghuman.app.yy.configuration.ConfigurationI18N.I18N__RESOURCE_BUNDLE__MESSAGES;
 
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
@@ -37,32 +37,32 @@ import javafx.event.ActionEvent;
  * @author Naoghuman
  * @since  0.2.0
  */
-public final class I18NProvider1 implements 
+public final class I18NProvider implements 
         ConfigurationEvent, ConfigurationPreferences, RegisterActions
 {
-    private static final Optional<I18NProvider1> INSTANCE = Optional.of(new I18NProvider1());
+    private static final Optional<I18NProvider> INSTANCE = Optional.of(new I18NProvider());
     
-    public static final I18NProvider1 getDefault() {
+    public static final I18NProvider getDefault() {
         return INSTANCE.get();
     }
     
-    private final I18NBinding1   i18NBinding     = new DefaultI18NBinding1();
-    private final I18NConverter1 i18NConverter   = new DefaultI18NConverter1();
-    private final I18NLanguage1  i18NApplication = new DefaultI18NApplication1();
+    private final I18NBinding   i18NBinding     = new DefaultI18NBinding();
+    private final I18NConverter i18NConverter   = new DefaultI18NConverter();
+    private final I18NLanguage  i18NApplication = new DefaultI18NApplication();
     
-    private I18NProvider1() {
+    private I18NProvider() {
         
     }
     
-    public I18NLanguage1 getI18NApplication() {
+    public I18NLanguage getI18NApplication() {
         return i18NApplication;
     }
     
-    public I18NBinding1 getI18NBinding() {
+    public I18NBinding getI18NBinding() {
         return i18NBinding;
     }
     
-    public I18NConverter1 getI18NConverter() {
+    public I18NConverter getI18NConverter() {
         return i18NConverter;
     }
     

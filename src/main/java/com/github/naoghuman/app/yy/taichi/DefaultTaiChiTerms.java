@@ -19,7 +19,7 @@ package com.github.naoghuman.app.yy.taichi;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
 import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
-import com.github.naoghuman.app.yy.i18n.I18NProvider1;
+import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.i18n.core.I18NBindingBuilder;
@@ -39,7 +39,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
@@ -47,7 +47,7 @@ import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
  * @since  0.4.0
  */
 final class DefaultTaiChiTerms implements 
-        ConfigurationEvent, ConfigurationI18N1, ConfigurationPreferences,
+        ConfigurationEvent, ConfigurationI18N, ConfigurationPreferences,
         ConfigurationTaiChi, RegisterActions, TaiChiTerms
 {
     private static final char   TERM_SEPERATOR = ';'; // NOI18N
@@ -73,7 +73,7 @@ final class DefaultTaiChiTerms implements
         LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.initialize()"); // NOI18N
         
         diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
-        termMaxQuantity = Integer.parseInt(I18NProvider1.getDefault().getI18NFacade().getMessage(I18N__TAICHI__TERM_QUANTITY));
+        termMaxQuantity = Integer.parseInt(I18NProvider.getDefault().getI18NFacade().getMessage(I18N__TAICHI__TERM_QUANTITY));
     }
     
     /**

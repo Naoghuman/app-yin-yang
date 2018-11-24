@@ -20,7 +20,7 @@ import com.github.naoghuman.app.yy.color.ColorMaterialDesign;
 import com.github.naoghuman.app.yy.color.ColorProvider;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
-import com.github.naoghuman.app.yy.i18n.I18NProvider1;
+import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.app.yy.taichi.TaiChiYangColors;
 import com.github.naoghuman.app.yy.taichi.TaiChiYinColors;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
@@ -41,7 +41,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleGroup;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
@@ -49,7 +49,7 @@ import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
  * @since  0.3.0
  */
 public class OptionsPresenter implements 
-        ConfigurationEvent, ConfigurationI18N1, ConfigurationPreferences,
+        ConfigurationEvent, ConfigurationI18N, ConfigurationPreferences,
         Initializable, RegisterActions
 {
     @FXML private CheckBox    cbAlwaysOnTop;
@@ -88,11 +88,11 @@ public class OptionsPresenter implements
     private void initializeOptionTabPane() {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabPane()"); // NOI18N
         
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lOptionAbout.textProperty(),    I18N__OPTION_DIALOG__TAB_ABOUT);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lOptionColor.textProperty(),    I18N__OPTION_DIALOG__TAB_COLOR);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lOptionExtras.textProperty(),   I18N__OPTION_DIALOG__TAB_EXTRAS);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lOptionLanguage.textProperty(), I18N__OPTION_DIALOG__TAB_LANGUAGE);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lOptionSpeed.textProperty(),    I18N__OPTION_DIALOG__TAB_SPEED);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lOptionAbout.textProperty(),    I18N__OPTION_DIALOG__TAB_ABOUT);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lOptionColor.textProperty(),    I18N__OPTION_DIALOG__TAB_COLOR);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lOptionExtras.textProperty(),   I18N__OPTION_DIALOG__TAB_EXTRAS);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lOptionLanguage.textProperty(), I18N__OPTION_DIALOG__TAB_LANGUAGE);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lOptionSpeed.textProperty(),    I18N__OPTION_DIALOG__TAB_SPEED);
     }
     
     private void initializeOptionTabAbout() {
@@ -104,9 +104,9 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabColor()"); // NOI18N
         
         // Bind text
-        I18NProvider1.getDefault().getI18NBinding().bindTo(rbSingleColors.textProperty(), I18N__OPTION__SINGLE_COLORS);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lYinColors.textProperty(),     I18N__OPTION__YIN_COLOR);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(lYangColors.textProperty(),    I18N__OPTION__YANG_COLOR);
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbSingleColors.textProperty(), I18N__OPTION__SINGLE_COLORS);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lYinColors.textProperty(),     I18N__OPTION__YIN_COLOR);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lYangColors.textProperty(),    I18N__OPTION__YANG_COLOR);
         
         // Load color
         // TODO returns momentary r,g,b instead ColorMaterialDesign.XY.name()
@@ -131,7 +131,7 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabExtras()"); // NOI18N
         
         // Bind text
-        I18NProvider1.getDefault().getI18NBinding().bindTo(cbAlwaysOnTop.textProperty(), I18N__OPTION_DIALOG__TAB_EXTRAS__ALWAYS_ON_TOP);
+        I18NProvider.getDefault().getI18NBinding().bindTo(cbAlwaysOnTop.textProperty(), I18N__OPTION_DIALOG__TAB_EXTRAS__ALWAYS_ON_TOP);
         
         // Select CheckBox
         final boolean alwaysOnTop = PreferencesFacade.getDefault().getBoolean(
@@ -144,20 +144,20 @@ public class OptionsPresenter implements
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabLanguage()"); // NOI18N
         
         // Bind text
-        I18NProvider1.getDefault().getI18NBinding().bindTo(rbSingleLanguage.textProperty(),        I18N__OPTION_DIALOG__TAB_LANGUAGE__SINGLE);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(rbSingleLanguageEnglish.textProperty(), I18N__OPTION_DIALOG__TAB_LANGUAGE__ENGLISH);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(rbSingleLanguageGerman.textProperty(),  I18N__OPTION_DIALOG__TAB_LANGUAGE__GERMAN);
-        I18NProvider1.getDefault().getI18NBinding().bindTo(rbMultiLanguages.textProperty(),        I18N__OPTION_DIALOG__TAB_LANGUAGE__MULTI);
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbSingleLanguage.textProperty(),        I18N__OPTION_DIALOG__TAB_LANGUAGE__SINGLE);
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbSingleLanguageEnglish.textProperty(), I18N__OPTION_DIALOG__TAB_LANGUAGE__ENGLISH);
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbSingleLanguageGerman.textProperty(),  I18N__OPTION_DIALOG__TAB_LANGUAGE__GERMAN);
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbMultiLanguages.textProperty(),        I18N__OPTION_DIALOG__TAB_LANGUAGE__MULTI);
         
         // Select the right RadioButton
-        rbSingleLanguageEnglish.setUserData(I18NProvider1.getDefault().getI18NConverter().convertTo(PREF__I18N__LANGUAGE_ENGLISH));
-        rbSingleLanguageGerman.setUserData(I18NProvider1.getDefault().getI18NConverter().convertTo(PREF__I18N__LANGUAGE_GERMAN));
+        rbSingleLanguageEnglish.setUserData(I18NProvider.getDefault().getI18NConverter().convertTo(PREF__I18N__LANGUAGE_ENGLISH));
+        rbSingleLanguageGerman.setUserData(I18NProvider.getDefault().getI18NConverter().convertTo(PREF__I18N__LANGUAGE_GERMAN));
         
         final ObservableList<RadioButton> radioButtons = FXCollections.observableArrayList();
         radioButtons.addAll(rbSingleLanguageEnglish, rbSingleLanguageGerman);
         
         final String language = PreferencesFacade.getDefault().get(PREF__I18N__LANGUAGE,
-                I18NProvider1.getDefault().getI18NConverter().convertTo(PREF__I18N__LANGUAGE_DEFAULT_VALUE));
+                I18NProvider.getDefault().getI18NConverter().convertTo(PREF__I18N__LANGUAGE_DEFAULT_VALUE));
         radioButtons.stream()
                 .filter(radioButton -> radioButton.getUserData().equals(language))
                 .forEach(radioButton -> {
@@ -196,7 +196,7 @@ public class OptionsPresenter implements
             locale = PREF__I18N__LANGUAGE_GERMAN;
         }
         
-        I18NProvider1.getDefault().onActionSwitchLanguage(locale);
+        I18NProvider.getDefault().onActionSwitchLanguage(locale);
     }
     
     public void onActionSwitchLanguageMode() {

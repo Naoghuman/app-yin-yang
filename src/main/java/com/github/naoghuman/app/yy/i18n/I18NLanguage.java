@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Naoghuman's dream
+ * Copyright (C) 2018 Naoghuman
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -21,11 +21,14 @@ import java.util.Locale;
 /**
  *
  * @author Naoghuman
+ * @since  0.6.0
  */
-public interface I18NConverter1 {
+public interface I18NLanguage {
     
-    public String convertTo(final Locale locale);
+    public String getProperty(final String key);
     
-    public Locale convertTo(final String locale);
+    void register();
+    
+    public void setLanguage(final Locale language);
     
 }
