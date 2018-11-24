@@ -1,0 +1,21 @@
+-------------------------------------------------------------------------------
+Concept for a new OptionDialog view (v0.8.0)
+--------------------------------------------------------------------------------
+DESCRIPTION
+The intention from this concept is to specify the behaivour for the new option-dialog.
+
+* Some tabs are singleton like Color, Language, About...
+* Some tabs have sub-tabs like Mode.
+* Example A Tab 'Mode'
+    - 'General' = User can choose the Mode (this tab is always active).
+    - Only one mode can active (only this tab is active)
+    - 'Terms' = Options for the terms.
+    - 'Buddha' = Shows a transparent Buddha, in the middle of his lower Tan-Tien
+      a concentration cirle is shown.
+    - 'Emoticon' = Shows emoticons as images in the center.
+    - 
+* Example B Tab 'Mode'
+    - RadioButtons to activate the differents modes.
+    - Activate a RadioButton shows configuration components for the active mode.
+
+--------------------------------------------------------------------------------
