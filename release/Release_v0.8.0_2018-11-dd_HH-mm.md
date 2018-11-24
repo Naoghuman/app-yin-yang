@@ -33,6 +33,11 @@ animations aso..
 
 
 
+#### Documentation
+#12 [doc] Update the 'Concept_New-Image-View_v0.7.0' to v0.8.0.
+
+
+
 #### Refactoring
 
 

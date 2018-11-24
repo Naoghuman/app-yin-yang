@@ -1,0 +1,34 @@
+-------------------------------------------------------------------------------
+Concept for a new Image view (v0.8.0)
+--------------------------------------------------------------------------------
+DESCRIPTION
+The intention from this concept is to specify the behaivour all around image 
+loading, caching and positioning.
+
+--------------------------------------------------------------------------------
+IDEAS
+Loading
+ - Images can be loaded from the jar-file.
+    - Predefined application images.
+ - Images can be loaded from outside the jar-file (project folder images).
+    - Optional user images.
+    - Fix path to the images or filechooser?
+    - User images must be persist (path + image name).
+    - If a user image can't be loaded show an error-image?
+
+Caching
+ - All loaded images will be cached if they are ones loaded.
+
+Position
+ - Images can position in the center from the Tai-Chi Symbol.
+ - Images can position in the half radius (horizontal, vertically).
+ - Position depends to the center from the image and the chooser position point.
+
+Folder structure (user images)
+ - app-yin-yang
+    - images
+       - buddha
+       - emoticons
+       - ...
+
+--------------------------------------------------------------------------------
