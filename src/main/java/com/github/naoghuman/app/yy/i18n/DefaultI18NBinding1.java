@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2018 Naoghuman
+ * Copyright (C) 2018 Naoghuman's dream
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,19 +16,26 @@
  */
 package com.github.naoghuman.app.yy.i18n;
 
-import java.util.Locale;
+import com.github.naoghuman.lib.i18n.core.I18NBindingBuilder;
+import java.util.Optional;
+import javafx.beans.binding.StringBinding;
+import javafx.beans.property.StringProperty;
 
 /**
  *
  * @author Naoghuman
- * @since  0.6.0
  */
-public interface I18nLanguage {
-    
-    public String getProperty(final String key);
-    
-    void register();
-    
-    public void setLanguage(final Locale language);
+public final class DefaultI18NBinding1 implements I18NBinding1 {
+
+    @Override
+    public void bindTo(final StringProperty stringProperty, final String key) {
+        final Optional<StringBinding> stringBinding = I18NBindingBuilder.bind()
+                .key(key)
+                .build();
+                
+        if (stringBinding.isPresent()) {
+            stringProperty.bind(stringBinding.get());
+        }
+    }
     
 }

@@ -16,17 +16,22 @@
  */
 package com.github.naoghuman.app.yy.application;
 
+import com.github.naoghuman.app.yy.color.ColorProvider;
+import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
+import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
+import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
+import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
+import com.github.naoghuman.app.yy.i18n.I18NProvider1;
+import com.github.naoghuman.app.yy.options.OptionsView;
+import com.github.naoghuman.app.yy.taichi.TaiChiColorType;
+import com.github.naoghuman.app.yy.taichi.TaiChiProvider;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.action.core.TransferData;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
+import com.github.naoghuman.lib.i18n.core.I18NFacade;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.app.yy.color.ColorProvider;
-import com.github.naoghuman.app.yy.i18n.I18nProvider;
-import com.github.naoghuman.app.yy.options.OptionsView;
-import com.github.naoghuman.app.yy.taichi.TaiChiColorType;
-import com.github.naoghuman.app.yy.taichi.TaiChiProvider;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Optional;
@@ -35,6 +40,7 @@ import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
@@ -46,12 +52,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
-import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18n;
-import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
-import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
-import javafx.geometry.Insets;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
 
 /**
  *
@@ -59,7 +60,7 @@ import javafx.geometry.Insets;
  * @since  0.4.0
  */
 public class ApplicationPresenter implements 
-        ConfigurationApplication, ConfigurationEvent, ConfigurationI18n,
+        ConfigurationApplication, ConfigurationEvent, ConfigurationI18N1,
         ConfigurationPreferences, ConfigurationTaiChi, Initializable,
         RegisterActions
 {
@@ -111,15 +112,13 @@ public class ApplicationPresenter implements
         final double radius   = diameter / 2.0d;
         StackPane.setMargin(vbInfos, new Insets(radius, 0.0d, 0.0d, 0.0d));
         
-        lInfoTitle.setText(String.format(
-                I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__TITLE),
-                I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
+        lInfoTitle.setText(String.format(I18NProvider1.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__TITLE),
+                I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
         
-        lInfoVersion.setText(String.format(
-                I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__VERSION),
-                I18nProvider.getDefault().getI18nApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
+        lInfoVersion.setText(String.format(I18NProvider1.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__VERSION),
+                I18NProvider1.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
         
-        lInfoByName.setText(I18nProvider.getDefault().getI18nOptions().getProperty(I18N_KEY__OPTION_DIALOG__TAB_ABOUT__BYNAME));
+        I18NProvider1.getDefault().getI18NBinding().bindTo(lInfoByName.textProperty(), I18N__OPTION_DIALOG__TAB_ABOUT__BYNAME);
     }
     
     private void initializeMenu() {
@@ -174,16 +173,17 @@ public class ApplicationPresenter implements
         final Dialog<String> dialog = new Dialog<>();
         dialog.initModality(Modality.APPLICATION_MODAL);
         dialog.initOwner(owner);
-        dialog.setTitle(I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__TITLE)));
         dialog.setWidth(800.0d);
         dialog.setHeight(600.0d);
         dialog.setResizable(Boolean.FALSE);
+        
+        I18NProvider1.getDefault().getI18NBinding().bindTo(dialog.titleProperty(), I18N__OPTION_DIALOG__TITLE);
         
         final OptionsView view = new OptionsView();
         dialog.getDialogPane().setContent(view.getView());
         
         final ButtonType buttonTypeOk = new ButtonType(
-                I18nProvider.getDefault().getI18nOptions().getProperty(String.format(I18N_KEY__OPTION_DIALOG__BUTTON)),
+                I18NFacade.getDefault().getMessage(I18N__OPTION_DIALOG__BUTTON),
                 ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(buttonTypeOk);
         

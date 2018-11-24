@@ -16,13 +16,13 @@
  */
 package com.github.naoghuman.app.yy.taichi;
 
+import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
+import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
+import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.TransferDataBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
-import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
-import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
-import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
 import javafx.scene.Cursor;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.input.MouseButton;

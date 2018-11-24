@@ -17,6 +17,7 @@
 package com.github.naoghuman.app.yy.configuration;
 
 import com.github.naoghuman.app.yy.color.ColorMaterialDesign;
+import java.util.Locale;
 
 /**
  *
@@ -26,16 +27,16 @@ import com.github.naoghuman.app.yy.color.ColorMaterialDesign;
 public interface ConfigurationPreferences {
     
     // Application
-    public static final String  PREF__APPLICATION__POSITION_X                  = "PREF__APPLICATION__POSITION_X"; // NOI18N
-    public static final double  PREF__APPLICATION__POSITION_X_DEFAULT_VALUE    = 0.0d;
-    public static final String  PREF__APPLICATION__POSITION_Y                  = "PREF__APPLICATION__POSITION_Y"; // NOI18N
-    public static final double  PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE    = 0.0d;
+    public static final String  PREF__APPLICATION__POSITION_X               = "PREF__APPLICATION__POSITION_X"; // NOI18N
+    public static final double  PREF__APPLICATION__POSITION_X_DEFAULT_VALUE = 0.0d;
+    public static final String  PREF__APPLICATION__POSITION_Y               = "PREF__APPLICATION__POSITION_Y"; // NOI18N
+    public static final double  PREF__APPLICATION__POSITION_Y_DEFAULT_VALUE = 0.0d;
     
     // Language
     public static final String PREF__I18N__LANGUAGE               = "PREF__I18N__LANGUAGE"; // NOI18N
-    public static final String PREF__I18N__LANGUAGE_DEFAULT_VALUE = "ENGLISH"; // NOI18N
-    public static final String PREF__I18N__LANGUAGE_ENGLISH       = "ENGLISH"; // NOI18N
-    public static final String PREF__I18N__LANGUAGE_GERMAN        = "GERMAN"; // NOI18N
+    public static final Locale PREF__I18N__LANGUAGE_DEFAULT_VALUE = Locale.ENGLISH;
+    public static final Locale PREF__I18N__LANGUAGE_ENGLISH       = Locale.ENGLISH;
+    public static final Locale PREF__I18N__LANGUAGE_GERMAN        = Locale.GERMAN;
     
     // Options
     public static final String  PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP               = "PREF__OPTIONS__EXTRAS__ALWAYS_ON_TOP"; // NOI18N

@@ -17,6 +17,7 @@ animations aso..
 
 
 #### Feature
+#7 [i18n] Integration the library 'Lib-I18N' into the application.
 #5 [color] Border glow color should be like the 'yin' color.
 #2 [convention] Add prefix `app` to the application.
 

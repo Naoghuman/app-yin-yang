@@ -16,26 +16,30 @@
  */
 package com.github.naoghuman.app.yy.taichi;
 
-import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
-import com.github.naoghuman.lib.action.core.RegisterActions;
-import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18n;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
 import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
-import com.github.naoghuman.app.yy.i18n.I18nProvider;
+import com.github.naoghuman.app.yy.i18n.I18NProvider1;
+import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
+import com.github.naoghuman.lib.action.core.RegisterActions;
+import com.github.naoghuman.lib.i18n.core.I18NBindingBuilder;
+import com.github.naoghuman.lib.i18n.core.I18NResourceBundleMessageBuilder;
+import com.github.naoghuman.lib.logger.core.LoggerFacade;
+import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
+import java.util.Optional;
 import java.util.Random;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.PauseTransition;
 import javafx.animation.SequentialTransition;
 import javafx.animation.Timeline;
+import javafx.beans.binding.StringBinding;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
 
 /**
  *
@@ -43,7 +47,7 @@ import javafx.util.Duration;
  * @since  0.4.0
  */
 final class DefaultTaiChiTerms implements 
-        ConfigurationEvent, ConfigurationI18n, ConfigurationPreferences,
+        ConfigurationEvent, ConfigurationI18N1, ConfigurationPreferences,
         ConfigurationTaiChi, RegisterActions, TaiChiTerms
 {
     private static final char   TERM_SEPERATOR = ';'; // NOI18N
@@ -69,7 +73,7 @@ final class DefaultTaiChiTerms implements
         LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.initialize()"); // NOI18N
         
         diameterTheOne  = PreferencesFacade.getDefault().getDouble(PREF__TAICHI_SYMBOL__DIAMETER, PREF__TAICHI_SYMBOL__DIAMETER_DEFAULT_VALUE);
-        termMaxQuantity = Integer.parseInt(I18nProvider.getDefault().getI18nTaiChi().getProperty(I18N_KEY__TAICHI__TERM_QUANTITY));
+        termMaxQuantity = Integer.parseInt(I18NProvider1.getDefault().getI18NFacade().getMessage(I18N__TAICHI__TERM_QUANTITY));
     }
     
     /**
@@ -98,9 +102,16 @@ final class DefaultTaiChiTerms implements
             hbTaiChiTerms.setAlignment(Pos.CENTER_RIGHT);
             hbTaiChiTerms.getChildren().add(lYinTerm);
             
-            final String termYinYang = I18nProvider.getDefault().getI18nTaiChi().getProperty(String.format(I18N_KEY__TAICHI__TERM_NR, termIndex));
-            final String termYin     = this.extractYinTerm(termYinYang);
-            lYinTerm.setText(termYin);
+            final Optional<StringBinding> optional = I18NBindingBuilder.bind()
+                    .callable(() -> 
+                            this.extractYinTerm(I18NResourceBundleMessageBuilder.message()
+                                    .key(String.format(I18N__TAICHI__TERM_NR, termIndex))
+                                    .build()
+                    ))
+                    .build();
+            if (optional.isPresent()) {
+                lYinTerm.textProperty().bind(optional.get());
+            }
         });
         st.getChildren().add(pt);
         
@@ -130,9 +141,16 @@ final class DefaultTaiChiTerms implements
             hbTaiChiTerms.setAlignment(Pos.CENTER_LEFT);
             hbTaiChiTerms.getChildren().add(lYangTerm);
             
-            final String termYinYang = I18nProvider.getDefault().getI18nTaiChi().getProperty(String.format(I18N_KEY__TAICHI__TERM_NR, termIndex));
-            final String termYang    = this.extractYangTerm(termYinYang);
-            lYangTerm.setText(termYang);
+            final Optional<StringBinding> optional = I18NBindingBuilder.bind()
+                    .callable(() -> 
+                            this.extractYangTerm(I18NResourceBundleMessageBuilder.message()
+                                    .key(String.format(I18N__TAICHI__TERM_NR, termIndex))
+                                    .build()
+                    ))
+                    .build();
+            if (optional.isPresent()) {
+                lYangTerm.textProperty().bind(optional.get());
+            }
         });
         st.getChildren().add(pt);
         
@@ -175,24 +193,12 @@ final class DefaultTaiChiTerms implements
         
         st.playFromStart();
     }
-    
-    private void onActionUpdateLanguageTaiChiTerms() {
-        LoggerFacade.getDefault().debug(this.getClass(), "DefaultTaiChiTerms.onActionUpdateLanguageTaiChiTerms()"); // NOI18N
-        
-        final String termYinYang = I18nProvider.getDefault().getI18nTaiChi().getProperty(String.format(I18N_KEY__TAICHI__TERM_NR, termIndex));
-        final String termYin     = this.extractYinTerm(termYinYang);
-        lYinTerm.setText(termYin);
-        
-        final String termYang = this.extractYangTerm(termYinYang);
-        lYangTerm.setText(termYang);
-    }
 
     @Override
     public void register() {
         LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.register()"); // NOI18N
         
         this.registerOnActionStartTaiChiTerms();
-        this.registerOnActionUpdateLanguageTaiChiTerms();
     }
     
     @Override
@@ -240,16 +246,6 @@ final class DefaultTaiChiTerms implements
                 ON_ACTION__START_TAICHI_TERMS,
                 (ActionEvent event) -> {
                     this.onActionStartTaiChiTerms();
-                });
-    }
-    
-    private void registerOnActionUpdateLanguageTaiChiTerms() {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultTaiChiTerms.registerOnActionUpdateLanguageTaiChiTerms()"); // NOI18N
-        
-        ActionHandlerFacade.getDefault().register(
-                ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS,
-                (ActionEvent event) -> {
-                    this.onActionUpdateLanguageTaiChiTerms();
                 });
     }
     

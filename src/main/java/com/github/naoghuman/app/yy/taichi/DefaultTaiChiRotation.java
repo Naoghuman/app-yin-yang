@@ -16,10 +16,10 @@
  */
 package com.github.naoghuman.app.yy.taichi;
 
+import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
-import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
 import java.time.LocalDate;
 import java.time.Month;
 import javafx.animation.Animation;

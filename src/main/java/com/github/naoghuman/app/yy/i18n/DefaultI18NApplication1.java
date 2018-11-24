@@ -18,45 +18,37 @@ package com.github.naoghuman.app.yy.i18n;
 
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.properties.core.PropertiesFacade;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18n;
 import java.util.Locale;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N1;
 
 /**
  *
  * @author Naoghuman
  * @since  0.2.0
  */
-final class DefaultI18nTaiChi implements
-        ConfigurationI18n, I18nLanguage
+final class DefaultI18NApplication1 implements 
+        ConfigurationI18N1, I18NLanguage1
 {
-    private Locale language = Locale.ENGLISH;
-    
-    DefaultI18nTaiChi() {
+    DefaultI18NApplication1() {
         
     }
 
     @Override
     public String getProperty(final String key) {
-        return PropertiesFacade.getDefault().getProperty(
-                (language == Locale.ENGLISH)
-                        ? I18N__RESOURCE_BUNDLE__TAICHI_EN 
-                        : I18N__RESOURCE_BUNDLE__TAICHI_DE,
-                key);
+        return PropertiesFacade.getDefault().getProperty(I18N__RESOURCE_BUNDLE__APPLICATION, key);
     }
     
     @Override
     public void register() {
-        LoggerFacade.getDefault().info(this.getClass(), "DefaultI18nTaiChi.register()"); // NOI18N
+        LoggerFacade.getDefault().info(this.getClass(), "DefaultI18nApplication.register()"); // NOI18N
         
-        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_DE);
-        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__TAICHI_EN);
+        PropertiesFacade.getDefault().register(I18N__RESOURCE_BUNDLE__APPLICATION);
     }
-    
+
     @Override
     public void setLanguage(final Locale language) {
-        LoggerFacade.getDefault().debug(this.getClass(), "DefaultI18nTaiChi.setLanguage(Locale)"); // NOI18N
+        LoggerFacade.getDefault().debug(this.getClass(), "DefaultI18nApplication.setLanguage(Locale)"); // NOI18N
         
-        this.language = language;
     }
     
 }

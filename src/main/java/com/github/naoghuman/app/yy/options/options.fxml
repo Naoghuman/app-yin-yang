@@ -27,28 +27,29 @@
                             </children>
                         </AnchorPane>
                     </content>
-               <graphic>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
-                     <children>
-                        <Label fx:id="lOptionColor" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Color" />
-                     </children>
-                     <padding>
-                        <Insets top="14.0" />
-                     </padding>
-                  </StackPane>
-               </graphic>
+                    <graphic>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                            <children>
+                                <Label fx:id="lOptionColor" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Color" />
+                            </children>
+                            <padding>
+                                <Insets top="14.0" />
+                            </padding>
+                        </StackPane>
+                    </graphic>
                 </Tab>
                 <Tab closable="false" disable="true">
-               <graphic>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
-                     <children>
-                        <Label fx:id="lOptionSpeed" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Speed" />
-                     </children>
-                     <padding>
-                        <Insets top="14.0" />
-                     </padding>
-                  </StackPane>
-               </graphic></Tab>
+                    <graphic>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                            <children>
+                                <Label fx:id="lOptionSpeed" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Speed" />
+                            </children>
+                            <padding>
+                                <Insets top="14.0" />
+                            </padding>
+                        </StackPane>
+                    </graphic>
+                </Tab>
                 <Tab closable="false">
                     <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SLATEBLUE;">
@@ -68,16 +69,16 @@
                             </children>
                         </AnchorPane>
                     </content>
-               <graphic>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
-                     <children>
-                        <Label fx:id="lOptionLanguage" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Language" />
-                     </children>
-                     <padding>
-                        <Insets top="14.0" />
-                     </padding>
-                  </StackPane>
-               </graphic>
+                    <graphic>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                            <children>
+                                <Label fx:id="lOptionLanguage" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Language" />
+                            </children>
+                            <padding>
+                                <Insets top="14.0" />
+                            </padding>
+                        </StackPane>
+                    </graphic>
                 </Tab>
                 <Tab closable="false">
                     <content>
@@ -87,28 +88,29 @@
                             </children>
                         </AnchorPane>
                     </content>
-               <graphic>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
-                     <children>
-                        <Label fx:id="lOptionExtras" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Extras" />
-                     </children>
-                     <padding>
-                        <Insets top="14.0" />
-                     </padding>
-                  </StackPane>
-               </graphic>
+                    <graphic>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                            <children>
+                                <Label fx:id="lOptionExtras" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Extras" />
+                            </children>
+                            <padding>
+                                <Insets top="14.0" />
+                            </padding>
+                        </StackPane>
+                    </graphic>
                 </Tab>
                 <Tab closable="false" disable="true">
-               <graphic>
-                  <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
-                     <children>
-                        <Label fx:id="lOptionAbout" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="About" />
-                     </children>
-                     <padding>
-                        <Insets top="14.0" />
-                     </padding>
-                  </StackPane>
-               </graphic></Tab>
+                    <graphic>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                            <children>
+                                <Label fx:id="lOptionAbout" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="About" />
+                            </children>
+                            <padding>
+                                <Insets top="14.0" />
+                            </padding>
+                        </StackPane>
+                    </graphic>
+                </Tab>
             </tabs>
         </TabPane>
     </children>

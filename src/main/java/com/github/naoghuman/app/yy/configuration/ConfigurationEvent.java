@@ -23,22 +23,19 @@ package com.github.naoghuman.app.yy.configuration;
  */
 public interface ConfigurationEvent {
     
-    
-    public static final String ON_ACTION__CHANGE__ALWAYS_ON_TOP          = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
-    public static final String ON_ACTION__CLOSE_APPLICATION              = "ON_ACTION__CLOSE_APPLICATION"; // NOI18N
-    public static final String ON_ACTION__LOAD__TAI_CHI_COLORS           = "ON_ACTION__LOAD__TAI_CHI_COLORS"; // NOI18N
-    public static final String ON_ACTION__MINIMIZE_APPLICATION           = "ON_ACTION__MINIMIZE_APPLICATION"; // NOI18N
-    public static final String ON_ACTION__SHOW_OPTIONS                   = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
-    public static final String ON_ACTION__START_TAICHI_ROTATION          = "ON_ACTION__START_TAICHI_ROTATION"; // NOI18N
-    public static final String ON_ACTION__START_TAICHI_TERMS             = "ON_ACTION__START_TAICHI_TERMS"; // NOI18N
-    public static final String ON_ACTION__UNKNOWN_ACTION                 = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
+    public static final String ON_ACTION__CHANGE__ALWAYS_ON_TOP  = "ON_ACTION__CHANGE_COLOR__YANG_SYMBOL"; // NOI18N
+    public static final String ON_ACTION__CLOSE_APPLICATION      = "ON_ACTION__CLOSE_APPLICATION"; // NOI18N
+    public static final String ON_ACTION__LOAD__TAI_CHI_COLORS   = "ON_ACTION__LOAD__TAI_CHI_COLORS"; // NOI18N
+    public static final String ON_ACTION__MINIMIZE_APPLICATION   = "ON_ACTION__MINIMIZE_APPLICATION"; // NOI18N
+    public static final String ON_ACTION__SHOW_OPTIONS           = "ON_ACTION__SHOW_OPTIONS"; // NOI18N
+    public static final String ON_ACTION__START_TAICHI_ROTATION  = "ON_ACTION__START_TAICHI_ROTATION"; // NOI18N
+    public static final String ON_ACTION__START_TAICHI_TERMS     = "ON_ACTION__START_TAICHI_TERMS"; // NOI18N
+    public static final String ON_ACTION__UNKNOWN_ACTION         = "ON_ACTION__UNKNOWN_ACTION"; // NOI18N
     public static final String ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS = "ON_ACTION__UPDATE__COLOR_IN_APPLICATION_OPTIONS"; // NOI18N
-    public static final String ON_ACTION__UPDATE__COLOR_IN_TERMS           = "ON_ACTION__UPDATE__COLOR_IN_TERMS"; // NOI18N
-    public static final String ON_ACTION__UPDATE__LANGUAGE                 = "ON_ACTION__UPDATE__LANGUAGE"; // NOI18N
-    public static final String ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG = "ON_ACTION__UPDATE__LANGUAGE_IN_OPTIONDIALOG"; // NOI18N
-    public static final String ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS = "ON_ACTION__UPDATE__LANGUAGE_IN_TAICHI_TERMS"; // NOI18N
-    public static final String ON_ACTION__UPDATE__YANG_COLOR               = "ON_ACTION__UPDATE__YANG_COLOR"; // NOI18N
-    public static final String ON_ACTION__UPDATE__YIN_COLOR                = "ON_ACTION__UPDATE__YIN_COLOR"; // NOI18N
+    public static final String ON_ACTION__UPDATE__COLOR_IN_TERMS = "ON_ACTION__UPDATE__COLOR_IN_TERMS"; // NOI18N
+    public static final String ON_ACTION__UPDATE__LANGUAGE       = "ON_ACTION__UPDATE__LANGUAGE"; // NOI18N
+    public static final String ON_ACTION__UPDATE__YANG_COLOR     = "ON_ACTION__UPDATE__YANG_COLOR"; // NOI18N
+    public static final String ON_ACTION__UPDATE__YIN_COLOR      = "ON_ACTION__UPDATE__YIN_COLOR"; // NOI18N
 
     public static final String ON_MOUSE__DRAGGED = "ON_MOUSE__DRAGGED"; // NOI18N
     public static final String ON_MOUSE__PRESSED = "ON_MOUSE__PRESSED"; // NOI18N
