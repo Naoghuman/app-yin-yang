@@ -14,7 +14,8 @@ The app Yin-Yang is a little [JavaFX] &amp; [Maven] desktop application which
 demonstrate some nice JavaFX features like borderless application, multilingualism, 
 animations aso..
 
-TODO Screenshots
+_Image:_ Some snapshots  
+![Intention_Screenshoot_v0.8.0_2018-11-25_07-59.png][Intention_Screenshoot_v0.8.0_2018-11-25_07-59]
 
 
 Content
@@ -148,6 +149,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Images)
+[Intention_Screenshoot_v0.8.0_2018-11-25_07-59]:https://user-images.githubusercontent.com/8161815/48976441-11d21800-f088-11e8-9be8-9b685211b1a5.png
 [StageStyles_v0.8.0_2018-11-25_00-40]:https://user-images.githubusercontent.com/8161815/48973932-c568e700-f04b-11e8-9979-221859e684f0.png
 
 

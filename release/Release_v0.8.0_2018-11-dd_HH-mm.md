@@ -34,6 +34,7 @@ animations aso..
 
 
 #### Documentation
+#13 [doc] Add screenshots to the section 'Intention' in the ReadMe.
 #12 [doc] Update the 'Concept_New-Image-View_v0.7.0' to v0.8.0.
 #11 [doc] Write new concept for the new mode 'Buddha'.
 #10 [doc] Write the sub-section 'Features/BorderlessApplication' in the ReadMe.
