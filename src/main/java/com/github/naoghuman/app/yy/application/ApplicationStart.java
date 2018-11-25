@@ -21,7 +21,9 @@ import static javafx.application.Application.launch;
 import com.airhacks.afterburner.injection.Injector;
 import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
+import com.github.naoghuman.app.yy.i18n.I18NLanguage;
 import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.app.yy.taichi.TaiChiProvider;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
@@ -42,8 +44,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
-import com.github.naoghuman.app.yy.i18n.I18NLanguage;
 
 /**
  *

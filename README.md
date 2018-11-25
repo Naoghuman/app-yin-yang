@@ -14,6 +14,7 @@ The app Yin-Yang is a little [JavaFX] &amp; [Maven] desktop application which
 demonstrate some nice JavaFX features like borderless application, multilingualism, 
 animations aso..
 
+TODO Screenshots
 
 
 Content
@@ -43,7 +44,40 @@ TODO
 
 ### Borderless application<a name="BordAppl" />
 
-TODO
+In [JavaFX] it's really simple to create a borderless application with transparent 
+background color.
+
+In the first step the background color from the [Scene] needs to set to `transparent`.
+```java
+@Override
+public void start(Stage primaryStage) throws Exception {
+    ...
+    final Scene scene = new Scene(view.getView(), 330.0d, 330.0d);
+    scene.setFill(Color.TRANSPARENT);
+    ...
+}
+```
+
+In the second step the `style` from the [Stage] need to be adjusted.
+```java
+@Override
+public void start(Stage primaryStage) throws Exception {
+    ...
+    // Defines a normal Stage style with a solid white background and platform decorations.
+    stage.initStyle(StageStyle.DECORATED);
+
+    // Defines a Stage style with a solid white background and no decorations.
+    stage.initStyle(StageStyle.UNDECORATED);
+
+    // Defines a Stage style with a transparent background and no decorations.
+    stage.initStyle(StageStyle.TRANSPARENT);
+    ...
+}
+```
+
+_Image:_ Demonstration from different `StageStyle`s  
+![StageStyles_v0.8.0_2018-11-25_00-40.png][StageStyles_v0.8.0_2018-11-25_00-40]
+_From left to right: `decorated`, `undecorated`, `transparent`_
 
 
 ### Multilingualism application<a name="MultAppl" />
@@ -114,6 +148,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 
 [//]: # (Images)
+[StageStyles_v0.8.0_2018-11-25_00-40]:https://user-images.githubusercontent.com/8161815/48973932-c568e700-f04b-11e8-9979-221859e684f0.png
 
 
 
@@ -125,4 +160,6 @@ You can reach me under <peter.rogge@yahoo.de>.
 [JRE 8]:http://www.oracle.com/technetwork/java/javase/downloads/jre8-downloads-2133155.html
 [Maven]:http://maven.apache.org/
 [Pull Request]:https://help.github.com/articles/using-pull-requests
+[Scene]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html
+[Stage]:https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
 [yin-yang-0.1.0.zip]:https://github.com/Naoghuman/app-yin-yang/releases/tag/v0.1.0
