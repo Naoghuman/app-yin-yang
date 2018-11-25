@@ -7,8 +7,8 @@ animations aso..
 
 
 #### Summary
-* ...
-* ...
+* Switch the language will now managed from my library [Lib-I18N].
+* Update the ReadMe. Write the feature section `Borderless application`.
 
 
 
@@ -60,6 +60,7 @@ Naoghuman
 
 
 [//]: # (Links)
+[Lib-I18N]:https://github.com/Naoghuman/lib-i18n
 [JavaFX]:http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
 [Maven]:http://maven.apache.org/
 
