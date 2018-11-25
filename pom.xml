@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.naoghuman</groupId>
     <artifactId>app-yin-yang</artifactId>
-    <version>0.8.0</version> <!-- -SNAPSHOT -PRERELEASE -->
+    <version>0.9.0-SNAPSHOT</version> <!-- -SNAPSHOT -PRERELEASE -->
     <packaging>jar</packaging>
     <name>App-Yin-Yang</name>
     
