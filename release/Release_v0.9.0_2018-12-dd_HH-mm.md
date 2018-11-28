@@ -29,6 +29,7 @@ animations aso..
 
 
 #### Refactoring
+#15 [doc] In the 'option-info' label rename the title 'App-Yin-Yang' to 'Yin-Yang'.
 
 
 

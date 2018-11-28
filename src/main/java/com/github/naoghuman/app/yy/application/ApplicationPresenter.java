@@ -19,6 +19,7 @@ package com.github.naoghuman.app.yy.application;
 import com.github.naoghuman.app.yy.color.ColorProvider;
 import com.github.naoghuman.app.yy.configuration.ConfigurationApplication;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
 import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
 import com.github.naoghuman.app.yy.i18n.I18NProvider;
@@ -52,7 +53,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Window;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
@@ -64,6 +64,7 @@ public class ApplicationPresenter implements
         ConfigurationPreferences, ConfigurationTaiChi, Initializable,
         RegisterActions
 {
+    private static final String PREFIX_APP                     = "App-"; // NOI18N
     private static final String STYLE__BACKGROUND_COLOR_RADIUS = "-fx-background-color:%s;-fx-background-radius:5.0;"; // NOI18N
     
     @FXML private Button    bCloseApplication;
@@ -112,8 +113,8 @@ public class ApplicationPresenter implements
         final double radius   = diameter / 2.0d;
         StackPane.setMargin(vbInfos, new Insets(radius, 0.0d, 0.0d, 0.0d));
         
-        lInfoTitle.setText(String.format(I18NProvider.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__TITLE),
-                I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE)));
+        final String title = I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__TITLE).substring(PREFIX_APP.length());
+        lInfoTitle.setText(String.format(I18NProvider.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__TITLE), title));
         
         lInfoVersion.setText(String.format(I18NProvider.getDefault().getI18NFacade().getMessage(I18N__OPTION_DIALOG__TAB_ABOUT__VERSION),
                 I18NProvider.getDefault().getI18NApplication().getProperty(I18N_KEY__APPLICATION__VERSION)));
