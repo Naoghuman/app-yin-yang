@@ -65,6 +65,11 @@ public interface ConfigurationI18N {
     public static final String I18N__OPTION_DIALOG__TAB_LANGUAGE__MULTI     = "i18n.option.dialog.tab.language.multi"; // NOI18N
     public static final String I18N__OPTION_DIALOG__TAB_LANGUAGE__SINGLE    = "i18n.option.dialog.tab.language.single"; // NOI18N
     
+    // Option dialog mode
+    public static final String I18N__OPTION_DIALOG__TAB_MODE         = "i18n.option.dialog.tab.mode"; // NOI18N
+    public static final String I18N__OPTION_DIALOG__TAB_MODE__BUDDHA = "i18n.option.dialog.tab.mode.buddha"; // NOI18N
+    public static final String I18N__OPTION_DIALOG__TAB_MODE__TERMS  = "i18n.option.dialog.tab.mode.terms"; // NOI18N
+    
     // Option dialog speed
     public static final String I18N__OPTION_DIALOG__TAB_SPEED = "i18n.option.dialog.tab.speed"; // NOI18N
     

@@ -19,6 +19,7 @@ package com.github.naoghuman.app.yy.options;
 import com.github.naoghuman.app.yy.color.ColorMaterialDesign;
 import com.github.naoghuman.app.yy.color.ColorProvider;
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
 import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.app.yy.taichi.TaiChiYangColors;
@@ -41,7 +42,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.ToggleGroup;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
@@ -59,16 +59,20 @@ public class OptionsPresenter implements
     @FXML private Label       lOptionColor;
     @FXML private Label       lOptionExtras;
     @FXML private Label       lOptionLanguage;
+    @FXML private Label       lOptionMode;
     @FXML private Label       lOptionSpeed;
     @FXML private Label       lYangColors;
     @FXML private Label       lYinColors;
     @FXML private RadioButton rbSingleColors;
+    @FXML private RadioButton rbModeBuddha;
+    @FXML private RadioButton rbModeTerms;
     @FXML private RadioButton rbMultiLanguages;
     @FXML private RadioButton rbSingleLanguage;
     @FXML private RadioButton rbSingleLanguageEnglish;
     @FXML private RadioButton rbSingleLanguageGerman;
     @FXML private TabPane     tpOptions;
     @FXML private ToggleGroup tgLanguages;
+    @FXML private ToggleGroup tgModes;
     @FXML private ToggleGroup tgSingleLanguages;
     
     @Override
@@ -79,6 +83,7 @@ public class OptionsPresenter implements
         this.initializeOptionTabColor();
         this.initializeOptionTabSpeed();
         this.initializeOptionTabLanguage();
+        this.initializeOptionTabMode();
         this.initializeOptionTabExtras();
         this.initializeOptionTabAbout();
         
@@ -92,6 +97,7 @@ public class OptionsPresenter implements
         I18NProvider.getDefault().getI18NBinding().bindTo(lOptionColor.textProperty(),    I18N__OPTION_DIALOG__TAB_COLOR);
         I18NProvider.getDefault().getI18NBinding().bindTo(lOptionExtras.textProperty(),   I18N__OPTION_DIALOG__TAB_EXTRAS);
         I18NProvider.getDefault().getI18NBinding().bindTo(lOptionLanguage.textProperty(), I18N__OPTION_DIALOG__TAB_LANGUAGE);
+        I18NProvider.getDefault().getI18NBinding().bindTo(lOptionMode.textProperty(),     I18N__OPTION_DIALOG__TAB_MODE);
         I18NProvider.getDefault().getI18NBinding().bindTo(lOptionSpeed.textProperty(),    I18N__OPTION_DIALOG__TAB_SPEED);
     }
     
@@ -165,6 +171,15 @@ public class OptionsPresenter implements
                 });
     }
     
+    private void initializeOptionTabMode() {
+        LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabMode()"); // NOI18N
+        
+        // Bind text
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbModeBuddha.textProperty(), I18N__OPTION_DIALOG__TAB_MODE__BUDDHA);
+        I18NProvider.getDefault().getI18NBinding().bindTo(rbModeTerms.textProperty(),  I18N__OPTION_DIALOG__TAB_MODE__TERMS);
+        
+    }
+    
     private void initializeOptionTabSpeed() {
         LoggerFacade.getDefault().info(this.getClass(), "OptionsPresenter.initializeOptionTabSpeed()"); // NOI18N
         
@@ -197,6 +212,18 @@ public class OptionsPresenter implements
         }
         
         I18NProvider.getDefault().onActionSwitchLanguage(locale);
+    }
+    
+    public void onActionChangeMode() {
+        LoggerFacade.getDefault().debug(this.getClass(), "OptionsPresenter.onActionChangeMode()"); // NOI18N
+        
+        if (rbModeBuddha.isSelected()) {
+            
+        }
+        
+        if (rbModeTerms.isSelected()) {
+            
+        }
     }
     
     public void onActionSwitchLanguageMode() {

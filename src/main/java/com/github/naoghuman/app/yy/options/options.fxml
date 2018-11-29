@@ -82,6 +82,29 @@
                 </Tab>
                 <Tab closable="false">
                     <content>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: CORNFLOWERBLUE;">
+                     <children>
+                        <RadioButton fx:id="rbModeBuddha" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionChangeMode" text="Concentration with Buddha" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="14.0">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="tgModes" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rbModeTerms" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" onAction="#onActionChangeMode" selected="true" text="Yin-Yang Terms" toggleGroup="$tgModes" AnchorPane.leftAnchor="14.0" />
+                     </children></AnchorPane>
+                    </content>
+                    <graphic>
+                        <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="18.0">
+                            <children>
+                                <Label fx:id="lOptionMode" contentDisplay="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="121.0" rotate="90.0" text="Mode" />
+                            </children>
+                            <padding>
+                                <Insets top="14.0" />
+                            </padding>
+                        </StackPane>
+                    </graphic>
+                </Tab>
+                <Tab closable="false">
+                    <content>
                         <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: SIENNA;">
                             <children>
                                 <CheckBox fx:id="cbAlwaysOnTop" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#onActionChangeAlwaysOnTop" text="Always On Top" />

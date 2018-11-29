@@ -17,6 +17,7 @@ animations aso..
 
 
 #### Feature
+#17 [options] Add new tab 'Mode' to the dialog 'Options'.
 
 
 
@@ -53,3 +54,4 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#16 [prototype] Add prototype to modify an Image with PixelReader, -Writer.

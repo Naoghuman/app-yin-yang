@@ -1,0 +1,46 @@
+-------------------------------------------------------------------------------
+Concept for a new mode 'Buddha' (v0.8.0)
+--------------------------------------------------------------------------------
+DESCRIPTION
+The intention from this concept is to specify the behaivour for the new mode 
+'Buddha'.
+
+Activate the new mode 'Buddha' will shown a little buddha in the middle of the 
+application. In the bottom tan-tien a animation circle for the concentration is 
+shown.
+
+--------------------------------------------------------------------------------
+PRECONDITIONS
+Image loading
+ - Images from the jar-file can be loaded and cached. See Lib-Tile.
+
+Option dialog
+ - A new tab 'Mode' is to implement. Here the two modes 'Yin-Yang Terms' and 
+   'Concentration with Buddha' will be shown.
+ - Selection from one of the mode will activate it (and deactivate the other).
+ - The single mode are sub-tabs.
+
+Concentration circle
+ - A animated circle where the circumference will be extend in and out.
+ - In the middle of the circle a little point is shown.
+ - Color per default is the darker yang-color like in the background from the 
+   yang-term.
+
+--------------------------------------------------------------------------------
+ADDITIONAL
+How to change the color from a image?
+ - Change the color from the little buddha to like the transparent background 
+   color from the yin-term.
+ - https://stackoverflow.com/questions/12941600/reduce-number-of-colors-and-get-color-of-a-single-pixel/12945629#12945629
+ - https://stackoverflow.com/questions/18124364/how-to-change-color-of-image-in-javafx
+ - https://stackoverflow.com/questions/35905882/how-to-delete-a-color-of-an-image-with-javafx-make-the-background-transparent?noredirect=1&lq=1
+
+New feature 'Color changing in an image'
+ - :)
+
+--------------------------------------------------------------------------------
+IMAGES
+http://free-icon-rainbow.com/big-buddha-free-icon-3/
+ - http://free-icon-rainbow.com/license/
+
+--------------------------------------------------------------------------------
