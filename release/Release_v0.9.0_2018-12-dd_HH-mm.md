@@ -17,6 +17,7 @@ animations aso..
 
 
 #### Feature
+#21 [app] Add new class Validator to the application.
 #17 [options] Add new tab 'Mode' to the dialog 'Options'.
 
 
@@ -54,4 +55,5 @@ Naoghuman
 
 
 [//]: # (Issues which will be integrated in this release)
+#20 [options] Add new class ModeProvider with sub-classes, -interfaces.
 #16 [prototype] Add prototype to modify an Image with PixelReader, -Writer.
