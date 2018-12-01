@@ -23,7 +23,7 @@ Content
 
 * [Screenshots](#Screenshots)
 * [Features](#Features)
-    - [Borderless application](#BordAppl)
+    - [Borderless transparent application](#BordTranAppl)
     - [Multilingualism application](#MultAppl)
     - [Always on top](#AlwaOnTop)
     - [Animations](#Anim)
@@ -43,7 +43,7 @@ Features<a name="Features" />
 TODO
 
 
-### Borderless application<a name="BordAppl" />
+### Borderless transparent application<a name="BordTranAppl" />
 
 In [JavaFX] it's really simple to create a borderless application with transparent 
 background color.
@@ -76,9 +76,9 @@ public void start(Stage primaryStage) throws Exception {
 }
 ```
 
-_Image:_ Demonstration from different `StageStyle`s  
-![StageStyles_v0.8.0_2018-11-25_00-40.png][StageStyles_v0.8.0_2018-11-25_00-40]
-_From left to right: `decorated`, `undecorated`, `transparent`_
+_Image:_ Demonstration from different [StageStyle]s
+_From left to right: `decorated`, `undecorated`, `transparent`_  
+![StageStyles_v0.9.0_2018-11-28_22-13.png][StageStyles_v0.9.0_2018-11-28_22-13]
 
 
 ### Multilingualism application<a name="MultAppl" />
@@ -150,7 +150,7 @@ You can reach me under <peter.rogge@yahoo.de>.
 
 [//]: # (Images)
 [Intention_Screenshoot_v0.8.0_2018-11-25_07-59]:https://user-images.githubusercontent.com/8161815/48976441-11d21800-f088-11e8-9be8-9b685211b1a5.png
-[StageStyles_v0.8.0_2018-11-25_00-40]:https://user-images.githubusercontent.com/8161815/48973932-c568e700-f04b-11e8-9979-221859e684f0.png
+[StageStyles_v0.9.0_2018-11-28_22-13]:https://user-images.githubusercontent.com/8161815/49182549-e0dd3600-f35a-11e8-8373-27bf6ca8fe5e.png
 
 
 
@@ -164,4 +164,5 @@ You can reach me under <peter.rogge@yahoo.de>.
 [Pull Request]:https://help.github.com/articles/using-pull-requests
 [Scene]:https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html
 [Stage]:https://docs.oracle.com/javase/8/javafx/api/javafx/stage/Stage.html
+[StageStyle]:https://docs.oracle.com/javase/8/javafx/api/javafx/stage/StageStyle.html
 [yin-yang-0.1.0.zip]:https://github.com/Naoghuman/app-yin-yang/releases/tag/v0.1.0
