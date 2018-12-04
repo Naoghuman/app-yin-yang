@@ -32,6 +32,7 @@ animations aso..
 
 #### Refactoring
 #24 [ci] Container-Based Linux Build Environment.
+#23 [pom] Update the dependency to 'Lib-I18N' in the pom.xml.
 #15 [doc] In the 'option-info' label rename the title 'App-Yin-Yang' to 'Yin-Yang'.
 #14 [doc] Update section 'borderless application'.
 

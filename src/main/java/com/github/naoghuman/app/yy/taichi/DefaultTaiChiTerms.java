@@ -17,13 +17,14 @@
 package com.github.naoghuman.app.yy.taichi;
 
 import com.github.naoghuman.app.yy.configuration.ConfigurationEvent;
+import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 import com.github.naoghuman.app.yy.configuration.ConfigurationPreferences;
 import com.github.naoghuman.app.yy.configuration.ConfigurationTaiChi;
 import com.github.naoghuman.app.yy.i18n.I18NProvider;
 import com.github.naoghuman.lib.action.core.ActionHandlerFacade;
 import com.github.naoghuman.lib.action.core.RegisterActions;
 import com.github.naoghuman.lib.i18n.core.I18NBindingBuilder;
-import com.github.naoghuman.lib.i18n.core.I18NResourceBundleMessageBuilder;
+import com.github.naoghuman.lib.i18n.core.I18NMessageBuilder;
 import com.github.naoghuman.lib.logger.core.LoggerFacade;
 import com.github.naoghuman.lib.preferences.core.PreferencesFacade;
 import java.util.Optional;
@@ -39,7 +40,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
-import com.github.naoghuman.app.yy.configuration.ConfigurationI18N;
 
 /**
  *
@@ -104,7 +104,7 @@ final class DefaultTaiChiTerms implements
             
             final Optional<StringBinding> optional = I18NBindingBuilder.bind()
                     .callable(() -> 
-                            this.extractYinTerm(I18NResourceBundleMessageBuilder.message()
+                            this.extractYinTerm(I18NMessageBuilder.message()
                                     .key(String.format(I18N__TAICHI__TERM_NR, termIndex))
                                     .build()
                     ))
@@ -143,7 +143,7 @@ final class DefaultTaiChiTerms implements
             
             final Optional<StringBinding> optional = I18NBindingBuilder.bind()
                     .callable(() -> 
-                            this.extractYangTerm(I18NResourceBundleMessageBuilder.message()
+                            this.extractYangTerm(I18NMessageBuilder.message()
                                     .key(String.format(I18N__TAICHI__TERM_NR, termIndex))
                                     .build()
                     ))
