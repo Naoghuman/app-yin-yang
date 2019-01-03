@@ -12,10 +12,6 @@ animations aso..
 
 
 
-#### New
-
-
-
 #### Feature
 #21 [app] Add new class Validator to the application.
 #17 [options] Add new tab 'Mode' to the dialog 'Options'.
@@ -30,11 +26,16 @@ animations aso..
 
 
 
+#### Documentation
+#28 [doc] Update the order from sections in release-note files.
+#15 [doc] In the 'option-info' label rename the title 'App-Yin-Yang' to 'Yin-Yang'.
+#14 [doc] Update section 'borderless application'.
+
+
+
 #### Refactoring
 #24 [ci] Container-Based Linux Build Environment.
 #23 [pom] Update the dependency to 'Lib-I18N' in the pom.xml.
-#15 [doc] In the 'option-info' label rename the title 'App-Yin-Yang' to 'Yin-Yang'.
-#14 [doc] Update section 'borderless application'.
 
 
 
