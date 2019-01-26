@@ -1,0 +1,43 @@
+--------------------------------------------------------------------------------
+CONCEPT <Morphing>
+--------------------------------------------------------------------------------
+INTENTION
+In this concept I want to describe the concept for the feature 'Morphing' in the
+application 'Yin-Yang'.
+
+Primaly the feature 'Morphing' describes the change from the application 
+appearance between the normal 'Application' and the 'Configuration' mode.
+
+Application mode
+In the 'Application' mode the application have following appearance:
+ - No applicaton border.
+ - No 'scene' background.
+
+'Configuration' mode
+In the 'Configuration' mode the application have following appearance:
+ - The application have a border.
+ - The 'scene' background is visible.
+
+Morphing
+During the morphing between the mode 'Application' and 'Configuration'
+ a) the application border will blend-in and -out.
+ b) the 'scene' background will blend-in and -out.
+ c) the posision from the application will be changed between:
+     - In the 'Application' mode the user can define the position from the 
+       applicaton individually.
+     - In the 'Configuration' mode the position from the application will moved
+       automatically to the center from the active sceen. Idea for the path from 
+       the movement is a 'Bezier' curve where the first node have a value from 
+       6/8 and the second node (on the other side) have 2/8 from the length 
+       between the two different positions in the different modes.
+
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+

@@ -27,6 +27,7 @@ animations aso..
 
 
 #### Documentation
+#29 [doc] Write new concept for 'Morphing'.
 #28 [doc] Update the order from sections in release-note files.
 #27 [doc] Add template for a new concept to the concept folder.
 #15 [doc] In the 'option-info' label rename the title 'App-Yin-Yang' to 'Yin-Yang'.
